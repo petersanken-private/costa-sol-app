@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useAIInsights } from '../hooks/useAIInsights';
 import { AIPreset } from '../types';
 import { Card, Btn, SectionHeader } from './ui';
@@ -138,6 +138,11 @@ function InsightCard({ insight, expanded, onToggle, onDelete }: InsightCardProps
     ? (insight.tokensCacheRead / (insight.tokensInput + insight.tokensCacheRead)) * 100
     : 0;
 
+  function handleDelete(e: React.MouseEvent) {
+    e.stopPropagation();   // hindra att klick även triggar onToggle
+    if (window.confirm('Ta bort denna AI-analys?')) onDelete();
+  }
+
   return (
     <div style={{
       border: '1px solid var(--border)',
@@ -155,7 +160,12 @@ function InsightCard({ insight, expanded, onToggle, onDelete }: InsightCardProps
             {cachedPct > 0 && ` · ${cachedPct.toFixed(0)}% cachat`}
           </p>
         </div>
-        <button className="delete-btn" onClick={onDelete} title="Ta bort">×</button>
+        <button
+          className="delete-btn"
+          onClick={handleDelete}
+          title="Ta bort"
+          style={{ flexShrink: 0, padding: '8px 12px', minWidth: '36px' }}
+        >×</button>
       </div>
 
       {expanded && (
