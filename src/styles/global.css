@@ -1,0 +1,148 @@
+/* ── Design tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --bg:          #f5f3ef;
+  --bg-card:     #ffffff;
+  --bg-hover:    #f0ede8;
+  --bg-subtle:   #faf9f7;
+  --border:      #e4dfd8;
+  --border-hi:   #cfc8bf;
+
+  --gold:        #b8860b;
+  --gold-dim:    #d4aa50;
+  --gold-faint:  rgba(184, 134, 11, 0.08);
+
+  --text:        #1a1714;
+  --text-dim:    #5a5248;
+  --text-mute:   #9c9088;
+
+  --green:       #166534;
+  --green-bg:    #f0fdf4;
+  --red:         #991b1b;
+  --red-bg:      #fef2f2;
+  --blue:        #3730a3;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-ui:      'DM Sans', system-ui, sans-serif;
+
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:   0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+
+  --transition:  0.15s ease;
+}
+
+/* ── Reset ──────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body, #root { height: 100%; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+}
+
+button { font-family: var(--font-ui); cursor: pointer; }
+input, select, textarea { font-family: var(--font-ui); }
+
+/* ── Scrollbar (desktop only) ────────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 6px; }
+::-webkit-scrollbar-track  { background: var(--bg); }
+::-webkit-scrollbar-thumb  { background: var(--border-hi); border-radius: 3px; }
+
+select option { background: #ffffff; color: var(--text); }
+
+/* ── App shell — mobile first ────────────────────────────────────────────────── */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh; /* dynamic viewport for mobile browsers */
+}
+
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  /* Bottom padding so content isn't hidden behind mobile nav */
+  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Desktop: sidebar layout */
+@media (min-width: 768px) {
+  .app-shell {
+    flex-direction: row;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .app-main {
+    padding-bottom: 0;
+  }
+}
+
+/* ── Loading screen ──────────────────────────────────────────────────────────── */
+.app-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  background: var(--bg);
+}
+.app-loading__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.app-loading__spinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--border);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.app-loading__text { font-size: 13px; color: var(--text-mute); letter-spacing: 0.5px; }
+
+/* ── DB error banner ─────────────────────────────────────────────────────────── */
+.db-error-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--red-bg);
+  border: 1px solid rgba(153, 27, 27, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  font-size: 13px;
+  color: var(--red);
+}
+.db-error-banner button {
+  background: none;
+  border: 1px solid var(--red);
+  border-radius: var(--radius-sm);
+  color: var(--red);
+  font-size: 12px;
+  padding: 4px 10px;
+  flex-shrink: 0;
+}
+
+/* ── Mobile-first base ───────────────────────────────────────────────────── */
+body { overflow-x: hidden; }
+
+/* App shell stacks on mobile, side-by-side on desktop */
+.app-shell { display:flex; flex-direction:column; min-height:100dvh; }
+.app-main  { flex:1; overflow-y:auto; padding-bottom:calc(64px + env(safe-area-inset-bottom,0px)); }
+
+@media(min-width:768px){
+  .app-shell { flex-direction:row; height:100vh; overflow:hidden; }
+  .app-main  { padding-bottom:0; }
+}

@@ -1,0 +1,11 @@
+/// <reference types="vite/client" />
+import { createClient } from '@supabase/supabase-js';
+
+const url = import.meta.env.VITE_SUPABASE_URL as string;
+const key = import.meta.env.VITE_SUPABASE_ANON_KEY as string;
+
+if (!url || !key) {
+  throw new Error('Supabase-miljövariabler saknas. Kontrollera .env filen.');
+}
+
+export const supabase = createClient(url, key);
