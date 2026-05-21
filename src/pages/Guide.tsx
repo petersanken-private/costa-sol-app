@@ -347,7 +347,92 @@ const SECTIONS: GuideSection[] = [
     ),
   },
 
-  // ── 11. Costa del Sol-specifikt ───────────────────────────────────────────
+  // ── 11. Sambo / gemensamt ägande ──────────────────────────────────────────
+  {
+    id: 'co-ownership',
+    icon: '👫',
+    title: 'Sambo, äktenskap & gemensamt ägande',
+    summary: 'Skuldebrev, ojämn andel, framtida giftermål, spanska arvsregler för par.',
+    content: (
+      <>
+        <p>
+          Om ni köper tillsammans (sambo, gift, eller partners) finns det <strong>ingen automatisk
+          samäganderätt i Spanien</strong> — det är vad som står på <strong>Escritura</strong> (köpehandlingen)
+          som gäller, oavsett er status i Sverige.
+        </p>
+
+        <h4>Sambo (ej gift) — så funkar det praktiskt</h4>
+        <ul>
+          <li><strong>Båda måste stå på Escritura</strong> om ni vill samäga. Andelarna anges där (t.ex. 90/10, 50/50). Står bara en av er — den personen är ensam ägare juridiskt.</li>
+          <li><strong>Sambolagen i Sverige gäller INTE i Spanien.</strong> Om ni separerar har den som inte står på handlingen ingen rätt till fastigheten — inte ens om båda bidragit ekonomiskt.</li>
+          <li><strong>Spansk lag känner "pareja de hecho"</strong> (registrerat samboskap), men registreringen sker per region och ger inte automatisk äganderätt. Det är fortfarande Escritura som styr.</li>
+        </ul>
+
+        <h4 style={{ marginTop: '16px' }}>Ojämn andel via skuldebrev — vanlig lösning</h4>
+        <p>
+          När en part finansierar större delen (säg 90%) och den andra mindre del (10%) finns två vägar:
+        </p>
+        <ol>
+          <li><strong>Registrera 90/10 på Escritura</strong> — enklast juridiskt. Skatter, vinster och förluster fördelas automatiskt enligt andelarna. Men: minderhetspart är "låst" — kan inte sälja sin del separat utan medägarens godkännande</li>
+          <li><strong>Registrera 100/0 på Escritura + skuldebrev mellan parterna</strong> — den som äger 100% utfärdar ett skuldebrev till partnern på dennes insats (10% + ev. ränta). Vid försäljning eller separation regleras skulden. Detta är vanligt mellan sambor som planerar gifta sig senare.</li>
+        </ol>
+
+        <p style={{ marginTop: '12px' }}>
+          <strong>💡 Skuldebrev-lösningen — så gör ni:</strong>
+        </p>
+        <ul>
+          <li>Skuldebrevet skrivs <strong>i Sverige</strong> (svensk lag, svensk valuta), inte i Spanien</li>
+          <li>Definiera tydligt: belopp, ränta (kan vara 0%), löptid, vad som händer vid separation/försäljning/dödsfall</li>
+          <li>Reglera om beloppet ska indexuppräknas mot fastighetens värde — annars förlorar minderhetsparten på inflation/värdetillväxt</li>
+          <li>Bevittna och datera — håller i svensk domstol även utan notarie</li>
+          <li><strong>Använd advokat för utformningen</strong> — billigare än att lösa konflikt senare</li>
+        </ul>
+
+        <h4 style={{ marginTop: '16px' }}>⚠ Skattemässiga konsekvenser</h4>
+        <ul>
+          <li>Om bara en står på Escritura: <strong>all hyresinkomst beskattas hos den personen</strong> i både Spanien och Sverige</li>
+          <li>Vid försäljning: kapitalvinsten också</li>
+          <li>Skuldebrevet räknas som privat skuld — inga skatteeffekter i sig, men räntan måste deklareras om den är &gt;0%</li>
+          <li>Om 90/10 på Escritura: båda lämnar Modelo 210 årligen — dubbelt så mycket gestor-arbete</li>
+        </ul>
+
+        <h4 style={{ marginTop: '16px' }}>När ni gifter er om 1–2 år</h4>
+        <ul>
+          <li><strong>Påverkar INTE den befintliga Escrituran automatiskt.</strong> Den som står som ägare förblir ägare.</li>
+          <li>Om ni vill ändra andelarna efter äktenskap krävs <strong>gåva eller köp</strong> mellan makarna — båda är skattepliktiga händelser i Spanien (gåvoskatt mellan makar är låg i Andalusien men inte noll)</li>
+          <li><strong>Smartast:</strong> bestäm slutgiltig ägarstruktur INNAN köpet och justera vid behov via skuldebrev som regleras vid äktenskap. Då slipper ni gåvoskatt</li>
+          <li>Överväg <strong>äktenskapsförord</strong> som specifikt undantar / inkluderar spanska tillgångar — annars gäller svensk giftorättsregel som inte är samma som spansk "régimen económico matrimonial"</li>
+        </ul>
+
+        <h4 style={{ marginTop: '16px' }}>Vid dödsfall — viktigt även för unga par</h4>
+        <ul>
+          <li><strong>Spansk arvslag gäller för spanska fastigheter</strong>, inte svensk — om ni inte aktivt väljer svensk lag i ett spanskt testamente (möjligt sedan EU-förordning 650/2012)</li>
+          <li>Spansk lag har <strong>tvångsarv</strong> — barn ärver minst 2/3 av tillgången. Make/maka får mindre del än i Sverige. Sambo: ingenting.</li>
+          <li><strong>Lösning:</strong> skriv ett spanskt testamente hos notarie (kostar ~80–150 €) som specificerar svensk lag + dina önskemål. Görs separat från svenskt testamente</li>
+          <li>För sambor är detta <strong>absolut kritiskt</strong> — utan testamente kan en sambo bli helt utesluten från arvet trots gemensamt liv</li>
+        </ul>
+
+        <h4 style={{ marginTop: '16px' }}>Praktiska tips för er specifika situation (ojämn andel, ej gifta)</h4>
+        <ol>
+          <li><strong>Bestäm finansieringen tidigt</strong> — vem betalar handpenningen, vem står på bolånet, hur ska driftskostnader fördelas månadsvis</li>
+          <li><strong>Skriv skuldebrevet INNAN ni går till notarie</strong> i Spanien — när Escrituran är signerad är pengarna redan flödade</li>
+          <li><strong>Båda i Costa Sol-appen som inloggade</strong> — använd `notes`-fält på fastigheten för att markera ägarstruktur, t.ex. "Escritura 100% Peter, skuldebrev 10% till [partner] värt €25 000 + indexuppräkning enligt IPV Málaga"</li>
+          <li><strong>Skriv båda testamenten i Spanien</strong> så snart Escrituran är klar</li>
+          <li><strong>Om ni planerar gifta er:</strong> diskutera med advokat om timing — i vissa fall är det skattemässigt fördelaktigt att vänta med fastighetsköp tills efter äktenskap (Andalusien har äktenskapsförmåner)</li>
+        </ol>
+
+        <p style={{ marginTop: '16px', padding: '12px',
+                    background: 'var(--surface-2)', borderRadius: '6px',
+                    fontSize: '13px', color: 'var(--text-mute)' }}>
+          ⚠ Detta är ett komplext område där svensk och spansk rätt möts. Anlita en svensk familjerättsadvokat
+          OCH en spansk advokat — gärna en som är specialiserad på utländska köpare. Kostnaden är försumbar
+          mot risken att hamna i en juridisk tvist senare.
+        </p>
+      </>
+    ),
+  },
+
+  // ── 12. Costa del Sol-specifikt ───────────────────────────────────────────
   {
     id: 'costa-del-sol',
     icon: '☀️',
