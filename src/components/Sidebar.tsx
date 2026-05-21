@@ -1,6 +1,7 @@
 import { useApp } from '../hooks/useApp';
 import { useMilestones } from '../hooks/useMilestones';
 import { useDisplayCurrency } from '../hooks/useDisplayCurrency';
+import { useAuth } from '../hooks/useAuth';
 import { PageKey } from '../types';
 import '../styles/sidebar.css';
 
@@ -19,9 +20,14 @@ export function Sidebar() {
   const { state, navigate, resetAllData } = useApp();
   const { urgentCount } = useMilestones();
   const { currency, rate, toggle } = useDisplayCurrency();
+  const { user, signOut } = useAuth();
 
   function handleReset() {
     if (window.confirm('Återställ all data till seed-data? Detta går inte att ångra.')) resetAllData();
+  }
+
+  async function handleSignOut() {
+    if (window.confirm('Logga ut?')) await signOut();
   }
 
   const groups = ['Portfölj', 'Köpanalys', 'Kunskap'];
@@ -71,7 +77,15 @@ export function Sidebar() {
         <p className="sidebar__footer-date">
           {new Date().toLocaleDateString('sv-SE', { year: 'numeric', month: 'long' })}
         </p>
+        {user && (
+          <p className="text-mute" style={{ fontSize: '11px', marginBottom: '8px', textAlign: 'center' }}>
+            Inloggad: {user.email}
+          </p>
+        )}
         <button className="sidebar__reset-btn" onClick={handleReset}>↺ Återställ data</button>
+        <button className="sidebar__reset-btn" onClick={handleSignOut} style={{ marginTop: '6px' }}>
+          → Logga ut
+        </button>
       </div>
     </aside>
   );

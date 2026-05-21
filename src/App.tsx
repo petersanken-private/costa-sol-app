@@ -1,6 +1,8 @@
 import React from 'react';
 import { AppProvider, useApp } from './hooks/useApp';
 import { DisplayCurrencyProvider, useDisplayCurrency } from './hooks/useDisplayCurrency';
+import { AuthProvider, useAuth } from './hooks/useAuth';
+import { AuthScreen } from './components/AuthScreen';
 import { Sidebar } from './components/Sidebar';
 import { PWAStatus } from './components/PWAStatus';
 import { Dashboard } from './pages/Dashboard';
@@ -90,13 +92,39 @@ function AppContent() {
   );
 }
 
+/**
+ * Visar login-skärm tills användaren är autentiserad.
+ * Först när inloggning lyckats laddas resten av appen (inkl. Supabase-data).
+ */
+function AuthGate({ children }: { children: React.ReactNode }) {
+  const { session, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="app-loading">
+        <div className="app-loading__inner">
+          <div className="app-loading__spinner" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!session) return <AuthScreen />;
+
+  return <>{children}</>;
+}
+
 export default function App() {
   return (
-    <AppProvider>
-      <DisplayCurrencyProvider>
-        <AppContent />
-        <PWAStatus />
-      </DisplayCurrencyProvider>
-    </AppProvider>
+    <AuthProvider>
+      <AuthGate>
+        <AppProvider>
+          <DisplayCurrencyProvider>
+            <AppContent />
+            <PWAStatus />
+          </DisplayCurrencyProvider>
+        </AppProvider>
+      </AuthGate>
+    </AuthProvider>
   );
 }
