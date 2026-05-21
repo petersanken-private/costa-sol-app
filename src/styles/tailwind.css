@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Costa Sol — Tailwind design tokens
+   ════════════════════════════════════════════════════════════════════════════
+   Konfigurerar Tailwind med våra befintliga CSS-variabler så att utility-klasser
+   som `bg-surface`, `text-gold`, `font-display` matchar resten av appens stil.
+
+   Befintliga CSS-variabler i global.css fortsätter fungera oförändrat — denna
+   konfig bara registrerar dem som Tailwind-tokens.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Färger ─────────────────────────────────────────────────────────────── */
+  --color-bg:         #f5f3ef;
+  --color-bg-card:    #ffffff;
+  --color-bg-hover:   #f0ede8;
+  --color-bg-subtle:  #faf9f7;
+  --color-surface:    #ffffff;
+  --color-surface-2:  #faf9f7;
+
+  --color-border:     #e4dfd8;
+  --color-border-hi:  #cfc8bf;
+
+  --color-gold:       #b8860b;
+  --color-gold-dim:   #d4aa50;
+
+  --color-text:       #1a1714;
+  --color-text-dim:   #5a5248;
+  --color-text-mute:  #9c9088;
+
+  --color-green:      #166534;
+  --color-green-bg:   #f0fdf4;
+  --color-red:        #991b1b;
+  --color-red-bg:     #fef2f2;
+
+  /* ── Typografi ──────────────────────────────────────────────────────────── */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-sans:    'DM Sans', system-ui, sans-serif;
+
+  /* ── Radius / spacing (matcha befintliga) ───────────────────────────────── */
+  --radius-card:   8px;
+  --radius-pill:   999px;
+}
