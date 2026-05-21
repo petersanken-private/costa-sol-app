@@ -2316,3 +2316,221 @@
   .mc-prob-row { grid-template-columns: 100px 1fr 50px; font-size: 12px; }
   .mc-histogram { height: 100px; gap: 2px; }
 }
+
+/* ════════════════════════════════════════════════════════════════════════════
+   Mobile & iPad polishing — v2
+   Fixar för stora knappar, horisontella scroll-tabeller, padding-strul.
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* ── Sidans padding & marginaler i mobilt läge ─────────────────────────────── */
+@media (max-width: 767px) {
+  .page {
+    padding: 16px 14px 100px;     /* extra bottom-padding för mobile-nav */
+  }
+  .page-header {
+    margin-bottom: 16px;
+  }
+  .page-title {
+    font-size: 22px;
+  }
+  .page-eyebrow {
+    font-size: 11px;
+  }
+
+  /* Action-baren med knappar (Exportera, + Ny etc.) — låt knapparna växa */
+  .tab-action-bar {
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .tab-action-bar > * {
+    flex: 1 1 auto;          /* fyll bredden men respektera content */
+    min-width: 0;
+  }
+
+  /* Btn — kompaktare på mobil men fortfarande 44px touch-target */
+  .btn {
+    font-size: 13px;
+    padding: 10px 14px;
+    min-height: 44px;
+  }
+  .btn--sm {
+    font-size: 12px;
+    padding: 8px 10px;
+    min-height: 38px;
+  }
+
+  /* Dashboard top-bar och liknande — wrap istället för crunch */
+  .dashboard-top-bar {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .dashboard-top-bar > h1 {
+    flex: 1 1 100%;
+  }
+
+  /* Section header — låt åtgärden hamna under titeln om plats saknas */
+  .section-header {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* Grid-2 / grid-3 / grid-4 — stack på mobil där det inte redan görs */
+  .grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Property detail header — pris-blocket under titeln på mobil */
+  .detail-top {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .detail-price-block {
+    text-align: left !important;
+  }
+}
+
+/* ── iPad / mellanstorlek (768-1024) — egen breakpoint ─────────────────────── */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .page {
+    padding: 20px 20px 32px;
+  }
+  /* Sidebar smalare på iPad — använd !important för att besegra sidebar.css */
+  .sidebar {
+    width: 180px !important;
+    min-width: 180px !important;
+  }
+  .sidebar__nav-btn {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+  .page-title {
+    font-size: 26px;
+  }
+  /* Grid-4 → 2 kolumner på iPad istället för 4 trånga */
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  /* Grid-3 → också 2 kolumner */
+  .grid-3 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  /* Compare-grid: max 2 kort sida vid sida på iPad */
+  .compare-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  /* Tabeller med många kolumner — låt dem scrolla men gör det tydligare */
+  .table-header, .table-row {
+    font-size: 13px;
+  }
+  /* Tabs — kompakt */
+  .tab-btn {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+}
+
+/* ── Projektionstabell på mobil — konvertera grid → kort-stack ─────────────── */
+@media (max-width: 767px) {
+  /* Identifiera projektions-tabellen via dess scroll-wrapper */
+  .calc-projection-scroll {
+    overflow-x: visible !important;
+  }
+  .calc-projection-scroll .table-header {
+    display: none;   /* dölj kolumnrubriker — använd labels per kort istället */
+  }
+  .calc-projection-scroll .table-row {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6px 12px;
+    padding: 12px;
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface);
+  }
+  /* Visa data-labels (via data-label-attribut eller pseudo-element) */
+  .calc-projection-scroll .table-row > span {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+  }
+  .calc-projection-scroll .table-row > span::before {
+    content: attr(data-label);
+    color: var(--text-mute);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+  .calc-projection-scroll .table-row > span:first-child {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    margin-bottom: 4px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .calc-projection-scroll .table-row > span:first-child::before {
+    content: "År";
+  }
+}
+
+/* ── Monte Carlo på mobil ──────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  /* MC-inputs i kolumn istället för rad */
+  .mc-controls {
+    grid-template-columns: 1fr !important;
+    gap: 12px;
+  }
+  .mc-controls > * {
+    width: 100%;
+  }
+  .mc-prob-grid {
+    gap: 10px;
+  }
+  .mc-prob-row {
+    grid-template-columns: 1fr !important;
+    gap: 6px;
+  }
+  .mc-prob-bar {
+    width: 100%;
+  }
+  .mc-histogram {
+    height: 100px !important;
+    gap: 1px !important;
+  }
+}
+
+/* ── Allmänna förbättringar för små skärmar ───────────────────────────────── */
+@media (max-width: 480px) {
+  /* På riktigt små skärmar, minska font ytterligare */
+  body { font-size: 14px; }
+  .page-title { font-size: 20px; }
+  .stat-value { font-size: 18px; }
+
+  /* Cards-padding lite mindre */
+  .card-p { padding: 14px; }
+  .card-p-md { padding: 12px; }
+
+  /* Logout/Reset-knappar i footer ska inte vara fullbredd och stora */
+  .sidebar__footer button {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+}
+
+/* ── Tab-bar overflow på mobil ─────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}

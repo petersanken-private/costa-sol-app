@@ -353,35 +353,37 @@ export function Calculator() {
 
           {/* Year-by-year table */}
           <Card>
-            <div className="table-header proj-cols">
-              <span>År</span>
-              <span>Fastighetsvärde</span>
-              <span>Lånesaldo</span>
-              <span>Eget kapital</span>
-              <span>Driftnetto</span>
-              <span>Ackum. kassafl.</span>
-              <span>Total förmögenhet</span>
-            </div>
-            {projection.map((p, i) => (
-              <div key={i} className={`table-row proj-cols ${i % 2 === 1 ? 'proj-row--alt' : ''}`}>
-                <span className="text-mute">{p.calendarYear}</span>
-                <span style={{ color: 'var(--gold)' }}>{fmtMoney(p.propertyValue)}</span>
-                <span className="text-mute">{p.loanBalance > 0 ? `−${fmtMoney(p.loanBalance)}` : '—'}</span>
-                <span>{fmtMoney(p.equity)}</span>
-                <span style={{ color: p.netAfterTax >= 0 ? 'var(--green)' : 'var(--red)' }}>
-                  {p.netAfterTax >= 0 ? '+' : '−'}{fmtMoney(Math.abs(p.netAfterTax))}
-                </span>
-                <span style={{ color: p.cumulativeCashflow >= 0 ? 'var(--green)' : 'var(--red)' }}>
-                  {p.cumulativeCashflow >= 0 ? '+' : '−'}{fmtMoney(Math.abs(p.cumulativeCashflow))}
-                </span>
-                <span style={{
-                  color: p.totalWealth >= 0 ? sc.color : 'var(--red)',
-                  fontWeight: 600,
-                }}>
-                  {p.totalWealth >= 0 ? '+' : '−'}{fmtMoney(Math.abs(p.totalWealth))}
-                </span>
+            <div className="calc-projection-scroll">
+              <div className="table-header proj-cols">
+                <span>År</span>
+                <span>Fastighetsvärde</span>
+                <span>Lånesaldo</span>
+                <span>Eget kapital</span>
+                <span>Driftnetto</span>
+                <span>Ackum. kassafl.</span>
+                <span>Total förmögenhet</span>
               </div>
-            ))}
+              {projection.map((p, i) => (
+                <div key={i} className={`table-row proj-cols ${i % 2 === 1 ? 'proj-row--alt' : ''}`}>
+                  <span className="text-mute">{p.calendarYear}</span>
+                  <span data-label="Fastighetsvärde" style={{ color: 'var(--gold)' }}>{fmtMoney(p.propertyValue)}</span>
+                  <span data-label="Lånesaldo" className="text-mute">{p.loanBalance > 0 ? `−${fmtMoney(p.loanBalance)}` : '—'}</span>
+                  <span data-label="Eget kapital">{fmtMoney(p.equity)}</span>
+                  <span data-label="Driftnetto" style={{ color: p.netAfterTax >= 0 ? 'var(--green)' : 'var(--red)' }}>
+                    {p.netAfterTax >= 0 ? '+' : '−'}{fmtMoney(Math.abs(p.netAfterTax))}
+                  </span>
+                  <span data-label="Ackum. kassafl." style={{ color: p.cumulativeCashflow >= 0 ? 'var(--green)' : 'var(--red)' }}>
+                    {p.cumulativeCashflow >= 0 ? '+' : '−'}{fmtMoney(Math.abs(p.cumulativeCashflow))}
+                  </span>
+                  <span data-label="Total förmögenhet" style={{
+                    color: p.totalWealth >= 0 ? sc.color : 'var(--red)',
+                    fontWeight: 600,
+                  }}>
+                    {p.totalWealth >= 0 ? '+' : '−'}{fmtMoney(Math.abs(p.totalWealth))}
+                  </span>
+                </div>
+              ))}
+            </div>
             {/* Summary row */}
             <div className="table-footer" style={{ justifyContent: 'flex-end', gap: '24px' }}>
               <span className="text-mute">
