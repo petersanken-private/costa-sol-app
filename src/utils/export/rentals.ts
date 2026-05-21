@@ -1,8 +1,9 @@
 import { RentalEntry } from '../../types';
 import { MONTHS_SV } from '../../data';
-import { csvRow, downloadCsv, openPrintWindow, eur, today, slugify } from './_shared';
+import { csvRow, downloadCsv, openPrintWindow, eur, today, slugify, assertNotEmpty } from './_shared';
 
 export function exportRentalsCsv(propertyName: string, rentals: RentalEntry[]): void {
+  if (!assertNotEmpty(rentals, 'hyresintäkter')) return;
   const header = csvRow(['År', 'Månad', 'Nätter', 'Intäkt (€)', 'Plattform', 'Snitt/natt (€)', 'Anteckning']);
   const rows   = rentals.map(r =>
     csvRow([r.year, MONTHS_SV[r.month - 1], r.nights, r.revenue, r.platform,
@@ -16,6 +17,7 @@ export function exportRentalsCsv(propertyName: string, rentals: RentalEntry[]): 
 }
 
 export function exportRentalsPdf(propertyName: string, rentals: RentalEntry[]): void {
+  if (!assertNotEmpty(rentals, 'hyresintäkter')) return;
   const totalRevenue = rentals.reduce((s, r) => s + r.revenue, 0);
   const totalNights  = rentals.reduce((s, r) => s + r.nights, 0);
   const avgAdr       = totalNights > 0 ? totalRevenue / totalNights : 0;

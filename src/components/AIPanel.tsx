@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAIInsights } from '../hooks/useAIInsights';
+import { useApp } from '../hooks/useApp';
 import { AIPreset } from '../types';
 import { Card, Btn, SectionHeader } from './ui';
 import { renderMarkdown } from '../utils/markdown';
@@ -15,13 +16,23 @@ interface Props {
 
 export function AIPanel({ scope, propertyId, presets, title = '🤖 AI-analys' }: Props) {
   const { insights, analyzing, analyze, remove } = useAIInsights(scope === 'property' ? propertyId : undefined);
+  const { state } = useApp();
   const [customPrompt, setCustomPrompt] = useState('');
   const [showCustom,   setShowCustom]   = useState(false);
   const [error,        setError]        = useState<string | null>(null);
   const [expandedId,   setExpandedId]   = useState<string | null>(insights[0]?.id ?? null);
 
+  // Förhindra meningslös AI-körning på tom portfölj
+  const portfolioIsEmpty = state.properties.length === 0;
+  const isPropertyScope  = scope === 'property';
+  const blocked          = portfolioIsEmpty && !isPropertyScope;
+
   async function handlePreset(preset: AIPreset) {
     setError(null);
+    if (blocked) {
+      setError('Lägg till minst en fastighet eller prospekt först — AI:n behöver data att analysera.');
+      return;
+    }
     const res = await analyze({ preset, propertyId });
     if (!res.ok) setError(res.error ?? 'Okänt fel');
     else         setExpandedId(res.id ?? null);
@@ -43,14 +54,22 @@ export function AIPanel({ scope, propertyId, presets, title = '🤖 AI-analys' }
     <Card className="card-p" style={{ marginTop: '20px' }}>
       <SectionHeader title={title} />
 
+      {blocked && (
+        <p className="text-mute" style={{ fontSize: '13px', marginBottom: '12px',
+                                          padding: '10px 12px', background: 'var(--surface-2)',
+                                          borderRadius: '6px', border: '1px dashed var(--border)' }}>
+          💡 Lägg till minst en fastighet (Portfölj) eller ett prospekt (Jämför) innan du kör AI-analyser.
+        </p>
+      )}
+
       {/* Preset-knappar */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
         {presets.map(p => (
-          <Btn key={p.key} size="sm" onClick={() => handlePreset(p.key)} disabled={analyzing}>
+          <Btn key={p.key} size="sm" onClick={() => handlePreset(p.key)} disabled={analyzing || blocked}>
             {p.icon} {p.label}
           </Btn>
         ))}
-        <Btn size="sm" onClick={() => setShowCustom(!showCustom)} disabled={analyzing}>
+        <Btn size="sm" onClick={() => setShowCustom(!showCustom)} disabled={analyzing || blocked}>
           ✏️ Egen fråga
         </Btn>
       </div>

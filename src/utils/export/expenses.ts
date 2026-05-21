@@ -1,8 +1,9 @@
 import { Expense } from '../../types';
 import { EXPENSE_LABELS } from '../../data';
-import { csvRow, downloadCsv, openPrintWindow, eur, pct, today, slugify } from './_shared';
+import { csvRow, downloadCsv, openPrintWindow, eur, pct, today, slugify, assertNotEmpty } from './_shared';
 
 export function exportExpensesCsv(propertyName: string, expenses: Expense[]): void {
+  if (!assertNotEmpty(expenses, 'kostnader')) return;
   const header = csvRow(['Datum', 'Kategori', 'Beskrivning', 'Belopp (€)', 'Avdragsgill']);
   const rows   = expenses.map(e =>
     csvRow([e.date, EXPENSE_LABELS[e.category] ?? e.category, e.description, e.amount, e.deductible ? 'Ja' : 'Nej'])
@@ -16,6 +17,7 @@ export function exportExpensesCsv(propertyName: string, expenses: Expense[]): vo
 }
 
 export function exportExpensesPdf(propertyName: string, expenses: Expense[]): void {
+  if (!assertNotEmpty(expenses, 'kostnader')) return;
   const total      = expenses.reduce((s, e) => s + e.amount, 0);
   const deductible = expenses.filter(e => e.deductible).reduce((s, e) => s + e.amount, 0);
 

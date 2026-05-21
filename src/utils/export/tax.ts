@@ -1,7 +1,7 @@
 import { Property, RentalEntry, Expense } from '../../types';
 import { MONTHS_SV, EXPENSE_LABELS } from '../../data';
 import { TAX } from '../../constants/tax';
-import { csvRow, downloadCsv, openPrintWindow, eur, pct, today } from './_shared';
+import { csvRow, downloadCsv, openPrintWindow, eur, pct, today, assertNotEmpty } from './_shared';
 
 export interface TaxData {
   year:        number;
@@ -11,6 +11,7 @@ export interface TaxData {
 }
 
 export function exportTaxCsv({ year, rentals, expenses, properties }: TaxData): void {
+  if (!assertNotEmpty([...rentals, ...expenses], `skatteposter för ${year}`)) return;
   const rows: string[] = [];
 
   // Section 1: Rental income
@@ -50,6 +51,7 @@ export function exportTaxCsv({ year, rentals, expenses, properties }: TaxData): 
 }
 
 export function exportTaxPdf({ year, rentals, expenses, properties }: TaxData): void {
+  if (!assertNotEmpty([...rentals, ...expenses], `skatteposter för ${year}`)) return;
   const grossIncome   = rentals.reduce((s, r) => s + r.revenue, 0);
   const deductible    = expenses.filter(e => e.deductible).reduce((s, e) => s + e.amount, 0);
   const netTaxable    = Math.max(0, grossIncome - deductible);

@@ -101,6 +101,10 @@ export function Calculator() {
       <div className="page-header">
         <p className="page-eyebrow">Investeringskalkyl</p>
         <h1 className="page-title">Kalkylator</h1>
+        <p className="text-mute" style={{ fontSize: '13px', marginTop: '6px' }}>
+          Hypotetisk avkastningskalkyl med typiska Costa del Sol-objekt — oberoende av din portfölj.
+          Använd "Egen prisnivå" för att räkna på ett specifikt prospekt.
+        </p>
       </div>
 
       {/* Unit selector */}
