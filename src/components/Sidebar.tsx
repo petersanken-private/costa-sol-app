@@ -12,6 +12,7 @@ const NAV_ITEMS: { key: PageKey; icon: string; label: string; group: string }[] 
   { key: 'market',     icon: '◉', label: 'Marknadsdata',  group: 'Köpanalys' },
   { key: 'compare',    icon: '⊞', label: 'Jämför objekt', group: 'Köpanalys' },
   { key: 'calculator', icon: '◎', label: 'Kalkylator',    group: 'Köpanalys' },
+  { key: 'guide',      icon: '📖', label: 'Investera i Spanien', group: 'Kunskap' },
 ];
 
 export function Sidebar() {
@@ -23,7 +24,7 @@ export function Sidebar() {
     if (window.confirm('Återställ all data till seed-data? Detta går inte att ångra.')) resetAllData();
   }
 
-  const groups = ['Portfölj', 'Köpanalys'];
+  const groups = ['Portfölj', 'Köpanalys', 'Kunskap'];
 
   return (
     <aside className="sidebar">

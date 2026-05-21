@@ -11,6 +11,7 @@ import { Taxes } from './pages/Taxes';
 import { Market } from './pages/Market';
 import { Compare } from './pages/Compare';
 import { Milestones } from './pages/Milestones';
+import { Guide } from './pages/Guide';
 import { PageKey } from './types';
 import './styles/global.css';
 import './styles/components.css';
@@ -24,6 +25,7 @@ const PAGE_MAP: Record<PageKey, React.ReactElement> = {
   market:     <Market />,
   compare:    <Compare />,
   milestones: <Milestones />,
+  guide:      <Guide />,
 };
 
 const MOBILE_NAV: { key: PageKey; icon: string; label: string }[] = [

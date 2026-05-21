@@ -6,7 +6,7 @@ export type ExpenseCategory  =
   | 'management' | 'cleaning' | 'maintenance' | 'insurance'
   | 'ibi' | 'community' | 'mortgage' | 'gestor' | 'legal' | 'utilities' | 'other';
 export type RentalPlatform   = 'airbnb' | 'booking' | 'direct' | 'long-term';
-export type PageKey          = 'dashboard' | 'portfolio' | 'calculator' | 'taxes' | 'property' | 'market' | 'compare' | 'milestones';
+export type PageKey          = 'dashboard' | 'portfolio' | 'calculator' | 'taxes' | 'property' | 'market' | 'compare' | 'milestones' | 'guide';
 
 export interface Property {
   id:              string;
