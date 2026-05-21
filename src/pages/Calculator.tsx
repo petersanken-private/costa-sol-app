@@ -98,20 +98,24 @@ export function Calculator() {
 
   return (
     <div className="page">
+      {/* ── DEMO: denna sida är delvis portad till Tailwind utility-klasser ──
+          Befintliga komponenter (Card, Btn, Stat) använder fortfarande egna
+          CSS-klasser. Inline style={{...}} har bytts till Tailwind-utilities. */}
+
       <div className="page-header">
         <p className="page-eyebrow">Investeringskalkyl</p>
         <h1 className="page-title">Kalkylator</h1>
-        <p className="text-mute" style={{ fontSize: '13px', marginTop: '6px' }}>
+        <p className="text-mute text-[13px] mt-1.5">
           Hypotetisk avkastningskalkyl med typiska Costa del Sol-objekt — oberoende av din portfölj.
           Använd "Egen prisnivå" för att räkna på ett specifikt prospekt.
         </p>
       </div>
 
       {/* Unit selector */}
-      <p className="form-label" style={{ marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
+      <p className="form-label mb-2.5 uppercase tracking-[0.094em]">
         Välj objekt
       </p>
-      <div className="calc-unit-grid" style={{ marginBottom: '10px' }}>
+      <div className="calc-unit-grid mb-2.5">
         {UNIT_PRESETS.map(u => (
           <button
             key={u.id}
@@ -129,10 +133,9 @@ export function Calculator() {
         >
           <p className="unit-btn__label">Eget objekt</p>
           <input
-            className="form-input"
+            className="form-input mt-1.5"
             value={customPrice}
             placeholder="€ Pris..."
-            style={{ marginTop: '6px' }}
             onChange={e => { setCustomPrice(e.target.value); setSelectedUnitId('custom'); }}
             onClick={e => e.stopPropagation()}
           />
@@ -141,7 +144,7 @@ export function Calculator() {
 
       {/* From portfolio */}
       {state.properties.length > 0 && (
-        <div className="from-portfolio" style={{ marginBottom: '24px' }}>
+        <div className="from-portfolio mb-6">
           <span className="from-portfolio__label">Från portfölj:</span>
           {state.properties.map(p => (
             <button
@@ -156,9 +159,9 @@ export function Calculator() {
       )}
 
       {/* Scenario + options */}
-      <div className="grid-2" style={{ marginBottom: '24px' }}>
+      <div className="grid-2 mb-6">
         <div>
-          <p className="form-label" style={{ marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Scenario</p>
+          <p className="form-label mb-2.5 uppercase tracking-[0.094em]">Scenario</p>
           <div className="scenario-list">
             {SCENARIOS.map(s => (
               <button
@@ -182,10 +185,10 @@ export function Calculator() {
         </div>
 
         <div>
-          <p className="form-label" style={{ marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1.5px' }}>Tidshorisont & bolån</p>
+          <p className="form-label mb-2.5 uppercase tracking-[0.094em]">Tidshorisont & bolån</p>
           <Card className="card-p">
-            <p className="form-label" style={{ marginBottom: '8px' }}>Horisont (år)</p>
-            <div className="horizon-btns" style={{ marginBottom: '16px' }}>
+            <p className="form-label mb-2">Horisont (år)</p>
+            <div className="horizon-btns mb-4">
               {[3, 5, 7, 10].map(y => (
                 <button
                   key={y}
@@ -207,8 +210,8 @@ export function Calculator() {
             {useMortgage && (
               <>
                 {mortgages.length > 0 && (
-                  <div style={{ marginBottom: '12px' }}>
-                    <p className="form-label" style={{ marginBottom: '8px' }}>Använd sparat bolån som mall</p>
+                  <div className="mb-3">
+                    <p className="form-label mb-2">Använd sparat bolån som mall</p>
                     <select
                       className="form-input"
                       onChange={e => {
@@ -236,18 +239,17 @@ export function Calculator() {
                     </select>
                   </div>
                 )}
-                <div style={{ marginBottom: '12px' }}>
-                  <p className="form-label" style={{ marginBottom: '8px' }}>Ränta (%)</p>
+                <div className="mb-3">
+                  <p className="form-label mb-2">Ränta (%)</p>
                   <input
-                    className="form-input"
+                    className="form-input max-w-[120px]"
                     type="number"
                     step="0.01"
                     value={mortgageRatePct}
                     onChange={e => setMortgageRatePct(parseFloat(e.target.value) || 0)}
-                    style={{ maxWidth: '120px' }}
                   />
                 </div>
-                <p className="form-label" style={{ marginBottom: '8px' }}>Belåningsgrad (LTV)</p>
+                <p className="form-label mb-2">Belåningsgrad (LTV)</p>
                 <div className="ltv-btns">
                   {[50, 60, 70].map(p => (
                     <button
@@ -257,8 +259,8 @@ export function Calculator() {
                     >{p}% LTV</button>
                   ))}
                 </div>
-                <div style={{ marginTop: '12px' }}>
-                  <p className="form-label" style={{ marginBottom: '8px' }}>Amortering per år</p>
+                <div className="mt-3">
+                  <p className="form-label mb-2">Amortering per år</p>
                   <div className="ltv-btns">
                     {[1, 2, 3].map(p => (
                       <button
@@ -313,7 +315,7 @@ export function Calculator() {
 
       {/* ── Projektion ── */}
       {activeTab === 'projection' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="flex flex-col gap-4">
 
           {/* Wealth chart */}
           <Card className="card-p">
@@ -385,7 +387,7 @@ export function Calculator() {
               ))}
             </div>
             {/* Summary row */}
-            <div className="table-footer" style={{ justifyContent: 'flex-end', gap: '24px' }}>
+            <div className="table-footer justify-end gap-6">
               <span className="text-mute">
                 Equity år {horizonYears}: <strong style={{ color: 'var(--gold)' }}>{fmtMoney(projection[projection.length - 1]?.equity ?? 0)}</strong>
               </span>
@@ -403,7 +405,7 @@ export function Calculator() {
 
       {/* ── Tidslinje ── */}
       {activeTab === 'timeline' && (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+        <div className="flex flex-col gap-2.5">
           {Array.from({ length: horizonYears }, (_, i) => i + 1).map(yr => {
             const rentAccum = result.netAfterTax * yr;
             const projPrice = purchasePrice * Math.pow(1 + sc.annualGrowthPct / 100, yr);
