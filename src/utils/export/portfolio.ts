@@ -1,8 +1,9 @@
 import { Property } from '../../types';
 import { STATUS_LABELS } from '../../data';
-import { csvRow, downloadCsv, openPrintWindow, eur, today } from './_shared';
+import { csvRow, downloadCsv, openPrintWindow, eur, today, assertNotEmpty } from './_shared';
 
 export function exportPortfolioCsv(properties: Property[]): void {
+  if (!assertNotEmpty(properties, 'fastigheter')) return;
   const header = csvRow(['Namn', 'Område', 'Typ', 'Status', 'Sovrum', 'Storlek (kvm)',
     'Köpeskilling (€)', 'Nuv. värde (€)', 'Värdeutveckling (€)', 'VFT-licens', 'Strategi', 'Anteckningar']);
 
@@ -21,6 +22,7 @@ export function exportPortfolioCsv(properties: Property[]): void {
 }
 
 export function exportPortfolioPdf(properties: Property[]): void {
+  if (!assertNotEmpty(properties, 'fastigheter')) return;
   const totalInvested = properties.reduce((s, p) => s + p.purchasePrice, 0);
   const totalValue    = properties.reduce((s, p) => s + p.currentValue, 0);
   const totalGain     = totalValue - totalInvested;

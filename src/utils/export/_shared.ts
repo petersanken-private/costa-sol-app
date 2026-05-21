@@ -23,6 +23,17 @@ export function downloadCsv(filename: string, rows: string[]): void {
   URL.revokeObjectURL(url);
 }
 
+/**
+ * Verifiera att det finns data att exportera. Returnerar true om ok att fortsätta,
+ * annars false (och visar ett alert-meddelande till användaren).
+ * Räknar bara header-raden om det inte finns datarader.
+ */
+export function assertNotEmpty(items: unknown[], whatToExport: string): boolean {
+  if (items.length > 0) return true;
+  alert(`Inget att exportera — det finns inga ${whatToExport} att inkludera.`);
+  return false;
+}
+
 const PRINT_CSS = `
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
