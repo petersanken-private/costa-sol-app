@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useApp } from '../hooks/useApp';
 import { Card, SectionHeader, Stat, Divider, Badge } from '../components/ui';
 import { fmtMoney, fmtPct } from '../utils/calc';
+import { TAX } from '../constants/tax';
 import { EXPENSE_LABELS, PLATFORM_COLORS } from '../data';
 import { ExportMenu } from '../components/ExportMenu';
 import { exportTaxCsv, exportTaxPdf } from '../utils/export';
@@ -27,7 +28,7 @@ export function Taxes() {
   const grossIncome        = yearRentals.reduce((s, r) => s + r.revenue, 0);
   const deductibleExpenses = yearExpenses.filter(e => e.deductible).reduce((s, e) => s + e.amount, 0);
   const netTaxableIncome   = Math.max(0, grossIncome - deductibleExpenses);
-  const taxOwed            = netTaxableIncome * 0.19;
+  const taxOwed            = netTaxableIncome * TAX.IRNR_EU_PCT;
   const effectiveRate      = grossIncome > 0 ? (taxOwed / grossIncome) * 100 : 0;
 
   // Group by category

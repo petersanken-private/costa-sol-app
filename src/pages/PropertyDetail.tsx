@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useApp } from '../hooks/useApp';
 import { Card, Badge, Btn, SectionHeader, Stat, Divider, Tabs, Modal, FormGroup } from '../components/ui';
-import { fmtMoney, fmtPct, calcInvestment, calcBuyingCosts } from '../utils/calc';
+import { fmtMoney, fmtPct, calcInvestment, calcBuyingCosts, cashflowLabelColor, cashflowValueColor } from '../utils/calc';
+import { OPERATING } from '../constants/tax';
 import { SCENARIOS, MONTHS_SV, EXPENSE_LABELS, PLATFORM_COLORS, STATUS_LABELS, STATUS_COLORS } from '../data';
 import { ScenarioKey, RentalEntry, Expense, ExpenseCategory, RentalPlatform } from '../types';
 import { ExportMenu } from '../components/ExportMenu';
@@ -158,16 +159,16 @@ export function PropertyDetail() {
                 { label: 'Förvaltning (18%)',                     value: -result.managementFee                            },
                 { label: `Städning (${sc.nights} nätter)`,        value: -result.cleaningCost                             },
                 { label: 'IBI + Försäkring + Community + Gestor', value: -result.fixedCosts                               },
-                { label: 'Underhåll (0.4%)',                      value: -(property.purchasePrice * 0.004)                },
+                { label: `Underhåll (${(OPERATING.MAINTENANCE_PCT * 100).toFixed(1)}%)`, value: -(property.purchasePrice * OPERATING.MAINTENANCE_PCT) },
                 { label: 'Netto f. skatt',                        value:  result.netBeforeTax,             isNet: true    },
                 { label: 'IRNR-skatt (19%)',                      value: -result.tax                                      },
                 { label: 'Netto e. skatt',                        value:  result.netAfterTax,              isFinal: true  },
               ].map((row, i) => (
                 <div key={i} className={`cashflow-row ${row.isFinal ? 'cashflow-row--final' : ''} ${row.isNet ? 'cashflow-row--net' : ''}`}>
-                  <span style={{ color: row.isFinal ? 'var(--text)' : row.isIncome ? 'var(--text)' : 'var(--text-dim)' }}>
+                  <span style={{ color: cashflowLabelColor(row) }}>
                     {row.label}
                   </span>
-                  <span style={{ color: row.isFinal ? (result.netAfterTax > 0 ? sc.color : 'var(--red)') : row.value > 0 ? 'var(--text)' : 'var(--text-mute)' }}>
+                  <span style={{ color: cashflowValueColor({ ...row, value: row.value }, sc.color) }}>
                     {row.value >= 0 ? '+' : '−'}{fmtMoney(Math.abs(row.value))}
                   </span>
                 </div>
