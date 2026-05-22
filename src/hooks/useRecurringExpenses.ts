@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { RecurringExpense, Expense } from '../types';
 import { fromDb, toDb } from '../lib/mappers';
-import { generateMissingExpenses } from '../utils/recurringGenerator';
+import { generateMissingExpenses } from '../utils/recurring.utils';
 
 const RECURRING_OPTIONAL: (keyof RecurringExpense)[] = ['endDate', 'monthOfYear', 'lastGeneratedDate', 'notes'];
 

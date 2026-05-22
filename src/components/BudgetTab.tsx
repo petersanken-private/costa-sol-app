@@ -3,7 +3,7 @@ import { useApp } from '../hooks/useApp';
 import { useBudgets, buildComparison, BudgetComparison } from '../hooks/useBudgets';
 import { Budget } from '../types';
 import { Card, Btn, Modal, FormGroup, SectionHeader } from './ui';
-import { fmtMoney, fmtPct } from '../utils/calc';
+import { fmtMoney, fmtPct } from '../utils/calc.utils';
 
 function newId() { return 'bud-' + Math.random().toString(36).slice(2, 10); }
 

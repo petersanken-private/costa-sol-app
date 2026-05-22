@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useApp } from '../hooks/useApp';
 import { Card, SectionHeader, Stat, Divider, Badge } from '../components/ui';
-import { fmtMoney, fmtPct } from '../utils/calc';
+import { fmtMoney, fmtPct } from '../utils/calc.utils';
 import { TAX } from '../constants/tax';
 import { EXPENSE_LABELS, PLATFORM_COLORS } from '../data';
 import { ExportMenu } from '../components/ExportMenu';

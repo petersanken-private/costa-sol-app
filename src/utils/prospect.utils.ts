@@ -2,7 +2,7 @@ import { ProspectProperty, AreaMarketData, ScenarioConfig, CalcResult } from '..
 import {
   calcInvestment, calcProjection, calcBuyingCosts,
   ProjectionYear, BuyingCostBreakdown,
-} from './calc';
+} from './calc.utils';
 
 // ── Default-antaganden för prospekt-utvärdering ──────────────────────────────
 // Prospekt har inga sparade bolån eller egna scenarier — använd dessa.

@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { ProspectProperty, ScenarioKey } from '../types';
 import { Card, Btn, Modal, FormGroup } from '../components/ui';
 import { SCENARIOS } from '../data';
-import { fmtMoney, fmtPct } from '../utils/calc';
+import { fmtMoney, fmtPct } from '../utils/calc.utils';
 import { evaluateProspect, rankByNetYield } from '../utils/prospect.utils';
 import { exportBankPdf } from '../utils/export';
 import { AIPanel } from '../components/AIPanel';

@@ -3,7 +3,7 @@ import { useApp } from '../hooks/useApp';
 import { useMilestones, daysUntil } from '../hooks/useMilestones';
 import { Milestone, MilestoneCategory, MilestoneStatus } from '../types';
 import { Card, Btn, Modal, FormGroup } from '../components/ui';
-import { fmtMoney } from '../utils/calc';
+import { fmtMoney } from '../utils/calc.utils';
 
 // ── Config ────────────────────────────────────────────────────────────────────
 
