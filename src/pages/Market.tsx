@@ -1,22 +1,13 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '../lib/supabase';
+import { useState } from 'react';
 import { AreaMarketData } from '../types';
 import { Card, SectionHeader, Btn, Modal, FormGroup } from '../components/ui';
 import { useMarketRefresh } from '../hooks/useMarketRefresh';
+import { useMarketData } from '../hooks/useMarketData';
 import { fmtMoney } from '../utils/calc';
-import { marketFromDb, marketToDb } from '../lib/mappers';
 import '../styles/pages.css';
 
 function newId() { return 'mkt-' + Math.random().toString(36).slice(2, 10); }
 function today()  { return new Date().toISOString().split('T')[0]; }
-
-const SEED_MARKET: AreaMarketData[] = [
-  { id: 'mkt-1', area: 'Cancelada',           pricePerSqm: 4200, avgAdr: 195, occupancyPct: 65, annualGrowthPct: 9,  source: 'Idealista / AirDNA Q1 2025', updatedAt: today(), notes: 'Essence Residences-området. Stark tillväxt.' },
-  { id: 'mkt-2', area: 'Estepona Gamla Stan',  pricePerSqm: 3800, avgAdr: 155, occupancyPct: 58, annualGrowthPct: 7,  source: 'Idealista / AirDNA Q1 2025', updatedAt: today(), notes: 'Charmekvarter, begränsat utbud.' },
-  { id: 'mkt-3', area: 'Nueva Andalucía',      pricePerSqm: 5100, avgAdr: 240, occupancyPct: 70, annualGrowthPct: 10, source: 'Idealista / AirDNA Q1 2025', updatedAt: today(), notes: 'Golf Valley. Premium-segment.' },
-  { id: 'mkt-4', area: 'Puerto Banús',         pricePerSqm: 6800, avgAdr: 310, occupancyPct: 72, annualGrowthPct: 8,  source: 'Idealista / AirDNA Q1 2025', updatedAt: today(), notes: 'Lyxsegment. Hög ADR men högt pris.' },
-  { id: 'mkt-5', area: 'Estepona Öst',         pricePerSqm: 3500, avgAdr: 140, occupancyPct: 55, annualGrowthPct: 8,  source: 'Idealista / AirDNA Q1 2025', updatedAt: today(), notes: 'Lägre priser, growing area.' },
-];
 
 interface RefreshBannerProps {
   running: boolean;
@@ -53,57 +44,25 @@ function RefreshBanner({ running, last, onRun }: RefreshBannerProps) {
 }
 
 export function Market() {
-  const [markets,     setMarkets]     = useState<AreaMarketData[]>([]);
-  const [loading,     setLoading]     = useState(true);
-  const [showModal,   setShowModal]   = useState(false);
-  const [editItem,    setEditItem]    = useState<AreaMarketData | null>(null);
-  const { refresh, running, last }    = useMarketRefresh();
-
-  useEffect(() => { load(); }, []);
+  const { markets, loading, upsert, remove, reload } = useMarketData();
+  const [showModal, setShowModal] = useState(false);
+  const [editItem,  setEditItem]  = useState<AreaMarketData | null>(null);
+  const { refresh, running, last } = useMarketRefresh();
 
   async function handleRefresh() {
     await refresh();
-    // Ladda om tabellen efter Edge Function är klar
-    await load();
-  }
-
-  async function load() {
-    setLoading(true);
-    const { data, error } = await supabase
-      .from('area_market_data')
-      .select('*')
-      .order('area');
-
-    if (error) { setLoading(false); return; }
-
-    const rows = (data ?? []).map(r => marketFromDb(r as Record<string, unknown>));
-
-    if (rows.length === 0) {
-      // Seed
-      for (const m of SEED_MARKET) {
-        await supabase.from('area_market_data').upsert(marketToDb(m));
-      }
-      setMarkets(SEED_MARKET);
-    } else {
-      setMarkets(rows);
-    }
-    setLoading(false);
+    await reload();
   }
 
   async function handleSave(m: AreaMarketData) {
-    await supabase.from('area_market_data').upsert(marketToDb(m));
-    setMarkets(prev => {
-      const exists = prev.find(x => x.id === m.id);
-      return exists ? prev.map(x => x.id === m.id ? m : x) : [...prev, m];
-    });
+    await upsert(m);
     setShowModal(false);
     setEditItem(null);
   }
 
   async function handleDelete(id: string) {
     if (!window.confirm('Ta bort detta område?')) return;
-    await supabase.from('area_market_data').delete().eq('id', id);
-    setMarkets(prev => prev.filter(m => m.id !== id));
+    await remove(id);
   }
 
   const maxPricePerSqm = Math.max(...markets.map(m => m.pricePerSqm), 1);

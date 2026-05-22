@@ -1,103 +1,47 @@
-import { useState, useEffect, useMemo } from 'react';
-import { supabase } from '../lib/supabase';
-import { ProspectProperty, AreaMarketData, ScenarioKey } from '../types';
+import { useState, useMemo } from 'react';
+import { ProspectProperty, ScenarioKey } from '../types';
 import { Card, Btn, Modal, FormGroup } from '../components/ui';
 import { SCENARIOS } from '../data';
-import { fmtMoney, fmtPct, calcInvestment, calcBuyingCosts, calcProjection } from '../utils/calc';
+import { fmtMoney, fmtPct } from '../utils/calc';
+import { evaluateProspect, rankByNetYield } from '../utils/prospect.utils';
 import { exportBankPdf } from '../utils/export';
 import { AIPanel } from '../components/AIPanel';
-import { prospectFromDb, prospectToDb, marketFromDb } from '../lib/mappers';
+import { useProspects } from '../hooks/useProspects';
+import { useMarketData } from '../hooks/useMarketData';
 import '../styles/pages.css';
 
 function newId() { return 'pro-' + Math.random().toString(36).slice(2, 10); }
 
 export function Compare() {
-  const [prospects, setProspects] = useState<ProspectProperty[]>([]);
-  const [markets,   setMarkets]   = useState<AreaMarketData[]>([]);
-  const [loading,   setLoading]   = useState(true);
+  const { prospects, loading: prospectsLoading, upsert: upsertProspect, remove: removeProspect } = useProspects();
+  const { markets,   loading: marketsLoading }   = useMarketData();
   const [showModal, setShowModal] = useState(false);
   const [editItem,  setEditItem]  = useState<ProspectProperty | null>(null);
   const [scenario,  setScenario]  = useState<ScenarioKey>('base');
   const [horizon,   setHorizon]   = useState(10);
 
-  useEffect(() => { loadAll(); }, []);
-
-  async function loadAll() {
-    setLoading(true);
-    const [{ data: pros }, { data: mkts }] = await Promise.all([
-      supabase.from('prospects').select('*').order('created_at'),
-      supabase.from('area_market_data').select('*'),
-    ]);
-    setProspects((pros ?? []).map(r => prospectFromDb(r as Record<string, unknown>)));
-    setMarkets((mkts ?? []).map(r => marketFromDb(r as Record<string, unknown>)));
-    setLoading(false);
-  }
+  const loading = prospectsLoading || marketsLoading;
 
   async function handleSave(p: ProspectProperty) {
-    await supabase.from('prospects').upsert(prospectToDb(p));
-    setProspects(prev => {
-      const exists = prev.find(x => x.id === p.id);
-      return exists ? prev.map(x => x.id === p.id ? p : x) : [...prev, p];
-    });
+    await upsertProspect(p);
     setShowModal(false);
     setEditItem(null);
   }
 
   async function handleDelete(id: string) {
     if (!window.confirm('Ta bort detta prospekt?')) return;
-    await supabase.from('prospects').delete().eq('id', id);
-    setProspects(prev => prev.filter(p => p.id !== id));
+    await removeProspect(id);
   }
 
   const sc = SCENARIOS.find(s => s.key === scenario)!;
 
-  // Build calc results for each prospect, using area market data when available
-  const calcResults = useMemo(() => prospects.map(p => {
-    const mkt = markets.find(m =>
-      m.area.toLowerCase().includes(p.area.toLowerCase()) ||
-      p.area.toLowerCase().includes(m.area.toLowerCase())
-    );
+  // Bygg utvärdering för varje prospekt (med marknadsdata om tillgänglig).
+  const calcResults = useMemo(
+    () => prospects.map(p => evaluateProspect(p, markets, sc, horizon)),
+    [prospects, markets, sc, horizon],
+  );
 
-    const scenarioWithMarket = {
-      ...sc,
-      nights: mkt ? Math.round(mkt.occupancyPct * 3.65) : sc.nights,
-      adr:    mkt ? mkt.avgAdr : sc.adr,
-      annualGrowthPct: mkt ? mkt.annualGrowthPct : sc.annualGrowthPct,
-    };
-
-    const result = calcInvestment({
-      purchasePrice: p.purchasePrice,
-      scenario:      scenarioWithMarket,
-      horizonYears:  horizon,
-      useMortgage:   false,
-      mortgagePct:   60,
-      mortgageRate:  0.045,
-    });
-
-    const projection = calcProjection({
-      purchasePrice:   p.purchasePrice,
-      startYear:       new Date().getFullYear() + 1,
-      horizonYears:    horizon,
-      scenario:        scenarioWithMarket,
-      useMortgage:     false,
-      mortgagePct:     60,
-      mortgageRate:    0.045,
-      amortizationPct: 2,
-      inflationPct:    2,
-    });
-
-    const costs          = calcBuyingCosts(p.purchasePrice);
-    const pricePerSqmObj = p.sizeSqm > 0 ? p.purchasePrice / p.sizeSqm : 0;
-    const mktPricePerSqm = mkt?.pricePerSqm ?? 0;
-    const vsMarket       = mktPricePerSqm > 0
-      ? ((pricePerSqmObj - mktPricePerSqm) / mktPricePerSqm) * 100
-      : null;
-
-    return { p, result, projection, costs, pricePerSqmObj, vsMarket, mkt, usedMarket: !!mkt };
-  }), [prospects, markets, scenario, horizon]);
-
-  // Rank by net yield
-  const ranked = [...calcResults].sort((a, b) => b.result.netYield - a.result.netYield);
+  const ranked = rankByNetYield(calcResults);
   const winner = ranked[0]?.p.id;
 
   return (
