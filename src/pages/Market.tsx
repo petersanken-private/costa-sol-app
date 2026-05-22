@@ -4,38 +4,11 @@ import { AreaMarketData } from '../types';
 import { Card, SectionHeader, Btn, Modal, FormGroup } from '../components/ui';
 import { useMarketRefresh } from '../hooks/useMarketRefresh';
 import { fmtMoney } from '../utils/calc';
+import { marketFromDb, marketToDb } from '../lib/mappers';
 import '../styles/pages.css';
 
 function newId() { return 'mkt-' + Math.random().toString(36).slice(2, 10); }
 function today()  { return new Date().toISOString().split('T')[0]; }
-
-function dbToMarket(r: Record<string, unknown>): AreaMarketData {
-  return {
-    id:              r.id as string,
-    area:            r.area as string,
-    pricePerSqm:     r.price_per_sqm as number,
-    avgAdr:          r.avg_adr as number,
-    occupancyPct:    Number(r.occupancy_pct),
-    annualGrowthPct: Number(r.annual_growth_pct),
-    source:          r.source as string,
-    updatedAt:       r.updated_at as string,
-    notes:           r.notes as string | undefined,
-  };
-}
-
-function marketToDb(m: AreaMarketData): Record<string, unknown> {
-  return {
-    id:                m.id,
-    area:              m.area,
-    price_per_sqm:     m.pricePerSqm,
-    avg_adr:           m.avgAdr,
-    occupancy_pct:     m.occupancyPct,
-    annual_growth_pct: m.annualGrowthPct,
-    source:            m.source,
-    updated_at:        m.updatedAt,
-    notes:             m.notes ?? null,
-  };
-}
 
 const SEED_MARKET: AreaMarketData[] = [
   { id: 'mkt-1', area: 'Cancelada',           pricePerSqm: 4200, avgAdr: 195, occupancyPct: 65, annualGrowthPct: 9,  source: 'Idealista / AirDNA Q1 2025', updatedAt: today(), notes: 'Essence Residences-området. Stark tillväxt.' },
@@ -103,7 +76,7 @@ export function Market() {
 
     if (error) { setLoading(false); return; }
 
-    const rows = (data ?? []).map(r => dbToMarket(r as Record<string, unknown>));
+    const rows = (data ?? []).map(r => marketFromDb(r as Record<string, unknown>));
 
     if (rows.length === 0) {
       // Seed

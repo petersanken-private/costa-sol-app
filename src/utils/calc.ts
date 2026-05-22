@@ -336,3 +336,48 @@ export function runMonteCarlo(opts: MonteCarloOptions): MonteCarloResult {
     samples,
   };
 }
+
+// ── UI-färghjälpare för cashflow-rader ────────────────────────────────────────
+// Används i både Calculator (kassaflöde + köpkostnader) och PropertyDetail
+// — bryt UT istället för att duplicera nästlade ternaries.
+
+export interface CashflowRowMeta {
+  isFinal?:  boolean;
+  isNet?:    boolean;
+  isIncome?: boolean;
+  value:     number;
+}
+
+/**
+ * Hitta färg för en cashflow-rads VÄRDE-cell.
+ * - Slutraden (Netto e. skatt): scenarioFinishColor om positivt, röd om negativt.
+ * - Övriga: ljust grå för 0/utgift, normal text för intäkter.
+ */
+export function cashflowValueColor(row: CashflowRowMeta, finalPositiveColor: string): string {
+  if (row.isFinal) return row.value > 0 ? finalPositiveColor : 'var(--red)';
+  return row.value > 0 ? 'var(--text)' : 'var(--text-mute)';
+}
+
+/**
+ * Hitta färg för en cashflow-rads LABEL-cell.
+ */
+export function cashflowLabelColor(row: CashflowRowMeta): string {
+  if (row.isFinal)  return 'var(--text)';
+  if (row.isIncome) return 'var(--text)';
+  return 'var(--text-dim)';
+}
+
+export interface BuyingCostRowMeta {
+  bold?:      boolean;
+  highlight?: boolean;
+}
+
+/**
+ * Stilattribut för buying cost-rader (köpkostnadstabellen).
+ */
+export function buyingCostRowStyle(row: BuyingCostRowMeta): { fontWeight: number; color: string } {
+  return {
+    fontWeight: row.bold ? 600 : 400,
+    color:      row.highlight ? 'var(--gold)' : row.bold ? 'var(--text)' : 'var(--text-dim)',
+  };
+}

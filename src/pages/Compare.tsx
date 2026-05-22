@@ -6,35 +6,10 @@ import { SCENARIOS } from '../data';
 import { fmtMoney, fmtPct, calcInvestment, calcBuyingCosts, calcProjection } from '../utils/calc';
 import { exportBankPdf } from '../utils/export';
 import { AIPanel } from '../components/AIPanel';
+import { prospectFromDb, prospectToDb, marketFromDb } from '../lib/mappers';
 import '../styles/pages.css';
 
 function newId() { return 'pro-' + Math.random().toString(36).slice(2, 10); }
-
-function dbToProspect(r: Record<string, unknown>): ProspectProperty {
-  return {
-    id:            r.id as string,
-    name:          r.name as string,
-    area:          r.area as string,
-    type:          r.type as ProspectProperty['type'],
-    bedrooms:      r.bedrooms as number,
-    sizeSqm:       r.size_sqm as number,
-    terraceSqm:    r.terrace_sqm as number,
-    purchasePrice: r.purchase_price as number,
-    floor:         r.floor as string | undefined,
-    development:   r.development as string | undefined,
-    link:          r.link as string | undefined,
-    notes:         r.notes as string | undefined,
-  };
-}
-
-function prospectToDb(p: ProspectProperty): Record<string, unknown> {
-  return {
-    id: p.id, name: p.name, area: p.area, type: p.type,
-    bedrooms: p.bedrooms, size_sqm: p.sizeSqm, terrace_sqm: p.terraceSqm,
-    purchase_price: p.purchasePrice, floor: p.floor ?? null,
-    development: p.development ?? null, link: p.link ?? null, notes: p.notes ?? null,
-  };
-}
 
 export function Compare() {
   const [prospects, setProspects] = useState<ProspectProperty[]>([]);
@@ -53,8 +28,8 @@ export function Compare() {
       supabase.from('prospects').select('*').order('created_at'),
       supabase.from('area_market_data').select('*'),
     ]);
-    setProspects((pros ?? []).map(r => dbToProspect(r as Record<string, unknown>)));
-    setMarkets((mkts ?? []).map(r => r as unknown as AreaMarketData));
+    setProspects((pros ?? []).map(r => prospectFromDb(r as Record<string, unknown>)));
+    setMarkets((mkts ?? []).map(r => marketFromDb(r as Record<string, unknown>)));
     setLoading(false);
   }
 

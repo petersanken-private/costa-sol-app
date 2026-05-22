@@ -74,12 +74,17 @@ export function toDb<T extends object>(
 //
 // Listorna nedan håller koll på vilka fält som är optional per typ.
 
-import type { Property, RentalEntry, Expense, PropertyDocument } from '../types';
+import type {
+  Property, RentalEntry, Expense, PropertyDocument,
+  ProspectProperty, AreaMarketData,
+} from '../types';
 
-const PROPERTY_OPTIONAL:  (keyof Property)[]         = ['purchaseDate', 'completionDate', 'notes'];
-const RENTAL_OPTIONAL:    (keyof RentalEntry)[]      = ['notes'];
-const EXPENSE_OPTIONAL:   (keyof Expense)[]          = [];
-const DOC_OPTIONAL:       (keyof PropertyDocument)[] = ['notes'];
+const PROPERTY_OPTIONAL:  (keyof Property)[]          = ['purchaseDate', 'completionDate', 'notes'];
+const RENTAL_OPTIONAL:    (keyof RentalEntry)[]       = ['notes'];
+const EXPENSE_OPTIONAL:   (keyof Expense)[]           = [];
+const DOC_OPTIONAL:       (keyof PropertyDocument)[]  = ['notes'];
+const PROSPECT_OPTIONAL:  (keyof ProspectProperty)[]  = ['floor', 'development', 'link', 'notes'];
+const MARKET_OPTIONAL:    (keyof AreaMarketData)[]    = ['notes'];
 
 export const propertyFromDb = (r: DbRow) => fromDb<Property>(r, PROPERTY_OPTIONAL);
 export const propertyToDb   = (p: Property) => toDb<Property>(p, PROPERTY_OPTIONAL);
@@ -92,3 +97,18 @@ export const expenseToDb   = (e: Expense) => toDb<Expense>(e, EXPENSE_OPTIONAL);
 
 export const docFromDb = (r: DbRow) => fromDb<PropertyDocument>(r, DOC_OPTIONAL);
 export const docToDb   = (d: PropertyDocument) => toDb<PropertyDocument>(d, DOC_OPTIONAL);
+
+export const prospectFromDb = (r: DbRow) => fromDb<ProspectProperty>(r, PROSPECT_OPTIONAL);
+export const prospectToDb   = (p: ProspectProperty) => toDb<ProspectProperty>(p, PROSPECT_OPTIONAL);
+
+// Marknadsdata: occupancyPct och annualGrowthPct kommer som strängar från
+// postgres NUMERIC-typen — coerce till Number här.
+export function marketFromDb(r: DbRow): AreaMarketData {
+  const base = fromDb<AreaMarketData>(r, MARKET_OPTIONAL);
+  return {
+    ...base,
+    occupancyPct:    Number(base.occupancyPct),
+    annualGrowthPct: Number(base.annualGrowthPct),
+  };
+}
+export const marketToDb = (m: AreaMarketData) => toDb<AreaMarketData>(m, MARKET_OPTIONAL);

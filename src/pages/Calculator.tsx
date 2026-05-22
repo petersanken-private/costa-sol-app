@@ -3,9 +3,14 @@ import { useApp } from '../hooks/useApp';
 import { Card, Stat, Tabs, SectionHeader, Btn } from '../components/ui';
 import { SCENARIOS, UNIT_PRESETS } from '../data';
 import { ScenarioKey } from '../types';
-import { fmtMoney, fmtPct, calcInvestment, calcBuyingCosts, calcProjection, runMonteCarlo, BuyingCostBreakdown, MonteCarloResult } from '../utils/calc';
+import {
+  fmtMoney, fmtPct, calcInvestment, calcBuyingCosts, calcProjection, runMonteCarlo,
+  cashflowLabelColor, cashflowValueColor, buyingCostRowStyle,
+  BuyingCostBreakdown, MonteCarloResult,
+} from '../utils/calc';
 import { useMortgages } from '../hooks/useMortgages';
 import { rateForDate } from '../utils/mortgageCalc';
+import { TAX, OPERATING } from '../constants/tax';
 import '../styles/pages.css';
 
 const CALC_TABS = [
@@ -302,10 +307,10 @@ export function Calculator() {
               key={i}
               className={`cashflow-row ${row.isFinal ? 'cashflow-row--final' : ''} ${row.isNet ? 'cashflow-row--net' : ''}`}
             >
-              <span style={{ color: row.isFinal ? 'var(--text)' : row.isIncome ? 'var(--text)' : 'var(--text-dim)' }}>
+              <span style={{ color: cashflowLabelColor(row) }}>
                 {row.label}
               </span>
-              <span style={{ color: row.isFinal ? (row.value > 0 ? sc.color : 'var(--red)') : row.value > 0 ? 'var(--text)' : 'var(--text-mute)' }}>
+              <span style={{ color: cashflowValueColor(row, sc.color) }}>
                 {row.value >= 0 ? '+' : '−'}{fmtMoney(Math.abs(row.value))}
               </span>
             </div>
@@ -410,7 +415,7 @@ export function Calculator() {
             const rentAccum = result.netAfterTax * yr;
             const projPrice = purchasePrice * Math.pow(1 + sc.annualGrowthPct / 100, yr);
             const gain      = projPrice - purchasePrice;
-            const gainTax   = gain * 0.19;
+            const gainTax   = gain * TAX.CAPITAL_GAINS_PCT;
             const total     = rentAccum + gain - gainTax;
             const pct       = Math.max(0, Math.min(100, (total / (result.equity * 1.5)) * 100));
 
@@ -444,7 +449,7 @@ export function Calculator() {
               className={`cashflow-row ${row.bold ? 'cashflow-row--net' : ''} ${row.highlight ? 'cashflow-row--final' : ''}`}
             >
               <div>
-                <span style={{ fontWeight: row.bold ? 600 : 400, color: row.highlight ? 'var(--gold)' : row.bold ? 'var(--text)' : 'var(--text-dim)' }}>
+                <span style={buyingCostRowStyle(row)}>
                   {row.label}
                 </span>
                 {row.note && <span className="text-mute" style={{ fontSize: '11px', marginLeft: '8px' }}>· {row.note}</span>}
@@ -648,7 +653,7 @@ function buildCashflowRows(
     { label: 'Förvaltningsavgift (18%)',                    value: -result.managementFee                     },
     { label: `Städning (€55 × ${nights} nätter)`,          value: -result.cleaningCost                      },
     { label: 'IBI + Försäkring + Community + Gestor',      value: -result.fixedCosts                        },
-    { label: `Underhåll (0.4% × ${fmtMoney(purchasePrice)})`, value: -(purchasePrice * 0.004)                },
+    { label: `Underhåll (${(OPERATING.MAINTENANCE_PCT * 100).toFixed(1)}% × ${fmtMoney(purchasePrice)})`, value: -(purchasePrice * OPERATING.MAINTENANCE_PCT) },
     ...(useMortgage ? [{ label: `Bolåneränta (${mortgageRatePct}%)`, value: -result.mortgageCost }] : []),
     { label: 'Nettoinkomst f. skatt',                       value:  result.netBeforeTax,     isNet: true     },
     { label: 'IRNR-skatt (19% på netto)',                   value: -result.tax                               },
