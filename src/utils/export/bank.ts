@@ -1,5 +1,5 @@
 import { ProspectProperty, AreaMarketData } from '../../types';
-import { calcInvestment, calcBuyingCosts, calcProjection, fmtEur, fmtPct } from '../calc';
+import { calcInvestment, calcBuyingCosts, calcProjection, fmtEur, fmtPct } from '../calc.utils';
 import { SCENARIOS } from '../../data';
 import { TAX, BUYING_COSTS, OPERATING, MORTGAGE_DEFAULTS } from '../../constants/tax';
 

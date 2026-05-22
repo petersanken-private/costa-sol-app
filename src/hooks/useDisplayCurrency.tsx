@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { useCurrency } from './useCurrency';
-import { DisplayCurrency, setDisplayCurrency, setEurToSekRate } from '../utils/calc';
+import { DisplayCurrency, setDisplayCurrency, setEurToSekRate } from '../utils/calc.utils';
 
 const STORAGE_KEY = 'costa-sol:display-currency';
 

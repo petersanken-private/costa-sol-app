@@ -7,9 +7,9 @@ import {
   fmtMoney, fmtPct, calcInvestment, calcBuyingCosts, calcProjection, runMonteCarlo,
   cashflowLabelColor, cashflowValueColor, buyingCostRowStyle,
   BuyingCostBreakdown, MonteCarloResult,
-} from '../utils/calc';
+} from '../utils/calc.utils';
 import { useMortgages } from '../hooks/useMortgages';
-import { rateForDate } from '../utils/mortgageCalc';
+import { rateForDate } from '../utils/mortgage.utils';
 import { TAX, OPERATING } from '../constants/tax';
 import '../styles/pages.css';
 

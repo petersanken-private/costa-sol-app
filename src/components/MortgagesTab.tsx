@@ -2,11 +2,11 @@ import { useState, useMemo } from 'react';
 import { useMortgages, MortgageWithPeriods } from '../hooks/useMortgages';
 import { Mortgage, MortgageRatePeriod, AmortizationType, RateType } from '../types';
 import { Card, Btn, Modal, FormGroup, Badge, Stat, SectionHeader } from './ui';
-import { fmtMoney, fmtPct } from '../utils/calc';
+import { fmtMoney, fmtPct } from '../utils/calc.utils';
 import {
   buildAmortizationSchedule, summarizeByYear, currentBalance,
   totalInterestPaid,
-} from '../utils/mortgageCalc';
+} from '../utils/mortgage.utils';
 
 const AMORT_LABELS: Record<AmortizationType, string> = {
   annuity:       'Annuitet',

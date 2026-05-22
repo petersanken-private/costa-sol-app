@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useApp } from '../hooks/useApp';
 import { Card, Badge, Btn, SectionHeader, Stat, Divider, Tabs, Modal, FormGroup } from '../components/ui';
-import { fmtMoney, fmtPct, calcInvestment, calcBuyingCosts, cashflowLabelColor, cashflowValueColor } from '../utils/calc';
+import { fmtMoney, fmtPct, calcInvestment, calcBuyingCosts, cashflowLabelColor, cashflowValueColor } from '../utils/calc.utils';
 import { OPERATING } from '../constants/tax';
 import { SCENARIOS, MONTHS_SV, EXPENSE_LABELS, PLATFORM_COLORS, STATUS_LABELS, STATUS_COLORS } from '../data';
 import { ScenarioKey, RentalEntry, Expense, ExpenseCategory, RentalPlatform } from '../types';

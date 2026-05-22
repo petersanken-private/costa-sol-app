@@ -3,7 +3,7 @@ import { useAIInsights } from '../hooks/useAIInsights';
 import { useApp } from '../hooks/useApp';
 import { AIPreset } from '../types';
 import { Card, Btn, SectionHeader } from './ui';
-import { renderMarkdown } from '../utils/markdown';
+import { renderMarkdown } from '../utils/markdown.utils';
 
 interface PresetOption { key: AIPreset; label: string; icon: string; }
 

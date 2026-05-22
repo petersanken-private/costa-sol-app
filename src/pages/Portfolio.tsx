@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../hooks/useApp';
 import { Property, PropertyStatus } from '../types';
 import { Card, Badge, Btn, EmptyState, Modal, FormGroup } from '../components/ui';
-import { fmtMoney } from '../utils/calc';
+import { fmtMoney } from '../utils/calc.utils';
 import { STATUS_LABELS, STATUS_COLORS } from '../data';
 import { ExportMenu } from '../components/ExportMenu';
 import { exportPortfolioCsv, exportPortfolioPdf } from '../utils/export';

@@ -3,7 +3,7 @@ import { AreaMarketData } from '../types';
 import { Card, SectionHeader, Btn, Modal, FormGroup } from '../components/ui';
 import { useMarketRefresh } from '../hooks/useMarketRefresh';
 import { useMarketData } from '../hooks/useMarketData';
-import { fmtMoney } from '../utils/calc';
+import { fmtMoney } from '../utils/calc.utils';
 import '../styles/pages.css';
 
 function newId() { return 'mkt-' + Math.random().toString(36).slice(2, 10); }

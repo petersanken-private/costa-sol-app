@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useRecurringExpenses } from '../hooks/useRecurringExpenses';
 import { RecurringExpense, RecurringFrequency, ExpenseCategory } from '../types';
 import { Card, Btn, Modal, FormGroup, Badge } from './ui';
-import { fmtMoney } from '../utils/calc';
+import { fmtMoney } from '../utils/calc.utils';
 import { EXPENSE_LABELS } from '../data';
-import { frequencyLabel, annualizedCost } from '../utils/recurringGenerator';
+import { frequencyLabel, annualizedCost } from '../utils/recurring.utils';
 
 const FREQ_LABELS: Record<RecurringFrequency, string> = {
   monthly:   'Månadsvis',

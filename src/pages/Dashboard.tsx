@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useApp } from '../hooks/useApp';
 import { Card, Stat, SectionHeader, Badge } from '../components/ui';
-import { fmtMoney, fmtPct, calcPortfolioKPIs } from '../utils/calc';
+import { fmtMoney, fmtPct, calcPortfolioKPIs } from '../utils/calc.utils';
 import { MONTHS_SV, STATUS_LABELS, STATUS_COLORS, PLATFORM_COLORS } from '../data';
 import '../styles/pages.css';
 import { CurrencyWidget } from '../components/CurrencyWidget';
