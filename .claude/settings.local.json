@@ -14,7 +14,9 @@
       "Bash(gh pr create --base main --head refactor/etapp-a-low-risk-cleanup --title 'Refactor A: magiska tal → konstanter, generiska mappers, cashflow-färghjälpare' --body ' *)",
       "Bash(gh pr create --base main --head refactor/etapp-b-data-hooks --title 'Refactor B: lyft data från Compare/Market till hooks + extrahera prospect.utils' --body ' *)",
       "Bash(gh pr create --base main --head refactor/etapp-c-types-utils-naming --title 'Refactor C: types per feature + .utils.ts-suffix' --body ' *)",
-      "Bash(gh pr *)"
+      "Bash(gh pr *)",
+      "Bash(sed -i '' '258,329d' /Users/petersandqvist/Desktop/real-estate-app/src/pages/Market.tsx)",
+      "Bash(sed -i '' '11,42d' /Users/petersandqvist/Desktop/real-estate-app/src/pages/Market.tsx)"
     ]
   }
 }
