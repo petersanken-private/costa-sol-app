@@ -3,9 +3,9 @@ import { useApp } from '../hooks/useApp';
 import { Card, Btn, Tabs } from '../components/ui';
 import { calcBuyingCosts } from '../utils/calc.utils';
 import { DocumentsTab } from '../components/DocumentsTab';
-import { RecurringExpensesTab } from '../components/RecurringExpensesTab';
-import { MortgagesTab } from '../components/MortgagesTab';
-import { BudgetTab } from '../components/BudgetTab';
+import { RecurringExpensesTab } from '../components/recurring';
+import { MortgagesTab } from '../components/mortgages';
+import { BudgetTab } from '../components/budget';
 import { AIPanel } from '../components/AIPanel';
 import {
   PropertyHeader, PropertyQuickStats, CalcTab, RentalsTab, ExpensesTab,
