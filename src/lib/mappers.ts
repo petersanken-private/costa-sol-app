@@ -11,9 +11,27 @@ export function snakeToCamel(s: string): string {
   return s.replace(/_([a-z])/g, (_, c) => c.toUpperCase());
 }
 
-/** camelCase → snake_case. `sizeSqm` → `size_sqm`. */
+/**
+ * camelCase → snake_case med akronym-stöd.
+ *
+ * Exempel:
+ *  - `sizeSqm`        → `size_sqm`
+ *  - `propertyId`     → `property_id`
+ *  - `occupancyPct`   → `occupancy_pct`      (Pct är akronym)
+ *  - `hasVFTLicense`  → `has_vft_license`    (VFT är akronym)
+ *  - `annualGrowthPct`→ `annual_growth_pct`
+ *
+ * VIKTIGT: en tidigare version av denna funktion (s.replace(/[A-Z]/g, ...))
+ * insatte `_` före VARJE versal vilket gav `has_v_f_t_license` och
+ * `occupancy_p_c_t`. Eftersom vi inte destrukturerade Supabase:s { error }
+ * passerade dessa fel tyst och data försvann vid refresh. Båda buggar är
+ * åtgärdade nu — denna funktion (smartare regex) + useApp:s hotfix.
+ */
 export function camelToSnake(s: string): string {
-  return s.replace(/[A-Z]/g, c => '_' + c.toLowerCase());
+  return s
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1_$2')  // VFTL → VFT_L, hanterar akronymer
+    .replace(/([a-z\d])([A-Z])/g, '$1_$2')      // sV → s_V, vanliga camelCase-gränser
+    .toLowerCase();
 }
 
 /**
@@ -22,13 +40,20 @@ export function camelToSnake(s: string): string {
  * @param row             Raden från Supabase
  * @param optionalFields  Fält som kan vara null/undefined i app-typen
  *                        (null konverteras till undefined för dem).
+ * @param dbFieldOverrides Mapping {DB-kolumn → app-fält} för fält som inte
+ *                         följer naivt snake↔camel (t.ex. akronymer som
+ *                         `has_vft_license` ↔ `hasVFTLicense`).
  */
-export function fromDb<T>(row: DbRow, optionalFields: (keyof T)[] = []): T {
+export function fromDb<T>(
+  row: DbRow,
+  optionalFields: (keyof T)[] = [],
+  dbFieldOverrides: Record<string, string> = {},
+): T {
   const out: Record<string, unknown> = {};
   const optionalSet = new Set(optionalFields.map(String));
 
   for (const [k, v] of Object.entries(row)) {
-    const camel = snakeToCamel(k);
+    const camel = dbFieldOverrides[k] ?? snakeToCamel(k);
     // Hoppa över interna kolumner som inte är del av app-typen
     if (camel === 'createdAt') continue;
     if (v === null && optionalSet.has(camel)) {
@@ -80,13 +105,18 @@ import type {
 } from '../types';
 
 const PROPERTY_OPTIONAL:  (keyof Property)[]          = ['purchaseDate', 'completionDate', 'notes'];
+// VFT-akronymen följer inte naivt snake↔camel-mönster. snakeToCamel skulle
+// annars ge 'hasVftLicense'. Detta override:r läsvägen så app-typen behåller
+// 'hasVFTLicense'. Skrivvägen funkar automatiskt via smart camelToSnake.
+const PROPERTY_FROM_DB_OVERRIDES = { has_vft_license: 'hasVFTLicense' };
 const RENTAL_OPTIONAL:    (keyof RentalEntry)[]       = ['notes'];
 const EXPENSE_OPTIONAL:   (keyof Expense)[]           = [];
 const DOC_OPTIONAL:       (keyof PropertyDocument)[]  = ['notes'];
 const PROSPECT_OPTIONAL:  (keyof ProspectProperty)[]  = ['floor', 'development', 'link', 'notes'];
 const MARKET_OPTIONAL:    (keyof AreaMarketData)[]    = ['notes'];
 
-export const propertyFromDb = (r: DbRow) => fromDb<Property>(r, PROPERTY_OPTIONAL);
+export const propertyFromDb = (r: DbRow) =>
+  fromDb<Property>(r, PROPERTY_OPTIONAL, PROPERTY_FROM_DB_OVERRIDES);
 export const propertyToDb   = (p: Property) => toDb<Property>(p, PROPERTY_OPTIONAL);
 
 export const rentalFromDb = (r: DbRow) => fromDb<RentalEntry>(r, RENTAL_OPTIONAL);
