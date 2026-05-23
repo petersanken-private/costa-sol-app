@@ -163,45 +163,83 @@ export function AppProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  // ── Optimistic dispatch + DB sync ──────────────────────────────────────────
-  const syncDispatch = useCallback(async (action: Action) => {
-    dispatch(action); // optimistic UI update
+  // ── DB först, state efter ─────────────────────────────────────────────────
+  //
+  // VIKTIGT: Tidigare gjorde vi optimistic UI-update FÖRST och DB-anrop sedan,
+  // utan att fånga supabase-js:s `{ data, error }`-returvärde. Det betydde att
+  // RLS-fel, auth-utgång och nätverksfel passerade tyst — UI:t visade objekt
+  // som aldrig sparades. Vid refresh laddades data om från DB och allt försvann.
+  //
+  // Nu väntar vi på DB-bekräftelse FÖRE state-uppdatering. Vid fel kastar vi
+  // ett tydligt error, behåller state oförändrad och visar en banner.
+  // Trade-off: ~100-300ms extra latency vid varje skriv — värt det för
+  // garanterad datapersistens.
 
+  /** Kör en Supabase-operation och kasta tydligt fel om Supabase rapporterar error. */
+  async function runSupabase(
+    label: string,
+    op: () => PromiseLike<{ error: { message: string } | null }>,
+  ): Promise<void> {
+    const { error } = await op();
+    if (error) {
+      console.error(`Supabase ${label} failed:`, error);
+      throw new Error(`${label}: ${error.message}`);
+    }
+  }
+
+  const syncDispatch = useCallback(async (action: Action) => {
     try {
       switch (action.type) {
         case 'ADD_PROPERTY':
-          await supabase.from('properties').insert(propertyToDb(action.property));
+          await runSupabase('ADD_PROPERTY',
+            () => supabase.from('properties').insert(propertyToDb(action.property)));
           break;
         case 'UPDATE_PROPERTY':
-          await supabase.from('properties').update(propertyToDb(action.property)).eq('id', action.property.id);
+          await runSupabase('UPDATE_PROPERTY',
+            () => supabase.from('properties').update(propertyToDb(action.property)).eq('id', action.property.id));
           break;
         case 'DELETE_PROPERTY':
-          await supabase.from('properties').delete().eq('id', action.id);
+          await runSupabase('DELETE_PROPERTY',
+            () => supabase.from('properties').delete().eq('id', action.id));
           break;
         case 'ADD_RENTAL':
-          await supabase.from('rentals').insert(rentalToDb(action.rental));
+          await runSupabase('ADD_RENTAL',
+            () => supabase.from('rentals').insert(rentalToDb(action.rental)));
           break;
         case 'DELETE_RENTAL':
-          await supabase.from('rentals').delete().eq('id', action.id);
+          await runSupabase('DELETE_RENTAL',
+            () => supabase.from('rentals').delete().eq('id', action.id));
           break;
         case 'ADD_EXPENSE':
-          await supabase.from('expenses').insert(expenseToDb(action.expense));
+          await runSupabase('ADD_EXPENSE',
+            () => supabase.from('expenses').insert(expenseToDb(action.expense)));
           break;
         case 'DELETE_EXPENSE':
-          await supabase.from('expenses').delete().eq('id', action.id);
+          await runSupabase('DELETE_EXPENSE',
+            () => supabase.from('expenses').delete().eq('id', action.id));
           break;
         case 'RESET_ALL':
-          await supabase.from('properties').delete().neq('id', '');
-          // Nolla flaggan så seed återskapar exempeldatan
+          await runSupabase('RESET_ALL',
+            () => supabase.from('properties').delete().neq('id', ''));
           localStorage.removeItem(SEED_FLAG_KEY);
+          // Seed kör egen DB + state-uppdatering — vi returnerar tidigt.
           await seedDatabase();
-          break;
+          return;
+        case 'SET_DATA':
+        case 'NAVIGATE':
+          // Klient-bara actions — ingen DB-skrivning behövs.
+          dispatch(action);
+          return;
         default:
           break;
       }
+
+      // DB-anropet lyckades → uppdatera state nu.
+      dispatch(action);
+      setDbError(null);
     } catch (err) {
-      console.error('DB sync error:', err);
-      setDbError('Databasfel — ändringen kanske inte sparades. Ladda om sidan.');
+      const msg = err instanceof Error ? err.message : 'Okänt fel';
+      setDbError(`Ändringen kunde INTE sparas: ${msg}. Försök igen — om det fortsätter, ladda om sidan.`);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
