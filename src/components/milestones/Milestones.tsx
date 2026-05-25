@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useApp } from '../hooks/useApp';
-import { useMilestones, daysUntil } from '../hooks/useMilestones';
-import { Milestone, MilestoneStatus } from '../types';
-import { Card, Btn } from '../components/ui';
-import { fmtMoney } from '../utils/calc.utils';
-import { catInfo, DueBadge, MilestoneModal } from '../components/milestones';
+import { useApp } from '../../hooks/useApp';
+import { useMilestones, daysUntil } from '../../hooks/useMilestones';
+import { Milestone, MilestoneStatus } from '../../types';
+import { Card, Btn } from '../ui';
+import { fmtMoney } from '../../utils/calc.utils';
+import { catInfo, DueBadge, MilestoneModal } from '.';
 
 // ── Main page ─────────────────────────────────────────────────────────────────
 export function Milestones() {

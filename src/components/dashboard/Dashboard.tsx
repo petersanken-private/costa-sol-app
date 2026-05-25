@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react';
-import { useApp } from '../hooks/useApp';
-import { Card, Stat, SectionHeader, Badge } from '../components/ui';
-import { fmtMoney, fmtPct, calcPortfolioKPIs } from '../utils/calc.utils';
-import { MONTHS_SV, STATUS_LABELS, STATUS_COLORS, PLATFORM_COLORS } from '../data';
-import '../styles/pages.css';
-import { CurrencyWidget } from '../components/CurrencyWidget';
-import { useMilestones, daysUntil } from '../hooks/useMilestones';
-import { AIPanel } from '../components/AIPanel';
+import { useApp } from '../../hooks/useApp';
+import { Card, Stat, SectionHeader, Badge } from '../ui';
+import { fmtMoney, fmtPct, calcPortfolioKPIs } from '../../utils/calc.utils';
+import { MONTHS_SV, STATUS_LABELS, STATUS_COLORS, PLATFORM_COLORS } from '../../data';
+import '../../styles/pages.css';
+import { CurrencyWidget } from '../CurrencyWidget';
+import { useMilestones, daysUntil } from '../../hooks/useMilestones';
+import { AIPanel } from '../AIPanel';
 
 const CURRENT_YEAR = new Date().getFullYear();
 

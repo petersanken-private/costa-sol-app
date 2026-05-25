@@ -1,15 +1,15 @@
 import { useState, useMemo } from 'react';
-import { ProspectProperty, ScenarioKey } from '../types';
-import { Card, Btn } from '../components/ui';
-import { SCENARIOS } from '../data';
-import { fmtMoney, fmtPct } from '../utils/calc.utils';
-import { evaluateProspect, rankByNetYield } from '../utils/prospect.utils';
-import { exportBankPdf } from '../utils/export';
-import { AIPanel } from '../components/AIPanel';
-import { ProspectModal } from '../components/compare';
-import { useProspects } from '../hooks/useProspects';
-import { useMarketData } from '../hooks/useMarketData';
-import '../styles/pages.css';
+import { ProspectProperty, ScenarioKey } from '../../types';
+import { Card, Btn } from '../ui';
+import { SCENARIOS } from '../../data';
+import { fmtMoney, fmtPct } from '../../utils/calc.utils';
+import { evaluateProspect, rankByNetYield } from '../../utils/prospect.utils';
+import { exportBankPdf } from '../../utils/export';
+import { AIPanel } from '../AIPanel';
+import { ProspectModal } from '.';
+import { useProspects } from '../../hooks/useProspects';
+import { useMarketData } from '../../hooks/useMarketData';
+import '../../styles/pages.css';
 
 export function Compare() {
   const { prospects, loading: prospectsLoading, upsert: upsertProspect, remove: removeProspect } = useProspects();

@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { AreaMarketData } from '../types';
-import { Card, SectionHeader, Btn } from '../components/ui';
-import { useMarketRefresh } from '../hooks/useMarketRefresh';
-import { useMarketData } from '../hooks/useMarketData';
-import { MarketModal, RefreshBanner } from '../components/market';
-import { fmtMoney } from '../utils/calc.utils';
-import '../styles/pages.css';
+import { AreaMarketData } from '../../types';
+import { Card, SectionHeader, Btn } from '../ui';
+import { useMarketRefresh } from '../../hooks/useMarketRefresh';
+import { useMarketData } from '../../hooks/useMarketData';
+import { MarketModal, RefreshBanner } from '.';
+import { fmtMoney } from '../../utils/calc.utils';
+import '../../styles/pages.css';
 
 export function Market() {
   const { markets, loading, upsert, remove, reload } = useMarketData();

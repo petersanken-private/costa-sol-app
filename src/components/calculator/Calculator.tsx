@@ -1,20 +1,20 @@
 import { useState } from 'react';
-import { useApp } from '../hooks/useApp';
-import { Card, Stat, Tabs } from '../components/ui';
-import { SCENARIOS, UNIT_PRESETS } from '../data';
-import { ScenarioKey } from '../types';
+import { useApp } from '../../hooks/useApp';
+import { Card, Stat, Tabs } from '../ui';
+import { SCENARIOS, UNIT_PRESETS } from '../../data';
+import { ScenarioKey } from '../../types';
 import {
   fmtMoney, fmtPct, calcInvestment, calcBuyingCosts, calcProjection,
   BuyingCostBreakdown,
-} from '../utils/calc.utils';
-import { useMortgages } from '../hooks/useMortgages';
-import { rateForDate } from '../utils/mortgage.utils';
-import { OPERATING } from '../constants/tax';
+} from '../../utils/calc.utils';
+import { useMortgages } from '../../hooks/useMortgages';
+import { rateForDate } from '../../utils/mortgage.utils';
+import { OPERATING } from '../../constants/tax';
 import {
   CashflowTab, ProjectionTab, TimelineTab, CostsTab, MonteCarloTab,
   CashflowRow, BuyingCostRow,
-} from '../components/calculator';
-import '../styles/pages.css';
+} from '.';
+import '../../styles/pages.css';
 
 const CALC_TABS = [
   { id: 'cashflow',   label: 'Kassaflöde'  },
