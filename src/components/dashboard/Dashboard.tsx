@@ -14,6 +14,8 @@ export function Dashboard() {
   const { state, navigate } = useApp();
   const { milestones } = useMilestones();
   const alertMs = milestones.filter(m => m.status === 'overdue' || (m.status === 'upcoming' && daysUntil(m.dueDate) <= 7));
+  const overdueCount  = alertMs.filter(m => m.status === 'overdue').length;
+  const upcomingCount = alertMs.filter(m => m.status === 'upcoming').length;
   const { properties, rentals, expenses } = state;
 
   const availableYears = useMemo(() => {
@@ -70,27 +72,28 @@ export function Dashboard() {
   return (
     <div className="page">
       {alertMs.length > 0 && (
-        <div className="ms-alert-banner" onClick={() => navigate('milestones')}>
-          <span className="ms-alert-banner__icon">⏰</span>
-          <span className="ms-alert-banner__text">
-            {alertMs.filter(m => m.status === 'overdue').length > 0 && (
-              <strong>{alertMs.filter(m => m.status === 'overdue').length} försenade</strong>
-            )}
-            {alertMs.filter(m => m.status === 'overdue').length > 0 && alertMs.filter(m => m.status === 'upcoming').length > 0 && ' · '}
-            {alertMs.filter(m => m.status === 'upcoming').length > 0 && (
-              <span>{alertMs.filter(m => m.status === 'upcoming').length} milstolpar inom 7 dagar</span>
-            )}
+        <button
+          type="button"
+          className="flex items-center gap-2.5 w-full text-left bg-[#fff7ed] border border-[#fed7aa] rounded-md px-3 py-2.5 mb-4 cursor-pointer transition-colors duration-150 hover:bg-[#ffedd5]"
+          onClick={() => navigate('milestones')}
+        >
+          <span className="text-[18px] flex-shrink-0">⏰</span>
+          <span className="flex-1 text-[13px] text-[#92400e]">
+            {overdueCount > 0 && <strong className="text-red">{overdueCount} försenade</strong>}
+            {overdueCount > 0 && upcomingCount > 0 && ' · '}
+            {upcomingCount > 0 && <span>{upcomingCount} milstolpar inom 7 dagar</span>}
           </span>
-          <span className="ms-alert-banner__cta">Visa →</span>
-        </div>
+          <span className="text-[12px] font-semibold text-[#c2410c] whitespace-nowrap">Visa →</span>
+        </button>
       )}
+
       <div className="page-header">
         <p className="page-eyebrow">Välkommen tillbaka</p>
-        <div className="dashboard-top-bar">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
           <h1 className="page-title">Portföljöversikt</h1>
-          <div className="dashboard-filters">
+          <div className="flex flex-wrap items-center gap-2">
             <select
-              className="dash-filter-select"
+              className="bg-bg-card border border-border rounded-md px-3 py-2 text-[13px] text-text cursor-pointer transition-colors duration-150 hover:border-border-hi focus:border-gold focus:outline-none"
               value={selectedProperty}
               onChange={e => setSelectedProperty(e.target.value)}
             >
@@ -99,21 +102,24 @@ export function Dashboard() {
                 <option key={p.id} value={p.id}>{p.name}</option>
               ))}
             </select>
-            <div className="year-btns">
-              {availableYears.map(y => (
-                <button
-                  key={y}
-                  className={`year-btn ${selectedYear === y ? 'year-btn--active' : ''}`}
-                  onClick={() => setSelectedYear(y)}
-                >{y}</button>
-              ))}
+            <div className="flex gap-1">
+              {availableYears.map(y => {
+                const active = selectedYear === y;
+                const base = 'px-3 py-1.5 text-[12px] rounded-md border transition-colors duration-150 cursor-pointer';
+                const variant = active
+                  ? 'bg-gold text-bg border-gold font-medium'
+                  : 'bg-bg-card text-text-dim border-border hover:border-border-hi';
+                return (
+                  <button key={y} className={`${base} ${variant}`} onClick={() => setSelectedYear(y)}>{y}</button>
+                );
+              })}
             </div>
           </div>
         </div>
       </div>
 
       {/* KPI strip */}
-      <div className="grid-4" style={{ marginBottom: '28px' }}>
+      <div className="grid-4 mb-7">
         <Card className="card-p-md">
           <Stat label="Totalt investerat" value={fmtMoney(totalInvested)} sub={`${properties.length} fastigheter`} />
         </Card>
@@ -144,65 +150,64 @@ export function Dashboard() {
       </div>
 
       {/* Main grid */}
-      <div className="dashboard-grid">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_340px] gap-5 mt-5">
         <Card className="card-p">
-          <div className="chart-header">
+          <div className="flex items-center justify-between gap-3 mb-3">
             <SectionHeader title={`Hyresintäkt per månad · ${selectedYear}`} />
             {totalRent === 0 && (
-              <p className="chart-empty-hint">Logga hyresintäkter på fastighetssidan för att se grafen.</p>
+              <p className="text-text-mute text-[12px] italic">Logga hyresintäkter på fastighetssidan för att se grafen.</p>
             )}
           </div>
 
-          <div className="chart-bars">
+          <div className="flex items-end gap-2.5 h-[140px] mb-2">
             {chartData.map((d, i) => (
-              <div key={i} className="chart-bar-col">
-                <span className="chart-bar-label">{d.revenue > 0 ? fmtMoney(d.revenue) : ''}</span>
+              <div key={i} className="flex-1 flex flex-col items-center h-full justify-end gap-1.5">
+                <span className="text-[10px] text-gold min-h-[14px]">{d.revenue > 0 ? fmtMoney(d.revenue) : ''}</span>
                 <div
-                  className={`chart-bar ${!d.hasData ? 'chart-bar--empty' : ''}`}
+                  className={`w-full rounded-t transition-[height] duration-[400ms] ease-in-out min-h-[3px] ${
+                    d.hasData
+                      ? 'bg-gradient-to-b from-gold to-gold/40'
+                      : 'bg-border'
+                  }`}
                   style={{ height: `${Math.max((d.revenue / maxRevenue) * 110, d.hasData ? 4 : 0)}px` }}
                   title={d.hasData ? `${d.label}: ${fmtMoney(d.revenue)} · ${d.nights} nätter` : undefined}
                 />
-                <span className={`chart-month ${d.hasData ? '' : 'chart-month--empty'}`}>{d.label}</span>
+                <span className={`text-[11px] ${d.hasData ? 'text-text-mute' : 'text-text-mute/50'}`}>{d.label}</span>
               </div>
             ))}
           </div>
 
-          <div className="chart-footer">
-            <div className="chart-footer-stat">
-              <label>Totalt {selectedYear}</label>
-              <p className="text-gold">{fmtMoney(totalRent)}</p>
-            </div>
-            <div className="chart-footer-stat">
-              <label>Snitt / aktiv mån</label>
-              <p>{activeMonths > 0 ? fmtMoney(avgPerMonth) : '—'}</p>
-            </div>
-            <div className="chart-footer-stat">
-              <label>Snitt ADR</label>
-              <p>{avgAdr > 0 ? `${fmtMoney(avgAdr)}/natt` : '—'}</p>
-            </div>
-            <div className="chart-footer-stat">
-              <label>Yield (est.)</label>
-              <p>{grossYieldEst}</p>
-            </div>
+          <div className="border-t border-border pt-3.5 flex gap-6 flex-wrap">
+            {[
+              { label: `Totalt ${selectedYear}`,  value: fmtMoney(totalRent),                     gold: true  },
+              { label: 'Snitt / aktiv mån',       value: activeMonths > 0 ? fmtMoney(avgPerMonth) : '—' },
+              { label: 'Snitt ADR',               value: avgAdr > 0 ? `${fmtMoney(avgAdr)}/natt` : '—' },
+              { label: 'Yield (est.)',            value: grossYieldEst },
+            ].map((s, i) => (
+              <div key={i}>
+                <label className="text-[11px] text-text-mute block">{s.label}</label>
+                <p className={`text-[14px] mt-0.5 ${s.gold ? 'text-gold' : 'text-text'}`}>{s.value}</p>
+              </div>
+            ))}
           </div>
 
           {platformData.length > 0 && (
-            <div className="platform-breakdown">
+            <div className="mt-5 flex flex-col gap-2">
               {platformData.map(([platform, revenue]) => (
-                <div key={platform} className="platform-bar-row">
-                  <span className="platform-dot" style={{ background: PLATFORM_COLORS[platform] ?? 'var(--gold)' }} />
-                  <span className="platform-name">{platform}</span>
-                  <div className="platform-bar-track">
+                <div key={platform} className="grid grid-cols-[10px_minmax(80px,1fr)_minmax(0,2fr)_auto_auto] items-center gap-2.5 text-[12px]">
+                  <span className="w-2.5 h-2.5 rounded-full" style={{ background: PLATFORM_COLORS[platform] ?? 'var(--gold)' }} />
+                  <span className="text-text-dim">{platform}</span>
+                  <div className="h-2 bg-bg-hover rounded-full overflow-hidden">
                     <div
-                      className="platform-bar-fill"
+                      className="h-full rounded-full transition-[width] duration-300"
                       style={{
                         width: `${(revenue / totalRent) * 100}%`,
                         background: PLATFORM_COLORS[platform] ?? 'var(--gold)',
                       }}
                     />
                   </div>
-                  <span className="platform-amount">{fmtMoney(revenue)}</span>
-                  <span className="platform-pct">{((revenue / totalRent) * 100).toFixed(0)}%</span>
+                  <span className="text-text tabular-nums">{fmtMoney(revenue)}</span>
+                  <span className="text-text-mute tabular-nums w-[36px] text-right">{((revenue / totalRent) * 100).toFixed(0)}%</span>
                 </div>
               ))}
             </div>
@@ -211,35 +216,40 @@ export function Dashboard() {
 
         {/* Properties sidebar */}
         <div>
-          <div className="properties-sidebar-header">
-            <p className="properties-sidebar-title">Fastigheter</p>
-            <button className="link-btn" onClick={() => navigate('portfolio')}>Visa alla →</button>
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[13px] font-medium text-text-dim uppercase tracking-[1px]">Fastigheter</p>
+            <button
+              className="bg-transparent border-none p-0 text-[12px] text-gold cursor-pointer hover:underline"
+              onClick={() => navigate('portfolio')}
+            >
+              Visa alla →
+            </button>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div className="flex flex-col gap-2.5">
             {properties.map(p => {
               const propRent = rentals
                 .filter(r => r.propertyId === p.id && r.year === selectedYear)
                 .reduce((s, r) => s + r.revenue, 0);
               return (
                 <Card key={p.id} className="card-p-sm" hoverable onClick={() => navigate('property', p.id)}>
-                  <div className="property-card-meta">
+                  <div className="flex items-start justify-between gap-2 mb-2">
                     <div>
-                      <p className="property-card-name">{p.name}</p>
-                      <p className="property-card-area">{p.area} · {p.bedrooms} sovrum</p>
+                      <p className="text-[14px] font-medium text-text">{p.name}</p>
+                      <p className="text-[12px] text-text-mute mt-0.5">{p.area} · {p.bedrooms} sovrum</p>
                     </div>
                     <Badge label={STATUS_LABELS[p.status]} color={STATUS_COLORS[p.status]} />
                   </div>
-                  <div className="property-card-price">
-                    <span className="property-card-price-value">{fmtMoney(p.purchasePrice)}</span>
+                  <div className="flex items-baseline justify-between gap-2 mt-1">
+                    <span className="text-[13px] text-text-dim">{fmtMoney(p.purchasePrice)}</span>
                     {propRent > 0 && (
-                      <span className="property-card-rent text-gold">{fmtMoney(propRent)} hyra {selectedYear}</span>
+                      <span className="text-[12px] text-gold">{fmtMoney(propRent)} hyra {selectedYear}</span>
                     )}
                   </div>
                 </Card>
               );
             })}
             <Card className="card-p-sm card--dashed" hoverable onClick={() => navigate('portfolio')}>
-              <p className="text-mute" style={{ fontSize: '13px' }}>+ Lägg till fastighet</p>
+              <p className="text-text-mute text-[13px]">+ Lägg till fastighet</p>
             </Card>
           </div>
         </div>
@@ -260,22 +270,22 @@ export function Dashboard() {
       />
 
       {/* Market snapshot */}
-      <Card className="card-p" style={{ marginTop: '20px' }}>
-        <div className="section-header">
-          <p className="section-title">Marknadsöversikt · Costa del Sol</p>
-          <span className="market-updated">Källa: Idealista / AirDNA 2025</span>
+      <Card className="card-p mt-5">
+        <div className="flex items-center justify-between gap-3 mb-3">
+          <p className="text-[15px] font-medium text-text">Marknadsöversikt · Costa del Sol</p>
+          <span className="text-[11px] text-text-mute">Källa: Idealista / AirDNA 2025</span>
         </div>
-        <div className="market-grid">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5">
           {[
             { label: 'Snitt €/kvm Estepona',  value: '€4 017', delta: '+8–10%/år',       positive: true  },
             { label: 'Airbnb beläggning',      value: '62%',    delta: '≈226 nätter/år',  positive: true  },
             { label: 'Snittdygn (ADR)',        value: '€146',   delta: 'Estepona 2024/25', positive: true  },
             { label: 'Prisutveckling 2y',      value: '+20%',   delta: 'Cancelada area',   positive: true  },
           ].map((m, i) => (
-            <div key={i} className="market-stat-item">
-              <p className="market-stat-label">{m.label}</p>
-              <p className="market-stat-value">{m.value}</p>
-              <p className={`market-stat-delta ${m.positive ? 'text-green' : 'text-red'}`}>{m.delta}</p>
+            <div key={i} className="p-3 bg-bg-subtle rounded-md">
+              <p className="text-[11px] text-text-mute uppercase tracking-[0.5px]">{m.label}</p>
+              <p className="text-[18px] font-medium text-text mt-1">{m.value}</p>
+              <p className={`text-[11px] mt-0.5 ${m.positive ? 'text-green' : 'text-red'}`}>{m.delta}</p>
             </div>
           ))}
         </div>

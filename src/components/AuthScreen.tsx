@@ -25,40 +25,14 @@ export function AuthScreen() {
   }
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: '24px',
-      background: 'var(--bg)',
-    }}>
-      <div style={{
-        width: '100%',
-        maxWidth: '380px',
-        textAlign: 'center',
-      }}>
-        <p style={{
-          fontFamily: 'Cormorant Garamond, Georgia, serif',
-          fontSize: '36px',
-          fontWeight: 500,
-          color: 'var(--gold)',
-          margin: 0,
-        }}>Costa Sol</p>
-        <p className="text-mute" style={{ fontSize: '13px', letterSpacing: '2px',
-                                          textTransform: 'uppercase', marginTop: '4px' }}>
-          Fastighetsportfölj
-        </p>
+    <div className="min-h-screen flex items-center justify-center p-6 bg-bg">
+      <div className="w-full max-w-[380px] text-center">
+        <p className="font-display text-[36px] font-medium text-gold m-0">Costa Sol</p>
+        <p className="text-text-mute text-[13px] tracking-[2px] uppercase mt-1">Fastighetsportfölj</p>
 
-        <form onSubmit={handleSubmit} style={{
-          marginTop: '40px',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '14px',
-          textAlign: 'left',
-        }}>
+        <form onSubmit={handleSubmit} className="mt-10 flex flex-col gap-3.5 text-left">
           <div>
-            <label className="form-label" style={{ display: 'block', marginBottom: '6px' }}>E-mail</label>
+            <label className="form-label block mb-1.5">E-mail</label>
             <input
               type="email"
               autoComplete="email"
@@ -71,7 +45,7 @@ export function AuthScreen() {
           </div>
 
           <div>
-            <label className="form-label" style={{ display: 'block', marginBottom: '6px' }}>Lösenord</label>
+            <label className="form-label block mb-1.5">Lösenord</label>
             <input
               type="password"
               autoComplete="current-password"
@@ -83,15 +57,7 @@ export function AuthScreen() {
           </div>
 
           {error && (
-            <p style={{
-              padding: '10px 12px',
-              background: 'var(--red)15',
-              border: '1px solid var(--red)40',
-              borderRadius: '6px',
-              color: 'var(--red)',
-              fontSize: '13px',
-              margin: 0,
-            }}>
+            <p className="px-3 py-2.5 bg-red/10 border border-red/40 rounded-md text-red text-[13px] m-0">
               {error}
             </p>
           )}
@@ -101,7 +67,7 @@ export function AuthScreen() {
           </Btn>
         </form>
 
-        <p className="text-mute" style={{ fontSize: '12px', marginTop: '32px' }}>
+        <p className="text-text-mute text-[12px] mt-8">
           Glömt lösenordet? Återställ via Supabase Dashboard → Authentication.
         </p>
       </div>
