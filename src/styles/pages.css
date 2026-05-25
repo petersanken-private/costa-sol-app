@@ -2382,6 +2382,15 @@
   .page {
     padding: 20px 20px 32px;
   }
+  /* Sidebar smalare på iPad — använd !important för att besegra sidebar.css */
+  .sidebar {
+    width: 180px !important;
+    min-width: 180px !important;
+  }
+  .sidebar__nav-btn {
+    font-size: 13px;
+    padding: 10px 12px;
+  }
   .page-title {
     font-size: 26px;
   }
@@ -2491,6 +2500,11 @@
   .card-p { padding: 14px; }
   .card-p-md { padding: 12px; }
 
+  /* Logout/Reset-knappar i footer ska inte vara fullbredd och stora */
+  .sidebar__footer button {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
 }
 
 /* ── Tab-bar overflow på mobil ─────────────────────────────────────────────── */
