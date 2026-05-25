@@ -1,15 +1,15 @@
 import { useState } from 'react';
-import { useApp } from '../hooks/useApp';
-import { Card, Btn, Tabs } from '../components/ui';
-import { calcBuyingCosts } from '../utils/calc.utils';
-import { DocumentsTab } from '../components/DocumentsTab';
-import { RecurringExpensesTab } from '../components/recurring';
-import { MortgagesTab } from '../components/mortgages';
-import { BudgetTab } from '../components/budget';
-import { AIPanel } from '../components/AIPanel';
+import { useApp } from '../../hooks/useApp';
+import { Card, Btn, Tabs } from '../ui';
+import { calcBuyingCosts } from '../../utils/calc.utils';
+import { DocumentsTab } from '../DocumentsTab';
+import { RecurringExpensesTab } from '../recurring';
+import { MortgagesTab } from '../mortgages';
+import { BudgetTab } from '../budget';
+import { AIPanel } from '../AIPanel';
 import {
   PropertyHeader, PropertyQuickStats, CalcTab, RentalsTab, ExpensesTab,
-} from '../components/property';
+} from '../property';
 
 const DETAIL_TABS = [
   { id: 'calc',      label: 'Kalkylator'       },

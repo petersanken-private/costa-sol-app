@@ -3,17 +3,17 @@ import { AppProvider, useApp } from './hooks/useApp';
 import { DisplayCurrencyProvider, useDisplayCurrency } from './hooks/useDisplayCurrency';
 import { AuthProvider, useAuth } from './hooks/useAuth';
 import { AuthScreen } from './components/AuthScreen';
-import { Sidebar } from './components/Sidebar';
+import { Sidebar, CurrencyPill } from './components/Sidebar';
 import { PWAStatus } from './components/PWAStatus';
-import { Dashboard } from './pages/Dashboard';
-import { Portfolio } from './pages/Portfolio';
-import { PropertyDetail } from './pages/PropertyDetail';
-import { Calculator } from './pages/Calculator';
-import { Taxes } from './pages/Taxes';
-import { Market } from './pages/Market';
-import { Compare } from './pages/Compare';
-import { Milestones } from './pages/Milestones';
-import { Guide } from './pages/Guide';
+import { Dashboard } from './components/dashboard/Dashboard';
+import { Portfolio } from './components/portfolio/Portfolio';
+import { PropertyDetail } from './components/property/PropertyDetail';
+import { Calculator } from './components/calculator/Calculator';
+import { Taxes } from './components/taxes/Taxes';
+import { Market } from './components/market/Market';
+import { Compare } from './components/compare/Compare';
+import { Milestones } from './components/milestones/Milestones';
+import { Guide } from './components/guide/Guide';
 import { PageKey } from './types';
 import './styles/global.css';
 import './styles/components.css';
@@ -41,9 +41,12 @@ const MOBILE_NAV: { key: PageKey; icon: string; label: string }[] = [
 function MobileCurrencyToggle() {
   const { currency, toggle } = useDisplayCurrency();
   return (
-    <button className="mobile-currency-toggle" onClick={toggle}>
-      <span className={`sidebar__currency-pill ${currency === 'EUR' ? 'sidebar__currency-pill--active' : ''}`}>EUR</span>
-      <span className={`sidebar__currency-pill ${currency === 'SEK' ? 'sidebar__currency-pill--active' : ''}`}>SEK</span>
+    <button
+      className="md:hidden inline-flex fixed top-3 right-3 z-[60] bg-bg-card border border-border rounded-full p-0.5 shadow-[0_2px_8px_rgba(0,0,0,0.15)]"
+      onClick={toggle}
+    >
+      <CurrencyPill label="EUR" active={currency === 'EUR'} />
+      <CurrencyPill label="SEK" active={currency === 'SEK'} />
     </button>
   );
 }

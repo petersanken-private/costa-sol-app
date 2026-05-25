@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useApp } from '../hooks/useApp';
-import { Property, PropertyStatus } from '../types';
-import { Card, Btn, EmptyState } from '../components/ui';
-import { ExportMenu } from '../components/ExportMenu';
-import { exportPortfolioCsv, exportPortfolioPdf } from '../utils/export';
-import { PropertyRow, PropertyCard, PropertyModal } from '../components/portfolio';
+import { useApp } from '../../hooks/useApp';
+import { Property, PropertyStatus } from '../../types';
+import { Card, Btn, EmptyState } from '../ui';
+import { ExportMenu } from '../ExportMenu';
+import { exportPortfolioCsv, exportPortfolioPdf } from '../../utils/export';
+import { PropertyRow, PropertyCard, PropertyModal } from '.';
 
 const STATUS_FILTERS: { key: PropertyStatus | 'all'; label: string }[] = [
   { key: 'all',            label: 'Alla'           },

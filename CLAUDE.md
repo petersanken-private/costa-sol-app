@@ -44,7 +44,7 @@ Run manually in Supabase Dashboard → SQL Editor (no Supabase CLI db push setup
 - **React 18 + TypeScript + Vite** with `vite-plugin-pwa` for offline-capable PWA
 - **Supabase** for DB + Auth + Storage + Edge Functions (single project: `tipbwvxktbgywdyngqrz`)
 - **Anthropic Claude API** via Edge Function (NEVER call from client — leaks key)
-- **Tailwind v4** via `@tailwindcss/vite` — installed side-by-side with vanilla CSS as an experiment. Calculator.tsx is the only file using Tailwind utilities. All other pages use plain CSS in `src/styles/`.
+- **Tailwind v4** via `@tailwindcss/vite` — Use Tailwind everywhere, change from vanilla CSS to Tailwind.
 
 ### Auth model
 

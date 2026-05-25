@@ -1,7 +1,7 @@
 import { useState, ReactNode } from 'react';
-import { Card, SectionHeader } from '../components/ui';
-import { TAX, BUYING_COSTS } from '../constants/tax';
-import '../styles/pages.css';
+import { Card, SectionHeader } from '../ui';
+import { TAX, BUYING_COSTS } from '../../constants/tax';
+import '../../styles/pages.css';
 
 // ── Sektioner med innehåll ────────────────────────────────────────────────────
 interface GuideSection {
