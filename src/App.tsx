@@ -3,7 +3,7 @@ import { AppProvider, useApp } from './hooks/useApp';
 import { DisplayCurrencyProvider, useDisplayCurrency } from './hooks/useDisplayCurrency';
 import { AuthProvider, useAuth } from './hooks/useAuth';
 import { AuthScreen } from './components/AuthScreen';
-import { Sidebar } from './components/Sidebar';
+import { Sidebar, CurrencyPill } from './components/Sidebar';
 import { PWAStatus } from './components/PWAStatus';
 import { Dashboard } from './components/dashboard/Dashboard';
 import { Portfolio } from './components/portfolio/Portfolio';
@@ -41,9 +41,12 @@ const MOBILE_NAV: { key: PageKey; icon: string; label: string }[] = [
 function MobileCurrencyToggle() {
   const { currency, toggle } = useDisplayCurrency();
   return (
-    <button className="mobile-currency-toggle" onClick={toggle}>
-      <span className={`sidebar__currency-pill ${currency === 'EUR' ? 'sidebar__currency-pill--active' : ''}`}>EUR</span>
-      <span className={`sidebar__currency-pill ${currency === 'SEK' ? 'sidebar__currency-pill--active' : ''}`}>SEK</span>
+    <button
+      className="md:hidden inline-flex fixed top-3 right-3 z-[60] bg-bg-card border border-border rounded-full p-0.5 shadow-[0_2px_8px_rgba(0,0,0,0.15)]"
+      onClick={toggle}
+    >
+      <CurrencyPill label="EUR" active={currency === 'EUR'} />
+      <CurrencyPill label="SEK" active={currency === 'SEK'} />
     </button>
   );
 }

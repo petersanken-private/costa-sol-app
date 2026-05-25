@@ -1116,19 +1116,6 @@
   text-align: right;
 }
 
-/* ── Sidebar nav groups ───────────────────────────────────────────────────── */
-.sidebar__nav-group {
-  margin-bottom: 8px;
-}
-
-.sidebar__nav-group-label {
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-mute);
-  padding: 10px 12px 4px;
-}
-
 /* ── Market page ─────────────────────────────────────────────────────────── */
 .market-cols {
   grid-template-columns: 1fr 90px 70px 100px 90px 80px 130px 60px !important;
@@ -2395,15 +2382,6 @@
   .page {
     padding: 20px 20px 32px;
   }
-  /* Sidebar smalare på iPad — använd !important för att besegra sidebar.css */
-  .sidebar {
-    width: 180px !important;
-    min-width: 180px !important;
-  }
-  .sidebar__nav-btn {
-    font-size: 13px;
-    padding: 10px 12px;
-  }
   .page-title {
     font-size: 26px;
   }
@@ -2513,11 +2491,6 @@
   .card-p { padding: 14px; }
   .card-p-md { padding: 12px; }
 
-  /* Logout/Reset-knappar i footer ska inte vara fullbredd och stora */
-  .sidebar__footer button {
-    font-size: 12px;
-    padding: 6px 8px;
-  }
 }
 
 /* ── Tab-bar overflow på mobil ─────────────────────────────────────────────── */
