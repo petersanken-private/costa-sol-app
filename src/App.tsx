@@ -41,10 +41,7 @@ const MOBILE_NAV: { key: PageKey; icon: string; label: string }[] = [
 function MobileCurrencyToggle() {
   const { currency, toggle } = useDisplayCurrency();
   return (
-    <button
-      className="md:hidden inline-flex fixed top-3 right-3 z-[60] bg-bg-card border border-border rounded-full p-0.5 shadow-[0_2px_8px_rgba(0,0,0,0.15)]"
-      onClick={toggle}
-    >
+    <button className="mobile-currency-toggle" onClick={toggle}>
       <CurrencyPill label="EUR" active={currency === 'EUR'} />
       <CurrencyPill label="SEK" active={currency === 'SEK'} />
     </button>
