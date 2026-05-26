@@ -1,19 +1,12 @@
 import { AreaMarketData } from '../../types';
 import { Card } from '../ui';
 import { fmtMoney } from '../../utils/calc.utils';
+import { yieldEstimate } from '../../utils/market.utils';
 
 interface Props {
   markets:  AreaMarketData[];
   onEdit:   (m: AreaMarketData) => void;
   onDelete: (id: string) => void;
-}
-
-/** Beräkna ungefärlig nettoyield baserat på 80kvm, 60% efter OPEX. */
-function yieldEstimate(m: AreaMarketData): number {
-  const estNights  = m.occupancyPct * 3.65;
-  const estRevenue = estNights * m.avgAdr;
-  const estPrice   = m.pricePerSqm * 80;
-  return estPrice > 0 ? (estRevenue * 0.6 / estPrice * 100) : 0;
 }
 
 /** Desktop-tabell över alla områden. Döljs på mobil via CSS. */
@@ -56,4 +49,3 @@ export function MarketTable({ markets, onEdit, onDelete }: Props) {
   );
 }
 
-export { yieldEstimate };

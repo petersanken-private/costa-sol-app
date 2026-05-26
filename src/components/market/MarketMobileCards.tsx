@@ -1,7 +1,7 @@
 import { AreaMarketData } from '../../types';
 import { Card } from '../ui';
 import { fmtMoney } from '../../utils/calc.utils';
-import { yieldEstimate } from './MarketTable';
+import { yieldEstimate } from '../../utils/market.utils';
 
 interface Props {
   markets:  AreaMarketData[];

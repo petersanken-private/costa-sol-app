@@ -3,7 +3,6 @@ import { ProspectProperty, ScenarioKey } from '../../types';
 import { Card, Btn } from '../ui';
 import { SCENARIOS } from '../../data';
 import { evaluateProspect, rankByNetYield } from '../../utils/prospect.utils';
-import { exportBankPdf } from '../../utils/export';
 import { AIPanel } from '../ai';
 import { ProspectModal } from '.';
 import { ScenarioControls } from './ScenarioControls';
