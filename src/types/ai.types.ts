@@ -10,6 +10,15 @@ export type AIPreset =
   | 'property-deepdive'
   | 'custom';
 
+/** Sparad prompt-mall som användaren skapat och kan återanvända. */
+export interface AIPromptTemplate {
+  id:        string;
+  name:      string;
+  prompt:    string;
+  scope:     'portfolio' | 'property';
+  createdAt: string;
+}
+
 export interface AIInsight {
   id:                string;
   preset:            AIPreset;
