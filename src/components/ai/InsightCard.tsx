@@ -53,11 +53,24 @@ export function InsightCard({ insight, expanded, onToggle, onDelete }: Props) {
           </p>
         </div>
         <button
-          className="delete-btn"
           onClick={handleDelete}
-          title="Ta bort"
-          style={{ flexShrink: 0, padding: '8px 12px', minWidth: '36px' }}
-        >×</button>
+          title="Ta bort analys"
+          style={{
+            flexShrink: 0, padding: '6px 10px', minWidth: '32px',
+            background: 'none', border: '1px solid var(--border)',
+            borderRadius: '6px', color: 'var(--text-mute)',
+            fontSize: '14px', lineHeight: 1, cursor: 'pointer',
+            transition: 'color 0.15s, border-color 0.15s',
+          }}
+          onMouseEnter={e => {
+            (e.currentTarget as HTMLButtonElement).style.color = 'var(--red)';
+            (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--red)';
+          }}
+          onMouseLeave={e => {
+            (e.currentTarget as HTMLButtonElement).style.color = 'var(--text-mute)';
+            (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--border)';
+          }}
+        >🗑</button>
       </div>
 
       {expanded && (
