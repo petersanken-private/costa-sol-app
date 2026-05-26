@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 import { AreaMarketData } from '../../types';
 import { Btn } from '../ui';
 import { useMarketRefresh } from '../../hooks/useMarketRefresh';
@@ -10,10 +10,29 @@ import { MarketTable } from './MarketTable';
 import { MarketMobileCards } from './MarketMobileCards';
 import '../../styles/pages.css';
 
+// ── Modal-state-reducer ───────────────────────────────────────────────────────
+type Modal =
+  | { kind: 'closed' }
+  | { kind: 'add' }
+  | { kind: 'edit'; item: AreaMarketData };
+
+type Action =
+  | { type: 'open-add' }
+  | { type: 'open-edit'; item: AreaMarketData }
+  | { type: 'close' };
+
+function modalReducer(_: Modal, action: Action): Modal {
+  switch (action.type) {
+    case 'open-add':  return { kind: 'add' };
+    case 'open-edit': return { kind: 'edit', item: action.item };
+    case 'close':     return { kind: 'closed' };
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 export function Market() {
   const { markets, loading, upsert, remove, reload } = useMarketData();
-  const [showModal, setShowModal] = useState(false);
-  const [editItem,  setEditItem]  = useState<AreaMarketData | null>(null);
+  const [modal, dispatch] = useReducer(modalReducer, { kind: 'closed' });
   const { refresh, running, last } = useMarketRefresh();
 
   async function handleRefresh() {
@@ -23,18 +42,12 @@ export function Market() {
 
   async function handleSave(m: AreaMarketData) {
     await upsert(m);
-    setShowModal(false);
-    setEditItem(null);
+    dispatch({ type: 'close' });
   }
 
   async function handleDelete(id: string) {
     if (!window.confirm('Ta bort detta område?')) return;
     await remove(id);
-  }
-
-  function handleEdit(m: AreaMarketData) {
-    setEditItem(m);
-    setShowModal(true);
   }
 
   return (
@@ -43,7 +56,7 @@ export function Market() {
         <p className="page-eyebrow">Costa del Sol</p>
         <div className="dashboard-top-bar">
           <h1 className="page-title">Marknadsdata</h1>
-          <Btn variant="primary" size="sm" onClick={() => { setEditItem(null); setShowModal(true); }}>
+          <Btn variant="primary" size="sm" onClick={() => dispatch({ type: 'open-add' })}>
             + Lägg till område
           </Btn>
         </div>
@@ -57,8 +70,8 @@ export function Market() {
         <>
           <OverviewCards markets={markets} />
           <AreaCompareChart markets={markets} />
-          <MarketTable        markets={markets} onEdit={handleEdit} onDelete={handleDelete} />
-          <MarketMobileCards  markets={markets} onEdit={handleEdit} onDelete={handleDelete} />
+          <MarketTable        markets={markets} onEdit={m => dispatch({ type: 'open-edit', item: m })} onDelete={handleDelete} />
+          <MarketMobileCards  markets={markets} onEdit={m => dispatch({ type: 'open-edit', item: m })} onDelete={handleDelete} />
 
           <p style={{ fontSize: '11px', color: 'var(--text-mute)', marginTop: '12px' }}>
             Yield-estimat baserat på 80kvm, 60% netto efter OPEX. Uppdatera siffrorna manuellt från Idealista och AirDNA.
@@ -66,10 +79,10 @@ export function Market() {
         </>
       )}
 
-      {showModal && (
+      {modal.kind !== 'closed' && (
         <MarketModal
-          initial={editItem}
-          onClose={() => { setShowModal(false); setEditItem(null); }}
+          initial={modal.kind === 'edit' ? modal.item : null}
+          onClose={() => dispatch({ type: 'close' })}
           onSave={handleSave}
         />
       )}

@@ -1,9 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useReducer } from 'react';
 import { ProspectProperty, ScenarioKey } from '../../types';
 import { Card, Btn } from '../ui';
 import { SCENARIOS } from '../../data';
 import { evaluateProspect, rankByNetYield } from '../../utils/prospect.utils';
-import { exportBankPdf } from '../../utils/export';
 import { AIPanel } from '../ai';
 import { ProspectModal } from '.';
 import { ScenarioControls } from './ScenarioControls';
@@ -13,20 +12,49 @@ import { useProspects } from '../../hooks/useProspects';
 import { useMarketData } from '../../hooks/useMarketData';
 import '../../styles/pages.css';
 
+// ── Reducer ───────────────────────────────────────────────────────────────────
+type Modal =
+  | { kind: 'closed' }
+  | { kind: 'add' }
+  | { kind: 'edit'; item: ProspectProperty };
+
+interface State {
+  modal:    Modal;
+  scenario: ScenarioKey;
+  horizon:  number;
+}
+
+type Action =
+  | { type: 'open-add' }
+  | { type: 'open-edit'; item: ProspectProperty }
+  | { type: 'close' }
+  | { type: 'set-scenario'; scenario: ScenarioKey }
+  | { type: 'set-horizon'; horizon: number };
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case 'open-add':     return { ...state, modal: { kind: 'add' } };
+    case 'open-edit':    return { ...state, modal: { kind: 'edit', item: action.item } };
+    case 'close':        return { ...state, modal: { kind: 'closed' } };
+    case 'set-scenario': return { ...state, scenario: action.scenario };
+    case 'set-horizon':  return { ...state, horizon: action.horizon };
+  }
+}
+
+const INITIAL: State = { modal: { kind: 'closed' }, scenario: 'base', horizon: 10 };
+
+// ─────────────────────────────────────────────────────────────────────────────
 export function Compare() {
   const { prospects, loading: prospectsLoading, upsert: upsertProspect, remove: removeProspect } = useProspects();
   const { markets,   loading: marketsLoading }   = useMarketData();
-  const [showModal, setShowModal] = useState(false);
-  const [editItem,  setEditItem]  = useState<ProspectProperty | null>(null);
-  const [scenario,  setScenario]  = useState<ScenarioKey>('base');
-  const [horizon,   setHorizon]   = useState(10);
+  const [state, dispatch] = useReducer(reducer, INITIAL);
+  const { modal, scenario, horizon } = state;
 
   const loading = prospectsLoading || marketsLoading;
 
   async function handleSave(p: ProspectProperty) {
     await upsertProspect(p);
-    setShowModal(false);
-    setEditItem(null);
+    dispatch({ type: 'close' });
   }
 
   async function handleDelete(id: string) {
@@ -51,7 +79,7 @@ export function Compare() {
         <p className="page-eyebrow">Investeringsanalys</p>
         <div className="dashboard-top-bar">
           <h1 className="page-title">Objektjämförelse</h1>
-          <Btn variant="primary" size="sm" onClick={() => { setEditItem(null); setShowModal(true); }}>
+          <Btn variant="primary" size="sm" onClick={() => dispatch({ type: 'open-add' })}>
             + Lägg till objekt
           </Btn>
         </div>
@@ -62,8 +90,8 @@ export function Compare() {
         horizon={horizon}
         usingMarketCount={calcResults.filter(r => r.usedMarket).length}
         totalProspects={prospects.length}
-        onScenario={setScenario}
-        onHorizon={setHorizon}
+        onScenario={s => dispatch({ type: 'set-scenario', scenario: s })}
+        onHorizon={h  => dispatch({ type: 'set-horizon',  horizon: h  })}
       />
 
       {loading ? (
@@ -88,7 +116,7 @@ export function Compare() {
                 scenario={scenario}
                 horizon={horizon}
                 isWinner={evaluation.p.id === winner && prospects.length > 1}
-                onEdit={() => { setEditItem(evaluation.p); setShowModal(true); }}
+                onEdit={() => dispatch({ type: 'open-edit', item: evaluation.p })}
                 onDelete={() => handleDelete(evaluation.p.id)}
               />
             ))}
@@ -108,10 +136,10 @@ export function Compare() {
         </>
       )}
 
-      {showModal && (
+      {modal.kind !== 'closed' && (
         <ProspectModal
-          initial={editItem}
-          onClose={() => { setShowModal(false); setEditItem(null); }}
+          initial={modal.kind === 'edit' ? modal.item : null}
+          onClose={() => dispatch({ type: 'close' })}
           onSave={handleSave}
         />
       )}
