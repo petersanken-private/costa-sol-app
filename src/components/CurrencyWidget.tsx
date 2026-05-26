@@ -28,48 +28,42 @@ export function CurrencyWidget() {
   const sek100k = fx.rate * 100_000;
 
   return (
-    <div className="bg-bg-card border border-border rounded-xl shadow-sm p-5 mt-3">
-      <div className="flex justify-between items-start mb-3">
+    <div className="currency-widget">
+      <div className="currency-widget__header">
         <div>
-          <p className="text-[10px] tracking-[2px] uppercase text-text-mute mb-1">EUR / SEK</p>
+          <p className="currency-widget__label">EUR / SEK</p>
           {fx.loading ? (
-            <p className="font-display text-[24px] font-normal text-text">Laddar…</p>
+            <p className="currency-widget__rate">Laddar…</p>
           ) : fx.error ? (
-            <p className="text-[13px] text-red">{fx.error}</p>
+            <p className="currency-widget__rate currency-widget__rate--error">{fx.error}</p>
           ) : (
-            <p className="font-display text-[24px] font-normal text-text max-md:text-[22px] flex items-baseline gap-2">
+            <p className="currency-widget__rate">
               {fx.rate.toFixed(4)}
-              <span className={`text-[12px] font-medium ${positive ? 'text-green' : 'text-red'}`}>
+              <span
+                className="currency-widget__change"
+                style={{ color: positive ? 'var(--green)' : 'var(--red)' }}
+              >
                 {positive ? '▲' : '▼'} {Math.abs(change).toFixed(2)}%
               </span>
             </p>
           )}
         </div>
 
-        <div className="flex gap-1">
-          {(['30d', '1y'] as const).map(v => {
-            const active = view === v;
-            const base = 'px-2.5 py-1 rounded-[20px] border text-[11px] transition-all duration-150';
-            const variant = active
-              ? 'border-gold bg-gold-faint text-gold'
-              : 'border-border bg-transparent text-text-mute hover:border-border-hi hover:text-text-dim';
-            return (
-              <button
-                key={v}
-                className={`${base} ${variant}`}
-                onClick={() => setView(v)}
-              >
-                {v}
-              </button>
-            );
-          })}
+        <div className="currency-widget__toggle">
+          {(['30d', '1y'] as const).map(v => (
+            <button
+              key={v}
+              className={`currency-view-btn ${view === v ? 'currency-view-btn--active' : ''}`}
+              onClick={() => setView(v)}
+            >{v}</button>
+          ))}
         </div>
       </div>
 
       {/* Sparkline */}
       {!fx.loading && !fx.error && path && (
-        <div className="mb-3">
-          <svg viewBox={`0 0 280 48`} className="w-full h-12 block">
+        <div className="currency-widget__chart">
+          <svg viewBox={`0 0 280 48`} className="sparkline">
             <defs>
               <linearGradient id="spark-grad" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor={positive ? '#166534' : '#991b1b'} stopOpacity="0.15"/>
@@ -83,7 +77,7 @@ export function CurrencyWidget() {
             <path
               d={path}
               fill="none"
-              stroke={positive ? 'var(--color-green)' : 'var(--color-red)'}
+              stroke={positive ? 'var(--green)' : 'var(--red)'}
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -94,13 +88,28 @@ export function CurrencyWidget() {
 
       {/* Footer stats */}
       {!fx.loading && !fx.error && (
-        <div className="grid grid-cols-4 max-md:grid-cols-2 gap-2 pt-3 border-t border-border">
-          <FxStat label="1 dag"      change={fx.change1d} />
-          <FxStat label="30 dagar"   change={fx.change30d} />
-          <FxStat label="12 månader" change={fx.change1y} />
-          <div className="flex flex-col gap-0.5">
-            <span className="text-[10px] text-text-mute tracking-[0.5px]">€100k =</span>
-            <span className="text-[12px] font-medium text-gold">
+        <div className="currency-widget__footer">
+          <div className="currency-widget__stat">
+            <span className="currency-widget__stat-label">1 dag</span>
+            <span style={{ color: fx.change1d >= 0 ? 'var(--green)' : 'var(--red)', fontSize: '12px' }}>
+              {fx.change1d >= 0 ? '+' : ''}{fx.change1d.toFixed(2)}%
+            </span>
+          </div>
+          <div className="currency-widget__stat">
+            <span className="currency-widget__stat-label">30 dagar</span>
+            <span style={{ color: fx.change30d >= 0 ? 'var(--green)' : 'var(--red)', fontSize: '12px' }}>
+              {fx.change30d >= 0 ? '+' : ''}{fx.change30d.toFixed(2)}%
+            </span>
+          </div>
+          <div className="currency-widget__stat">
+            <span className="currency-widget__stat-label">12 månader</span>
+            <span style={{ color: fx.change1y >= 0 ? 'var(--green)' : 'var(--red)', fontSize: '12px' }}>
+              {fx.change1y >= 0 ? '+' : ''}{fx.change1y.toFixed(2)}%
+            </span>
+          </div>
+          <div className="currency-widget__stat">
+            <span className="currency-widget__stat-label">€100k =</span>
+            <span style={{ color: 'var(--gold)', fontSize: '12px', fontWeight: 500 }}>
               {(sek100k / 1_000_000).toFixed(2)}M kr
             </span>
           </div>
@@ -108,19 +117,8 @@ export function CurrencyWidget() {
       )}
 
       {fx.updatedAt && (
-        <p className="text-[10px] text-text-mute mt-2.5 text-right">Uppdaterad {fx.updatedAt} · frankfurter.app</p>
+        <p className="currency-widget__updated">Uppdaterad {fx.updatedAt} · frankfurter.app</p>
       )}
-    </div>
-  );
-}
-
-function FxStat({ label, change }: { label: string; change: number }) {
-  return (
-    <div className="flex flex-col gap-0.5">
-      <span className="text-[10px] text-text-mute tracking-[0.5px]">{label}</span>
-      <span className={`text-[12px] ${change >= 0 ? 'text-green' : 'text-red'}`}>
-        {change >= 0 ? '+' : ''}{change.toFixed(2)}%
-      </span>
     </div>
   );
 }
