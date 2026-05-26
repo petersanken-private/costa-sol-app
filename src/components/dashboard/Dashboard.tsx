@@ -6,7 +6,7 @@ import { MONTHS_SV, STATUS_LABELS, STATUS_COLORS, PLATFORM_COLORS } from '../../
 import '../../styles/pages.css';
 import { CurrencyWidget } from '../CurrencyWidget';
 import { useMilestones, daysUntil } from '../../hooks/useMilestones';
-import { AIPanel } from '../AIPanel';
+import { AIPanel } from '../ai';
 
 const CURRENT_YEAR = new Date().getFullYear();
 
