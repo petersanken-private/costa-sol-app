@@ -5,7 +5,7 @@ import { useMarketRefresh } from '../../hooks/useMarketRefresh';
 import { useMarketData } from '../../hooks/useMarketData';
 import { MarketModal, RefreshBanner } from '.';
 import { OverviewCards } from './OverviewCards';
-import { AreaCompareChart } from './AreaCompareChart';
+import { MarketCharts } from './MarketCharts';
 import { MarketTable } from './MarketTable';
 import { MarketMobileCards } from './MarketMobileCards';
 import '../../styles/pages.css';
@@ -69,6 +69,9 @@ export function Market() {
       ) : (
         <>
           <OverviewCards markets={markets} />
+          <MarketCharts  markets={markets} />
+          <MarketTable        markets={markets} onEdit={handleEdit} onDelete={handleDelete} />
+          <MarketMobileCards  markets={markets} onEdit={handleEdit} onDelete={handleDelete} />
           <AreaCompareChart markets={markets} />
           <MarketTable        markets={markets} onEdit={m => dispatch({ type: 'open-edit', item: m })} onDelete={handleDelete} />
           <MarketMobileCards  markets={markets} onEdit={m => dispatch({ type: 'open-edit', item: m })} onDelete={handleDelete} />
