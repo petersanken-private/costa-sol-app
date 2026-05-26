@@ -5,7 +5,7 @@ import { Property, RentalEntry } from '../../types';
 import { MONTHS_SV, PLATFORM_COLORS } from '../../data';
 import { fmtMoney } from '../../utils/calc.utils';
 import { ExportMenu } from '../ExportMenu';
-import { RentalSources } from '../RentalSources';
+import { RentalSources } from '../rental-sources';
 import { AddRentalModal } from './AddRentalModal';
 import { exportRentalsCsv, exportRentalsPdf } from '../../utils/export';
 
