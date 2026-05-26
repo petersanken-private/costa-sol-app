@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { Card, Btn, Tabs } from '../ui';
 import { calcBuyingCosts } from '../../utils/calc.utils';
-import { DocumentsTab } from '../DocumentsTab';
+import { DocumentsTab } from '../documents';
 import { RecurringExpensesTab } from '../recurring';
 import { MortgagesTab } from '../mortgages';
 import { BudgetTab } from '../budget';
-import { AIPanel } from '../AIPanel';
+import { AIPanel } from '../ai';
 import {
   PropertyHeader, PropertyQuickStats, CalcTab, RentalsTab, ExpensesTab,
 } from '../property';

@@ -5,7 +5,7 @@ import { SCENARIOS } from '../../data';
 import { fmtMoney, fmtPct } from '../../utils/calc.utils';
 import { evaluateProspect, rankByNetYield } from '../../utils/prospect.utils';
 import { exportBankPdf } from '../../utils/export';
-import { AIPanel } from '../AIPanel';
+import { AIPanel } from '../ai';
 import { ProspectModal } from '.';
 import { useProspects } from '../../hooks/useProspects';
 import { useMarketData } from '../../hooks/useMarketData';
