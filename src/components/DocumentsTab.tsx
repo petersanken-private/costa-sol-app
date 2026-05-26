@@ -64,8 +64,8 @@ export function DocumentsTab({ propertyId }: Props) {
     setDeletingId(null);
   }
 
-  if (loading) return <p className="text-mute" style={{ padding: '16px 0' }}>Laddar dokument…</p>;
-  if (error)   return <p style={{ color: 'var(--red)', padding: '16px 0' }}>Fel: {error}</p>;
+  if (loading) return <p className="text-text-mute py-4">Laddar dokument…</p>;
+  if (error)   return <p className="text-red py-4">Fel: {error}</p>;
 
   return (
     <div>
@@ -85,7 +85,7 @@ export function DocumentsTab({ propertyId }: Props) {
             <p className="empty-state__sub">
               Ladda upp kontrakt, planritningar, besiktningar och andra handlingar kopplade till fastigheten.
             </p>
-            <div style={{ marginTop: '16px' }}>
+            <div className="mt-4">
               <Btn variant="primary" size="sm" onClick={() => setShowUpload(true)}>
                 + Ladda upp första dokumentet
               </Btn>
@@ -254,7 +254,7 @@ function UploadModal({ onClose, onUploaded, uploadFn }: UploadModalProps) {
           ref={fileRef}
           type="file"
           accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.webp,.xls,.xlsx"
-          style={{ display: 'none' }}
+          className="hidden"
           onChange={e => handleFiles(e.target.files)}
         />
         {file ? (
@@ -287,7 +287,7 @@ function UploadModal({ onClose, onUploaded, uploadFn }: UploadModalProps) {
         </div>
       )}
 
-      <div className="grid-2" style={{ marginTop: '16px' }}>
+      <div className="grid-2 mt-4">
         {/* Category */}
         <FormGroup label="Kategori" className="col-span-2">
           <div className="doc-cat-grid">

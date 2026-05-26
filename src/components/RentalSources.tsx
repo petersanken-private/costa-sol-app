@@ -50,11 +50,11 @@ export function RentalSources({ propertyId }: Props) {
   if (loading) return null;
   if (sources.length === 0) {
     return (
-      <Card className="card-p" style={{ marginBottom: '16px', background: 'var(--surface-2)' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+      <Card className="card-p mb-4 bg-surface-2">
+        <div className="flex justify-between items-center gap-3">
           <div>
-            <p style={{ margin: 0, fontWeight: 500 }}>🔗 iCal-import</p>
-            <p className="text-mute" style={{ margin: '4px 0 0', fontSize: '13px' }}>
+            <p className="m-0 font-medium">🔗 iCal-import</p>
+            <p className="text-text-mute mt-1 text-[13px]">
               Importera bokningar automatiskt från Airbnb, Booking eller egen kalender.
             </p>
           </div>
@@ -75,15 +75,15 @@ export function RentalSources({ propertyId }: Props) {
   }
 
   return (
-    <Card className="card-p" style={{ marginBottom: '16px', background: 'var(--surface-2)' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+    <Card className="card-p mb-4 bg-surface-2">
+      <div className="flex justify-between items-center mb-3">
         <div>
-          <p style={{ margin: 0, fontWeight: 500 }}>🔗 iCal-källor ({sources.length})</p>
-          <p className="text-mute" style={{ margin: '4px 0 0', fontSize: '12px' }}>
+          <p className="m-0 font-medium">🔗 iCal-källor ({sources.length})</p>
+          <p className="text-text-mute mt-1 text-[12px]">
             Importera bokningar från externa kalendrar
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '8px' }}>
+        <div className="flex gap-2">
           <Btn size="sm" onClick={handleImportAll} disabled={importing}>
             {importing ? 'Importerar…' : '↻ Importera alla nu'}
           </Btn>
@@ -94,39 +94,31 @@ export function RentalSources({ propertyId }: Props) {
       </div>
 
       {lastResult && (
-        <div style={{
-          padding: '8px 12px',
-          background: lastResult.ok ? 'var(--green)10' : 'var(--red)10',
-          borderRadius: '6px',
-          marginBottom: '12px',
-          fontSize: '13px',
-        }}>
+        <div className={`px-3 py-2 rounded-md mb-3 text-[13px] ${lastResult.ok ? 'bg-green/10' : 'bg-red/10'}`}>
           {lastResult.ok
             ? `✓ ${lastResult.results?.reduce((s, r) => s + r.imported, 0) ?? 0} bokningar importerade`
             : `⚠ Fel: ${lastResult.error}`}
         </div>
       )}
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div className="flex flex-col gap-2">
         {sources.map(s => (
-          <div key={s.id}
-               style={{
-                 display: 'flex', alignItems: 'center', gap: '12px',
-                 padding: '10px 12px', background: 'var(--surface)', borderRadius: '6px',
-                 opacity: s.active ? 1 : 0.5,
-               }}>
+          <div
+            key={s.id}
+            className={`flex items-center gap-3 px-3 py-2.5 bg-surface rounded-md ${s.active ? '' : 'opacity-50'}`}
+          >
             <Badge label={s.platform} color={PLATFORM_COLORS[s.platform]} />
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ margin: 0, fontWeight: 500, fontSize: '14px' }}>
+            <div className="flex-1 min-w-0">
+              <p className="m-0 font-medium text-[14px]">
                 {s.displayName || s.feedUrl.substring(0, 50) + '…'}
               </p>
-              <p className="text-mute" style={{ margin: '2px 0 0', fontSize: '12px' }}>
+              <p className="text-text-mute mt-0.5 text-[12px]">
                 €{s.defaultRate}/natt · {s.bookingsImported} importerade
                 {s.lastImportedAt && ` · senast ${new Date(s.lastImportedAt).toLocaleString('sv-SE', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}`}
-                {s.lastStatus === 'error' && <span style={{ color: 'var(--red)' }}> · FEL</span>}
+                {s.lastStatus === 'error' && <span className="text-red"> · FEL</span>}
               </p>
               {s.lastError && (
-                <p className="text-mute" style={{ margin: '2px 0 0', fontSize: '11px', color: 'var(--red)' }}>
+                <p className="mt-0.5 text-[11px] text-red">
                   {s.lastError}
                 </p>
               )}
@@ -196,7 +188,7 @@ function SourceModal({ initial, propertyId, onClose, onSave }: ModalProps) {
       </>}
     >
       {error && <p className="form-error">{error}</p>}
-      <p className="text-mute" style={{ fontSize: '13px', marginBottom: '16px' }}>
+      <p className="text-text-mute text-[13px] mb-4">
         {PLATFORM_HELP[platform]}
       </p>
       <div className="grid-2">
@@ -227,13 +219,13 @@ function SourceModal({ initial, propertyId, onClose, onSave }: ModalProps) {
         </FormGroup>
 
         <FormGroup label="Aktiv?">
-          <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+          <label className="flex items-center gap-2 cursor-pointer">
             <input type="checkbox" checked={active} onChange={e => setActive(e.target.checked)} />
             <span>Inkluderas i "Importera alla"</span>
           </label>
         </FormGroup>
       </div>
-      <p className="text-mute" style={{ fontSize: '12px', marginTop: '16px' }}>
+      <p className="text-text-mute text-[12px] mt-4">
         💡 iCal-feeds innehåller bara datum + status, inte pris. Vi använder ditt "pris per natt" × antal nätter
         som intäkt för importerade bokningar.
         Du kan justera enskilda poster manuellt efter import om priset varierar.
