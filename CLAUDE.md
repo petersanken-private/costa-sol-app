@@ -13,9 +13,11 @@ npm run dev          # Vite dev server (localhost:5173) — PWA service worker d
 npm run build        # tsc --noEmit && vite build → dist/ + service worker
 npm run preview      # Preview production build incl. PWA at localhost:4173
 npm run type-check   # tsc --noEmit only — run after every code change
+npm test             # Vitest run-once
+npm run test:watch   # Vitest watch mode
 ```
 
-There are **no tests** in this repo. Type checking is the only automated gate.
+Tester finns för pure utils-funktioner i `src/utils/*.test.ts` (calc, mortgage). Lägg gärna till tester när du bygger nya utils — Vitest är konfigurerat med Node-miljö (inget jsdom, så fokus är pure functions, inte komponenter).
 
 ### Supabase deploys
 
