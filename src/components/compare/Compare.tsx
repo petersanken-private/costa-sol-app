@@ -2,11 +2,13 @@ import { useState, useMemo } from 'react';
 import { ProspectProperty, ScenarioKey } from '../../types';
 import { Card, Btn } from '../ui';
 import { SCENARIOS } from '../../data';
-import { fmtMoney, fmtPct } from '../../utils/calc.utils';
 import { evaluateProspect, rankByNetYield } from '../../utils/prospect.utils';
 import { exportBankPdf } from '../../utils/export';
 import { AIPanel } from '../ai';
 import { ProspectModal } from '.';
+import { ScenarioControls } from './ScenarioControls';
+import { ProspectCard } from './ProspectCard';
+import { SummaryTable } from './SummaryTable';
 import { useProspects } from '../../hooks/useProspects';
 import { useMarketData } from '../../hooks/useMarketData';
 import '../../styles/pages.css';
@@ -55,29 +57,14 @@ export function Compare() {
         </div>
       </div>
 
-      {/* Scenario + horizon controls */}
-      <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginBottom: '24px', flexWrap: 'wrap' }}>
-        <div style={{ display: 'flex', gap: '8px' }}>
-          {SCENARIOS.map(s => (
-            <button
-              key={s.key}
-              className={`filter-pill ${scenario === s.key ? 'filter-pill--active' : ''}`}
-              style={{ borderColor: scenario === s.key ? s.color : undefined, color: scenario === s.key ? s.color : undefined }}
-              onClick={() => setScenario(s.key)}
-            >{s.label}</button>
-          ))}
-        </div>
-        <div style={{ display: 'flex', gap: '6px' }}>
-          {[5, 10].map(y => (
-            <button key={y} className={`year-btn ${horizon === y ? 'year-btn--active' : ''}`} onClick={() => setHorizon(y)}>
-              {y} år
-            </button>
-          ))}
-        </div>
-        <p className="text-mute" style={{ fontSize: '12px' }}>
-          {calcResults.filter(r => r.usedMarket).length} av {prospects.length} objekt använder lokal marknadsdata
-        </p>
-      </div>
+      <ScenarioControls
+        scenario={scenario}
+        horizon={horizon}
+        usingMarketCount={calcResults.filter(r => r.usedMarket).length}
+        totalProspects={prospects.length}
+        onScenario={setScenario}
+        onHorizon={setHorizon}
+      />
 
       {loading ? (
         <p className="text-mute">Laddar…</p>
@@ -93,156 +80,21 @@ export function Compare() {
         <>
           {/* Side-by-side comparison cards */}
           <div className="compare-grid" style={{ gridTemplateColumns: `repeat(${Math.min(prospects.length, 3)}, 1fr)` }}>
-            {ranked.map(({ p, result, projection, costs, pricePerSqmObj, vsMarket, mkt, usedMarket }) => {
-              const isWinner = p.id === winner && prospects.length > 1;
-              const lastYear = projection[projection.length - 1];
-
-              return (
-                <Card key={p.id} className={`card-p compare-card ${isWinner ? 'compare-card--winner' : ''}`}>
-                  {isWinner && (
-                    <div className="compare-winner-badge">★ Bäst yield</div>
-                  )}
-
-                  {/* Header */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
-                    <div>
-                      <p className="compare-card__name">{p.name}</p>
-                      <p className="compare-card__meta">{p.area} · {p.bedrooms} sov · {p.sizeSqm}m²</p>
-                      {p.development && <p className="text-mute" style={{ fontSize: '11px' }}>{p.development}</p>}
-                    </div>
-                    <div style={{ display: 'flex', gap: '6px' }}>
-                      <button className="edit-btn" style={{ opacity: 1 }} onClick={() => { setEditItem(p); setShowModal(true); }}>✎</button>
-                      <button className="delete-btn" onClick={() => handleDelete(p.id)}>×</button>
-                    </div>
-                  </div>
-
-                  {/* Price */}
-                  <div className="compare-price-row">
-                    <span className="compare-price">{fmtMoney(p.purchasePrice)}</span>
-                    <span className="compare-price-sqm">{fmtMoney(pricePerSqmObj)}/kvm</span>
-                  </div>
-
-                  {/* Vs market */}
-                  {vsMarket !== null && (
-                    <p className="compare-vs-market" style={{ color: vsMarket <= 0 ? 'var(--green)' : 'var(--red)' }}>
-                      {vsMarket <= 0 ? '▼' : '▲'} {Math.abs(vsMarket).toFixed(1)}% vs marknadssnitt
-                      {usedMarket && <span className="text-mute"> · {mkt?.area}</span>}
-                    </p>
-                  )}
-
-                  <hr style={{ border: 'none', borderTop: '1px solid var(--border)', margin: '16px 0' }} />
-
-                  {/* KPIs */}
-                  <div className="compare-kpis">
-                    <div className="compare-kpi">
-                      <span className="compare-kpi__label">Netto/år</span>
-                      <span className="compare-kpi__value" style={{ color: result.netAfterTax > 0 ? 'var(--green)' : 'var(--red)' }}>
-                        {fmtMoney(result.netAfterTax)}
-                      </span>
-                    </div>
-                    <div className="compare-kpi">
-                      <span className="compare-kpi__label">Nettoyield</span>
-                      <span className="compare-kpi__value" style={{ color: 'var(--gold)' }}>
-                        {fmtPct(result.netYield)}
-                      </span>
-                    </div>
-                    <div className="compare-kpi">
-                      <span className="compare-kpi__label">Exit {horizon}å</span>
-                      <span className="compare-kpi__value">{fmtMoney(result.exitPrice)}</span>
-                    </div>
-                    <div className="compare-kpi">
-                      <span className="compare-kpi__label">Total förmög. {horizon}å</span>
-                      <span className="compare-kpi__value" style={{ color: 'var(--gold)', fontWeight: 600 }}>
-                        {fmtMoney(lastYear?.totalWealth ?? 0)}
-                      </span>
-                    </div>
-                    <div className="compare-kpi">
-                      <span className="compare-kpi__label">Kapitalinsats</span>
-                      <span className="compare-kpi__value">{fmtMoney(p.purchasePrice + costs.total)}</span>
-                    </div>
-                    <div className="compare-kpi">
-                      <span className="compare-kpi__label">Ann. avkastning</span>
-                      <span className="compare-kpi__value">{fmtPct(result.annualizedReturn)}</span>
-                    </div>
-                  </div>
-
-                  {/* Mini wealth chart */}
-                  <div className="compare-mini-chart">
-                    {projection.map((yr, idx) => {
-                      const h = Math.max((yr.totalWealth / (lastYear?.totalWealth || 1)) * 40, yr.totalWealth > 0 ? 3 : 0);
-                      return (
-                        <div
-                          key={idx}
-                          className="compare-mini-bar"
-                          style={{ height: `${h}px`, background: isWinner ? 'var(--gold)' : 'var(--border-hi)' }}
-                          title={`${yr.calendarYear}: ${fmtMoney(yr.totalWealth)}`}
-                        />
-                      );
-                    })}
-                  </div>
-
-                  {/* Data source note */}
-                  {usedMarket ? (
-                    <p className="compare-data-note compare-data-note--live">
-                      📍 Marknadsdata: {mkt?.area} ({mkt?.source})
-                    </p>
-                  ) : (
-                    <p className="compare-data-note">
-                      ⚠ Scenariots defaultvärden (ingen marknadsdata för {p.area})
-                    </p>
-                  )}
-
-                  <button
-                    className="compare-bank-btn"
-                    onClick={() => exportBankPdf(p, mkt ?? undefined, scenario, horizon)}
-                  >
-                    📄 Bankkalkyl PDF
-                  </button>
-                  {p.link && (
-                    <a href={p.link} target="_blank" rel="noopener noreferrer" className="compare-link">
-                      Öppna på Idealista →
-                    </a>
-                  )}
-                </Card>
-              );
-            })}
+            {ranked.map(evaluation => (
+              <ProspectCard
+                key={evaluation.p.id}
+                prospect={evaluation.p}
+                evaluation={evaluation}
+                scenario={scenario}
+                horizon={horizon}
+                isWinner={evaluation.p.id === winner && prospects.length > 1}
+                onEdit={() => { setEditItem(evaluation.p); setShowModal(true); }}
+                onDelete={() => handleDelete(evaluation.p.id)}
+              />
+            ))}
           </div>
 
-          {/* Summary table */}
-          {prospects.length > 1 && (
-            <Card style={{ marginTop: '20px' }}>
-              <div className="table-header" style={{ gridTemplateColumns: '1fr 100px 100px 100px 100px 110px' }}>
-                <span>Objekt</span>
-                <span>Pris</span>
-                <span>Nettoyield</span>
-                <span>Netto/år</span>
-                <span>Ann. avk.</span>
-                <span>Total {horizon}å</span>
-              </div>
-              {ranked.map(({ p, result, projection }, i) => (
-                <div
-                  key={p.id}
-                  className="table-row"
-                  style={{ gridTemplateColumns: '1fr 100px 100px 100px 100px 110px' }}
-                >
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    {i === 0 && prospects.length > 1 && <span style={{ color: 'var(--gold)', fontSize: '12px' }}>★</span>}
-                    <span style={{ fontWeight: 500 }}>{p.name}</span>
-                    <span className="text-mute" style={{ fontSize: '12px' }}>{p.area}</span>
-                  </span>
-                  <span>{fmtMoney(p.purchasePrice)}</span>
-                  <span style={{ color: 'var(--gold)', fontWeight: 500 }}>{fmtPct(result.netYield)}</span>
-                  <span style={{ color: result.netAfterTax > 0 ? 'var(--green)' : 'var(--red)' }}>
-                    {fmtMoney(result.netAfterTax)}
-                  </span>
-                  <span>{fmtPct(result.annualizedReturn)}</span>
-                  <span style={{ color: 'var(--gold)', fontWeight: 600 }}>
-                    {fmtMoney(projection[projection.length - 1]?.totalWealth ?? 0)}
-                  </span>
-                </div>
-              ))}
-            </Card>
-          )}
+          {prospects.length > 1 && <SummaryTable ranked={ranked} horizon={horizon} />}
 
           {prospects.length > 0 && (
             <AIPanel
@@ -266,6 +118,3 @@ export function Compare() {
     </div>
   );
 }
-
-// ── Prospect Modal ────────────────────────────────────────────────────────────
-
