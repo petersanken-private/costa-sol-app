@@ -70,9 +70,6 @@ export function Market() {
         <>
           <OverviewCards markets={markets} />
           <MarketCharts  markets={markets} />
-          <MarketTable        markets={markets} onEdit={handleEdit} onDelete={handleDelete} />
-          <MarketMobileCards  markets={markets} onEdit={handleEdit} onDelete={handleDelete} />
-          <AreaCompareChart markets={markets} />
           <MarketTable        markets={markets} onEdit={m => dispatch({ type: 'open-edit', item: m })} onDelete={handleDelete} />
           <MarketMobileCards  markets={markets} onEdit={m => dispatch({ type: 'open-edit', item: m })} onDelete={handleDelete} />
 
