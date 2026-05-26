@@ -51,17 +51,19 @@ export function AIPanel({ scope, propertyId, presets, title = '🤖 AI-analys' }
   }
 
   return (
-    <Card className="card-p mt-5">
+    <Card className="card-p" style={{ marginTop: '20px' }}>
       <SectionHeader title={title} />
 
       {blocked && (
-        <p className="text-[13px] mb-3 px-3 py-2.5 bg-surface-2 rounded-md border border-dashed border-border text-text-mute">
+        <p className="text-mute" style={{ fontSize: '13px', marginBottom: '12px',
+                                          padding: '10px 12px', background: 'var(--surface-2)',
+                                          borderRadius: '6px', border: '1px dashed var(--border)' }}>
           💡 Lägg till minst en fastighet (Portfölj) eller ett prospekt (Jämför) innan du kör AI-analyser.
         </p>
       )}
 
       {/* Preset-knappar */}
-      <div className="flex flex-wrap gap-2 mb-4">
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
         {presets.map(p => (
           <Btn key={p.key} size="sm" onClick={() => handlePreset(p.key)} disabled={analyzing || blocked}>
             {p.icon} {p.label}
@@ -74,14 +76,15 @@ export function AIPanel({ scope, propertyId, presets, title = '🤖 AI-analys' }
 
       {/* Custom prompt */}
       {showCustom && (
-        <div className="mb-4">
+        <div style={{ marginBottom: '16px' }}>
           <textarea
-            className="form-input min-h-[80px] resize-y"
+            className="form-input"
             value={customPrompt}
             onChange={e => setCustomPrompt(e.target.value)}
             placeholder="Ställ vad som helst om din portfölj…"
+            style={{ minHeight: '80px', resize: 'vertical' }}
           />
-          <div className="mt-2 flex gap-2">
+          <div style={{ marginTop: '8px', display: 'flex', gap: '8px' }}>
             <Btn variant="primary" size="sm" onClick={handleCustom} disabled={analyzing || !customPrompt.trim()}>
               Analysera
             </Btn>
@@ -93,26 +96,26 @@ export function AIPanel({ scope, propertyId, presets, title = '🤖 AI-analys' }
       )}
 
       {analyzing && (
-        <div className="p-5 text-center text-text-mute">
-          <div className="app-loading__spinner mx-auto mb-3" />
+        <div style={{ padding: '20px', textAlign: 'center', color: 'var(--text-mute)' }}>
+          <div className="app-loading__spinner" style={{ margin: '0 auto 12px' }} />
           AI:n tänker… (5-15 sekunder)
         </div>
       )}
 
       {error && (
-        <div className="db-error-banner mb-3">
+        <div className="db-error-banner" style={{ marginBottom: '12px' }}>
           <span>⚠ {error}</span>
         </div>
       )}
 
       {/* Historik */}
       {insights.length === 0 && !analyzing && (
-        <p className="text-text-mute text-[13px]">
+        <p className="text-mute" style={{ fontSize: '13px' }}>
           Klicka på en av knapparna ovan för att starta din första AI-analys.
         </p>
       )}
 
-      <div className="flex flex-col gap-3">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
         {insights.map(ins => (
           <InsightCard
             key={ins.id}
@@ -160,30 +163,34 @@ function InsightCard({ insight, expanded, onToggle, onDelete }: InsightCardProps
   }
 
   return (
-    <div className="border border-border rounded-lg px-4 py-3 bg-surface">
-      <div className="flex justify-between items-center gap-3">
-        <div className="flex-1 cursor-pointer" onClick={onToggle}>
-          <p className="m-0 font-medium">
+    <div style={{
+      border: '1px solid var(--border)',
+      borderRadius: '8px',
+      padding: '12px 16px',
+      background: 'var(--surface)',
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '12px' }}>
+        <div style={{ flex: 1, cursor: 'pointer' }} onClick={onToggle}>
+          <p style={{ margin: 0, fontWeight: 500 }}>
             {expanded ? '▼' : '▶'} {PRESET_LABELS[insight.preset]}
           </p>
-          <p className="text-text-mute mt-1 text-[12px]">
+          <p className="text-mute" style={{ margin: '4px 0 0', fontSize: '12px' }}>
             {date} · {insight.tokensOutput} tokens svar · {(insight.durationMs / 1000).toFixed(1)}s
             {cachedPct > 0 && ` · ${cachedPct.toFixed(0)}% cachat`}
           </p>
         </div>
         <button
-          className="delete-btn flex-shrink-0 px-3 py-2 min-w-[36px]"
+          className="delete-btn"
           onClick={handleDelete}
           title="Ta bort"
-        >
-          ×
-        </button>
+          style={{ flexShrink: 0, padding: '8px 12px', minWidth: '36px' }}
+        >×</button>
       </div>
 
       {expanded && (
-        <div className="ai-response mt-3 pt-3 border-t border-border">
+        <div className="ai-response" style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid var(--border)' }}>
           {insight.preset === 'custom' && (
-            <p className="text-text-mute text-[13px] italic mb-3">
+            <p className="text-mute" style={{ fontSize: '13px', fontStyle: 'italic', marginBottom: '12px' }}>
               Fråga: "{insight.prompt}"
             </p>
           )}
