@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { AppProvider, useApp } from './hooks/useApp';
 import { DisplayCurrencyProvider, useDisplayCurrency } from './hooks/useDisplayCurrency';
 import { AuthProvider, useAuth } from './hooks/useAuth';
@@ -6,28 +6,33 @@ import { AuthScreen } from './components/AuthScreen';
 import { Sidebar, CurrencyPill } from './components/Sidebar';
 import { PWAStatus } from './components/PWAStatus';
 import { Dashboard } from './components/dashboard/Dashboard';
-import { Portfolio } from './components/portfolio/Portfolio';
-import { PropertyDetail } from './components/property/PropertyDetail';
-import { Calculator } from './components/calculator/Calculator';
-import { Taxes } from './components/taxes/Taxes';
-import { Market } from './components/market/Market';
-import { Compare } from './components/compare/Compare';
-import { Milestones } from './components/milestones/Milestones';
-import { Guide } from './components/guide/Guide';
 import { PageKey } from './types';
 import './styles/global.css';
 import './styles/components.css';
 
-const PAGE_MAP: Record<PageKey, React.ReactElement> = {
-  dashboard:  <Dashboard />,
-  portfolio:  <Portfolio />,
-  property:   <PropertyDetail />,
-  calculator: <Calculator />,
-  taxes:      <Taxes />,
-  market:     <Market />,
-  compare:    <Compare />,
-  milestones: <Milestones />,
-  guide:      <Guide />,
+// ── Lazy-loaded sidor ─────────────────────────────────────────────────────────
+// Dashboard laddas eager (default-landing). Övriga sidor kommer som egna
+// chunks som hämtas första gången användaren navigerar dit.
+// Komponenterna är named exports, så vi mappar `.X` till `default` här.
+const Portfolio      = lazy(() => import('./components/portfolio/Portfolio').then(m => ({ default: m.Portfolio })));
+const PropertyDetail = lazy(() => import('./components/property/PropertyDetail').then(m => ({ default: m.PropertyDetail })));
+const Calculator     = lazy(() => import('./components/calculator/Calculator').then(m => ({ default: m.Calculator })));
+const Taxes          = lazy(() => import('./components/taxes/Taxes').then(m => ({ default: m.Taxes })));
+const Market         = lazy(() => import('./components/market/Market').then(m => ({ default: m.Market })));
+const Compare        = lazy(() => import('./components/compare/Compare').then(m => ({ default: m.Compare })));
+const Milestones     = lazy(() => import('./components/milestones/Milestones').then(m => ({ default: m.Milestones })));
+const Guide          = lazy(() => import('./components/guide/Guide').then(m => ({ default: m.Guide })));
+
+const PAGE_MAP: Record<PageKey, React.ComponentType> = {
+  dashboard:  Dashboard,
+  portfolio:  Portfolio,
+  property:   PropertyDetail,
+  calculator: Calculator,
+  taxes:      Taxes,
+  market:     Market,
+  compare:    Compare,
+  milestones: Milestones,
+  guide:      Guide,
 };
 
 const MOBILE_NAV: { key: PageKey; icon: string; label: string }[] = [
@@ -48,9 +53,20 @@ function MobileCurrencyToggle() {
   );
 }
 
+/** Liten fallback medan en lazy-laddad sida hämtas. */
+function PageLoading() {
+  return (
+    <div className="app-loading">
+      <div className="app-loading__inner">
+        <div className="app-loading__spinner" />
+      </div>
+    </div>
+  );
+}
+
 function AppContent() {
   const { state, navigate, loading, dbError } = useApp();
-  const page = PAGE_MAP[state.activePage] ?? <Dashboard />;
+  const PageComp = PAGE_MAP[state.activePage] ?? Dashboard;
 
   if (loading) {
     return (
@@ -74,7 +90,9 @@ function AppContent() {
             <button onClick={() => window.location.reload()}>Ladda om</button>
           </div>
         )}
-        {page}
+        <Suspense fallback={<PageLoading />}>
+          <PageComp />
+        </Suspense>
       </main>
       <nav className="mobile-nav">
         {MOBILE_NAV.map(item => (
