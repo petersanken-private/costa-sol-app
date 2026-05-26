@@ -36,29 +36,22 @@ export function PWAStatus() {
     <>
       {/* Update-prompt */}
       {needRefresh && updateSW && (
-        <div style={{
-          position: 'fixed', bottom: '80px', left: '50%', transform: 'translateX(-50%)',
-          background: 'var(--surface-2)', border: '1px solid var(--gold)',
-          borderRadius: '8px', padding: '12px 16px',
-          display: 'flex', alignItems: 'center', gap: '12px',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-          zIndex: 9999, maxWidth: 'calc(100vw - 32px)',
-        }}>
-          <span style={{ fontSize: '14px' }}>↻ Ny version tillgänglig</span>
+        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-3 bg-surface-2 border border-gold rounded-lg px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.4)] max-w-[calc(100vw-32px)]">
+          <span className="text-[14px]">↻ Ny version tillgänglig</span>
           <Btn size="sm" variant="primary" onClick={() => updateSW(true)}>Uppdatera</Btn>
-          <button className="delete-btn" onClick={() => setNeedRefresh(false)}>×</button>
+          <button
+            className="bg-transparent border-none text-text-mute text-[18px] leading-none cursor-pointer p-0 transition-colors duration-150 hover:text-text"
+            onClick={() => setNeedRefresh(false)}
+            aria-label="Stäng"
+          >
+            ×
+          </button>
         </div>
       )}
 
       {/* Offline-indikator */}
       {isOffline && (
-        <div style={{
-          position: 'fixed', top: '16px', right: '16px',
-          background: 'var(--surface-2)', border: '1px solid var(--red)',
-          borderRadius: '999px', padding: '6px 14px',
-          fontSize: '12px', fontWeight: 500, color: 'var(--red)',
-          zIndex: 9999,
-        }}>
+        <div className="fixed top-4 right-4 z-[9999] bg-surface-2 border border-red rounded-full px-3.5 py-1.5 text-[12px] font-medium text-red">
           ⚠ Offline
         </div>
       )}
