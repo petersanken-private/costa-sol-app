@@ -24,7 +24,10 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(npm test *)",
       "Bash(git rm *)",
-      "Bash(perl -i -pe \"s|from '\\\\.\\\\./RentalSources'|from '../rental-sources'|g\" src/components/property/RentalsTab.tsx)"
+      "Bash(perl -i -pe \"s|from '\\\\.\\\\./RentalSources'|from '../rental-sources'|g\" src/components/property/RentalsTab.tsx)",
+      "Bash(git commit -m 'Etapp M: Splitta Dashboard, Calculator, Guide \\(per ~150-radersregeln\\) *)",
+      "Bash(git stash *)",
+      "Bash(git commit -m 'Etapp N: Splitta återstående 150+-raders-komponenter *)"
     ]
   }
 }
