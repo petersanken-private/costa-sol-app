@@ -16,7 +16,15 @@
       "Bash(gh pr create --base main --head refactor/etapp-c-types-utils-naming --title 'Refactor C: types per feature + .utils.ts-suffix' --body ' *)",
       "Bash(gh pr *)",
       "Bash(sed -i '' '258,329d' /Users/petersandqvist/Desktop/real-estate-app/src/pages/Market.tsx)",
-      "Bash(sed -i '' '11,42d' /Users/petersandqvist/Desktop/real-estate-app/src/pages/Market.tsx)"
+      "Bash(sed -i '' '11,42d' /Users/petersandqvist/Desktop/real-estate-app/src/pages/Market.tsx)",
+      "Bash(git fetch *)",
+      "Bash(git reset *)",
+      "Bash(git branch *)",
+      "Bash(grep -nE \"\\\\.page[^a-z-]|\\\\.page$|\\\\.card-p\\\\b|\\\\.grid-4\\\\b|\\\\.text-mute\\\\b|\\\\.text-gold\\\\b\" src/styles/components.css)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(npm test *)",
+      "Bash(git rm *)",
+      "Bash(perl -i -pe \"s|from '\\\\.\\\\./RentalSources'|from '../rental-sources'|g\" src/components/property/RentalsTab.tsx)"
     ]
   }
 }
