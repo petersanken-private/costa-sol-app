@@ -9,9 +9,10 @@ export interface StatProps {
 export function Stat({ label, value, sub, color }: StatProps) {
   return (
     <div>
-      <p className="stat-label">{label}</p>
-      <p className="stat-value" style={color ? { color } : undefined}>{value}</p>
-      {sub && <p className="stat-sub">{sub}</p>}
+      <p className="text-[10px] tracking-[1.5px] uppercase text-text-mute mb-1">{label}</p>
+      <p className="font-display text-[22px] md:text-[28px] font-light leading-none text-text"
+         style={color ? { color } : undefined}>{value}</p>
+      {sub && <p className="text-[11px] text-text-mute mt-1">{sub}</p>}
     </div>
   );
 }
