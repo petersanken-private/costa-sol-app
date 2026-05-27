@@ -28,7 +28,8 @@
       "Bash(git commit -m 'Etapp M: Splitta Dashboard, Calculator, Guide \\(per ~150-radersregeln\\) *)",
       "Bash(git stash *)",
       "Bash(git commit -m 'Etapp N: Splitta återstående 150+-raders-komponenter *)",
-      "Bash(git commit -m 'Etapp O: Tailwind-migrering fas 1 — Sidebar + 9 UI-primitiver *)"
+      "Bash(git commit -m 'Etapp O: Tailwind-migrering fas 1 — Sidebar + 9 UI-primitiver *)",
+      "Bash(git commit -m 'Fix: mobile-currency-toggle CSS borttagen med sidebar.css — konverterat till Tailwind i App.tsx *)"
     ]
   }
 }
