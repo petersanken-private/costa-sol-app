@@ -3,5 +3,5 @@ export interface DividerProps {
 }
 
 export function Divider({ className = '' }: DividerProps) {
-  return <hr className={`divider ${className}`} />;
+  return <hr className={`border-0 border-t border-border ${className}`} />;
 }

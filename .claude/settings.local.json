@@ -31,7 +31,9 @@
       "Bash(git commit -m 'Etapp O: Tailwind-migrering fas 1 — Sidebar + 9 UI-primitiver *)",
       "Bash(git commit -m 'Fix: mobile-currency-toggle CSS borttagen med sidebar.css — konverterat till Tailwind i App.tsx *)",
       "Bash(npx playwright *)",
-      "Bash(file tests/visual/styleguide.spec.ts-snapshots/*.png)"
+      "Bash(file tests/visual/styleguide.spec.ts-snapshots/*.png)",
+      "Bash(# Hitta exakt var md:px-8 ligger relativt @media-direktiv *)",
+      "Bash(git commit -m 'Etapp Q: Tailwind-konvertering av 8 UI-primitiver med Playwright-verifiering *)"
     ]
   }
 }

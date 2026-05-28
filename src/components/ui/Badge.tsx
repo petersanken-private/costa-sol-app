@@ -9,7 +9,10 @@ export function Badge({ label, color }: BadgeProps) {
     ? { color, background: color + '18', borderColor: color + '40' }
     : undefined;
   return (
-    <span className="badge" style={style}>
+    <span
+      className="inline-block px-2 py-0.5 rounded-[20px] text-[11px] font-medium tracking-[0.3px] border border-transparent whitespace-nowrap"
+      style={style}
+    >
       {label}
     </span>
   );
