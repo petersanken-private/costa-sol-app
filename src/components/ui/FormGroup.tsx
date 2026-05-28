@@ -9,7 +9,7 @@ export interface FormGroupProps {
 }
 
 export function FormGroup({ label, children, span2, className = '' }: FormGroupProps) {
-  const classes = ['flex flex-col gap-1.5', span2 ? 'col-span-2' : '', className].filter(Boolean).join(' ');
+  const classes = ['form-group', span2 ? 'col-span-2' : '', className].filter(Boolean).join(' ');
   return (
     <div className={classes}>
       <label className="form-label">{label}</label>
