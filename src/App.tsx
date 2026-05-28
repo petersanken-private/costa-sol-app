@@ -135,7 +135,23 @@ function AuthGate({ children }: { children: React.ReactNode }) {
   return <>{children}</>;
 }
 
+/**
+ * Styleguide-route — visuell katalog som bypassar auth.
+ * Nås via `?styleguide` query-param. Används av Playwright visual regression tests.
+ */
+const Styleguide = lazy(() => import('./components/Styleguide').then(m => ({ default: m.Styleguide })));
+
 export default function App() {
+  // Bypassa hela auth/Supabase-kedjan när styleguide körs — testerna ska inte
+  // behöva en riktig session eller databas-data.
+  if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('styleguide')) {
+    return (
+      <Suspense fallback={<PageLoading />}>
+        <Styleguide />
+      </Suspense>
+    );
+  }
+
   return (
     <AuthProvider>
       <AuthGate>

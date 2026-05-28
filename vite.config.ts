@@ -69,4 +69,9 @@ export default defineConfig({
       },
     }),
   ],
-})
+  // Vitest-konfig — Playwright-tester ligger i tests/visual/ och ska INTE
+  // köras av vitest.
+  test: {
+    exclude: ['node_modules', 'dist', 'tests/visual/**'],
+  },
+} as import('vite').UserConfig)

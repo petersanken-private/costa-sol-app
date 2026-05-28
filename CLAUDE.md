@@ -15,9 +15,26 @@ npm run preview      # Preview production build incl. PWA at localhost:4173
 npm run type-check   # tsc --noEmit only — run after every code change
 npm test             # Vitest run-once
 npm run test:watch   # Vitest watch mode
+
+# Playwright visual regression tests
+npm run test:visual         # Jämför mot sparade baselines
+npm run test:visual:update  # Uppdatera baselines (kör innan medvetna Tailwind-/CSS-ändringar)
+npm run test:visual:report  # Öppna HTML-rapport från senaste körningen
 ```
 
 Tester finns för pure utils-funktioner i `src/utils/*.test.ts` (calc, mortgage). Lägg gärna till tester när du bygger nya utils — Vitest är konfigurerat med Node-miljö (inget jsdom, så fokus är pure functions, inte komponenter).
+
+### Visuell regressionstest — när du rör Tailwind/CSS
+
+**Workflow innan du ändrar en UI-komponent:**
+
+1. `npm run test:visual:update` — sparar nuvarande utseende som baseline
+2. Gör Tailwind-/CSS-ändringen
+3. `npm run test:visual` — jämför mot baseline
+4. Om diff: `npm run test:visual:report` öppnar HTML-rapport med exakta pixel-diffar
+5. Om ändringen är avsiktlig: kör `:update` igen för att acceptera ny baseline
+
+Styleguide-sidan (`src/components/Styleguide.tsx`, nås via `?styleguide`) renderar alla UI-primitiver med alla varianter. **Lägg till nya komponenter där när de skapas** så fångas regressioner automatiskt.
 
 ### Supabase deploys
 
