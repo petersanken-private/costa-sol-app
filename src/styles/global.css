@@ -35,7 +35,10 @@
 }
 
 /* ── Reset ──────────────────────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* OBS: box-sizing/margin/padding-reset på * sköts redan av Tailwind preflight
+   i @layer base. Om vi duplicerar den här (non-layered) vinner den över ALLA
+   Tailwind-utilities (px-*, py-*, m-*, p-*) eftersom non-layered > layered.
+   Det krossade tidigare hela padding-utility-systemet i tysthet. */
 html, body, #root { height: 100%; }
 
 body {

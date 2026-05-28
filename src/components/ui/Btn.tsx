@@ -13,11 +13,13 @@ export interface BtnProps {
 // VIKTIGT: ingen font-size, min-height eller padding i BASE — de definieras
 // per storlek (SIZES) för att undvika konflikter mellan arbitrary values i
 // Tailwind v4 (där cascade-ordning för arbitrary values inte är garanterad).
-const BASE = 'inline-flex items-center gap-2 rounded-[6px] font-medium leading-none transition-all duration-150 whitespace-nowrap [-webkit-tap-highlight-color:transparent] disabled:opacity-50 disabled:cursor-not-allowed';
+const BASE = 'inline-flex items-center gap-2.5 rounded-[6px] font-medium leading-none transition-all duration-150 whitespace-nowrap [-webkit-tap-highlight-color:transparent] disabled:opacity-50 disabled:cursor-not-allowed';
 
+// Generös padding — knapparna ska se ut att ha "andrum". min-h ger
+// minsta höjd, py styr vertikal padding (om innehållet blir större).
 const SIZES = {
-  md: 'text-[13px] min-h-[44px] px-5 py-2.5',
-  sm: 'text-[12px] min-h-[36px] px-3.5 py-2',
+  md: 'text-[13px] min-h-[44px] px-7 py-3',     // 28px horisontellt, 12px vertikalt
+  sm: 'text-[12px] min-h-[36px] px-5 py-2.5',   // 20px horisontellt, 10px vertikalt
 } as const;
 
 const VARIANTS = {
