@@ -33,7 +33,8 @@
       "Bash(npx playwright *)",
       "Bash(file tests/visual/styleguide.spec.ts-snapshots/*.png)",
       "Bash(# Hitta exakt var md:px-8 ligger relativt @media-direktiv *)",
-      "Bash(git commit -m 'Etapp Q: Tailwind-konvertering av 8 UI-primitiver med Playwright-verifiering *)"
+      "Bash(git commit -m 'Etapp Q: Tailwind-konvertering av 8 UI-primitiver med Playwright-verifiering *)",
+      "Bash(git commit -m 'Etapp R: Root-cause-fix för Tailwind-padding + Modal till Tailwind *)"
     ]
   }
 }
