@@ -9,16 +9,13 @@ export interface TabsProps {
   onChange: (id: string) => void;
 }
 
-const TAB_BASE   = 'px-3.5 md:px-5 border-none border-b-2 border-b-transparent bg-transparent text-[13px] text-text-mute -mb-px whitespace-nowrap min-h-[44px] transition-colors duration-150 [-webkit-tap-highlight-color:transparent] hover:text-text-dim';
-const TAB_ACTIVE = 'text-gold border-b-gold';
-
 export function Tabs({ tabs, active, onChange }: TabsProps) {
   return (
-    <div className="flex border-b border-border mb-4 overflow-x-auto [-webkit-overflow-scrolling:touch]">
+    <div className="tabs">
       {tabs.map(t => (
         <button
           key={t.id}
-          className={`${TAB_BASE} ${active === t.id ? TAB_ACTIVE : ''}`}
+          className={`tab-btn ${active === t.id ? 'tab-btn--active' : ''}`}
           onClick={() => onChange(t.id)}
         >
           {t.label}
