@@ -14,7 +14,7 @@ export interface PropertyRowProps {
 export function PropertyRow({ property: p, onClick, onEdit, onDelete }: PropertyRowProps) {
   const gain = p.currentValue - p.purchasePrice;
   return (
-    <div className="table-row table-row--clickable portfolio-table-cols" onClick={onClick}>
+    <div className="table-row table-row--clickable grid-cols-[1fr_120px_100px_120px_120px_80px] gap-3" onClick={onClick}>
       <div>
         <p className="property-row__name">{p.name}</p>
         <p className="property-row__meta">{p.area} · {p.sizeSqm}m² · {p.bedrooms} sovrum</p>

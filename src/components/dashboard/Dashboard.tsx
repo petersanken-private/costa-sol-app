@@ -1,4 +1,4 @@
-import { Card, Stat } from '../ui';
+import { Card, Stat, YearButton } from '../ui';
 import { fmtMoney } from '../../utils/calc.utils';
 import { CurrencyWidget } from '../CurrencyWidget';
 import { AIPanel } from '../ai';
@@ -42,7 +42,7 @@ export function Dashboard() {
           <h1 className="page-title">Portföljöversikt</h1>
           <div className="dashboard-filters">
             <select
-              className="dash-filter-select"
+              className="bg-bg-card border border-border rounded-[6px] text-text-dim text-[13px] py-[7px] px-3 shadow-sm transition-colors duration-150 hover:border-border-hi focus:border-border-hi focus:outline-none"
               value={selectedProperty}
               onChange={e => setSelectedProperty(e.target.value)}
             >
@@ -51,13 +51,9 @@ export function Dashboard() {
                 <option key={p.id} value={p.id}>{p.name}</option>
               ))}
             </select>
-            <div className="year-btns">
+            <div className="flex gap-2 flex-wrap">
               {availableYears.map(y => (
-                <button
-                  key={y}
-                  className={`year-btn ${selectedYear === y ? 'year-btn--active' : ''}`}
-                  onClick={() => setSelectedYear(y)}
-                >{y}</button>
+                <YearButton key={y} label={y} active={selectedYear === y} onClick={() => setSelectedYear(y)} />
               ))}
             </div>
           </div>
