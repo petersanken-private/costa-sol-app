@@ -12,6 +12,7 @@ import {
   Badge, Btn, Card, Divider, EmptyState,
   FormGroup, Modal, SectionHeader, Stat, Tabs,
 } from './ui';
+import { SidebarView } from './SidebarView';
 import { useState } from 'react';
 import '../styles/global.css';
 import '../styles/components.css';
@@ -184,6 +185,26 @@ export function Styleguide() {
           <p className="text-green">text-green</p>
           <p className="text-red">text-red</p>
         </Card>
+      </Section>
+
+      {/* ── Sidebar ────────────────────────────────────────────────────────── */}
+      <Section title="Sidebar (desktop only, hidden < 768px)">
+        <div style={{ display: 'flex', border: '1px solid var(--border)', borderRadius: '10px', overflow: 'hidden', background: 'var(--bg-card)', height: '600px' }}>
+          <SidebarView
+            activePage="milestones"
+            urgentCount={3}
+            currency="EUR"
+            rate={11.45}
+            userEmail="test@costasol.se"
+            onNavigate={() => {}}
+            onToggleCurrency={() => {}}
+            onReset={() => {}}
+            onSignOut={() => {}}
+          />
+          <div style={{ flex: 1, padding: '24px', color: 'var(--text-mute)', fontSize: '13px' }}>
+            ← Sidebaren med "Påminnelser" aktiv (med urgent-badge "3") och EUR vald.
+          </div>
+        </div>
       </Section>
 
       {/* ── Color tokens ───────────────────────────────────────────────────── */}
