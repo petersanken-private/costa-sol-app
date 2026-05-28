@@ -1,5 +1,6 @@
 import { ScenarioKey } from '../../types';
 import { SCENARIOS } from '../../data';
+import { YearButton } from '../ui';
 
 interface Props {
   scenario:         ScenarioKey;
@@ -28,9 +29,7 @@ export function ScenarioControls({
       </div>
       <div style={{ display: 'flex', gap: '6px' }}>
         {[5, 10].map(y => (
-          <button key={y} className={`year-btn ${horizon === y ? 'year-btn--active' : ''}`} onClick={() => onHorizon(y)}>
-            {y} år
-          </button>
+          <YearButton key={y} label={`${y} år`} active={horizon === y} onClick={() => onHorizon(y)} />
         ))}
       </div>
       <p className="text-mute" style={{ fontSize: '12px' }}>

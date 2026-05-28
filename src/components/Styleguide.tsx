@@ -10,7 +10,7 @@
 
 import {
   Badge, Btn, Card, Divider, EmptyState,
-  FormGroup, Modal, SectionHeader, Stat, Tabs,
+  FormGroup, Modal, SectionHeader, Stat, Tabs, YearButton,
 } from './ui';
 import { SidebarView } from './SidebarView';
 import { useState } from 'react';
@@ -185,6 +185,16 @@ export function Styleguide() {
           <p className="text-green">text-green</p>
           <p className="text-red">text-red</p>
         </Card>
+      </Section>
+
+      {/* ── YearButton ─────────────────────────────────────────────────────── */}
+      <Section title="YearButton">
+        <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+          <YearButton label={2024} active={false} onClick={() => {}} />
+          <YearButton label={2025} active={true}  onClick={() => {}} />
+          <YearButton label={2026} active={false} onClick={() => {}} />
+          <YearButton label="3 år" active={false} onClick={() => {}} />
+        </div>
       </Section>
 
       {/* ── Sidebar ────────────────────────────────────────────────────────── */}

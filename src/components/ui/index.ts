@@ -36,3 +36,5 @@ export type { ModalProps } from './Modal';
 
 export { FormGroup }     from './FormGroup';
 export type { FormGroupProps } from './FormGroup';
+
+export { YearButton }    from './YearButton';

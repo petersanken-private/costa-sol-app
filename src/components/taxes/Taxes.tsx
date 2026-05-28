@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useApp } from '../../hooks/useApp';
-import { Card, Stat } from '../ui';
+import { Card, Stat, YearButton } from '../ui';
 import { fmtMoney, fmtPct } from '../../utils/calc.utils';
 import { TAX } from '../../constants/tax';
 import { ExportMenu } from '../ExportMenu';
@@ -59,10 +59,9 @@ export function Taxes() {
                 { label: 'PDF till gestor', icon: '📄', onClick: () => exportTaxPdf({ year, rentals: yearRentals, expenses: yearExpenses, properties: state.properties }) },
               ]}
             />
-            <div className="year-btns">
+            <div className="flex gap-2 flex-wrap">
               {availableYears.map(y => (
-                <button key={y} className={`year-btn ${year === y ? 'year-btn--active' : ''}`}
-                        onClick={() => setYear(y)}>{y}</button>
+                <YearButton key={y} label={y} active={year === y} onClick={() => setYear(y)} />
               ))}
             </div>
           </div>

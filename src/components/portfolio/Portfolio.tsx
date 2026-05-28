@@ -42,7 +42,7 @@ export function Portfolio() {
     <div className="page">
       <div className="page-header">
         <p className="page-eyebrow">Fastighetsregister</p>
-        <div className="portfolio-top-bar">
+        <div className="flex justify-between items-end">
           <h1 className="page-title">Portfölj</h1>
           <div className="page-actions">
             <ExportMenu
@@ -75,7 +75,7 @@ export function Portfolio() {
         <>
           {/* Desktop */}
           <Card className="portfolio-desktop-table">
-            <div className="table-header portfolio-table-cols">
+            <div className="table-header grid-cols-[1fr_120px_100px_120px_120px_80px] gap-3">
               <span>Fastighet</span>
               <span>Typ</span>
               <span>Status</span>
