@@ -42,7 +42,11 @@
       "Bash(git commit -m 'Etapp X: pages.css chunk 5 — Compare page helt Tailwind \\(−171 rader\\) *)",
       "Bash(git commit -m 'Etapp Y: pages.css chunk 6 — Projektion-flik + Rental/expense cols \\(−113 rader\\) *)",
       "Bash(git commit -m 'Etapp Z: pages.css chunk 7 — Dashboard chart additions \\(−124 rader\\) *)",
-      "Bash(git commit -m 'Etapp AA: pages.css chunk 8 — Dashboard + Property detail + logging additions \\(−332 rader\\) *)"
+      "Bash(git commit -m 'Etapp AA: pages.css chunk 8 — Dashboard + Property detail + logging additions \\(−332 rader\\) *)",
+      "Bash(sed -n '599p;826p' src/styles/pages.css)",
+      "Bash(awk '/^\\\\/\\\\* ── Milstolpar/,/^\\\\/\\\\* ── Påminnelser/{if\\(/^\\\\./\\) print}' src/styles/pages.css)",
+      "Bash(awk '/^\\\\/\\\\* ── Påminnelser/,/^\\\\/\\\\* ── Sidans padding/{if\\(/^\\\\./\\) print}' src/styles/pages.css)",
+      "Bash(git commit -m 'Etapp BB: pages.css mega-chunk — Påminnelser+Milstolpar+Dokument-flik \\(−763 rader\\) *)"
     ]
   }
 }

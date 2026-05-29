@@ -76,18 +76,26 @@ export function MilestoneModal({ initial, properties, saving, onClose, onSave }:
       {error && <p className="form-error">{error}</p>}
 
       <FormGroup label="Kategori">
-        <div className="ms-cat-grid">
-          {MILESTONE_CATS.map(c => (
-            <button
-              key={c.key}
-              type="button"
-              className={`ms-cat-btn ${category === c.key ? 'ms-cat-btn--active' : ''}`}
-              onClick={() => handleCategoryChange(c.key)}
-            >
-              <span>{c.icon}</span>
-              <span>{c.label}</span>
-            </button>
-          ))}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-1.5 mt-1">
+          {MILESTONE_CATS.map(c => {
+            const active = category === c.key;
+            return (
+              <button
+                key={c.key}
+                type="button"
+                className={[
+                  'flex flex-col items-center gap-1 py-2.5 px-1.5 min-h-[60px] rounded-[6px] border bg-transparent text-[11px] text-center transition-all duration-150 leading-[1.2]',
+                  active
+                    ? 'border-gold bg-gold-faint text-gold'
+                    : 'border-border text-text-mute hover:border-border-hi hover:text-text-dim hover:bg-bg-subtle',
+                ].join(' ')}
+                onClick={() => handleCategoryChange(c.key)}
+              >
+                <span className="text-[18px]">{c.icon}</span>
+                <span>{c.label}</span>
+              </button>
+            );
+          })}
         </div>
       </FormGroup>
 

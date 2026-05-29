@@ -62,7 +62,7 @@ export function DocumentsTab({ propertyId }: Props) {
         <>
           <CategoryBar docs={docs} filterCat={filterCat} onFilter={setFilterCat} />
 
-          <div className="doc-list">
+          <div className="flex flex-col gap-2">
             {filtered.map(doc => (
               <DocumentRow
                 key={doc.id}
