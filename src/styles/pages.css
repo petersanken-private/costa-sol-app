@@ -463,25 +463,6 @@
   font-size: 12px;
 }
 
-/* Delete button on each row */
-.delete-btn {
-  background: none;
-  border: none;
-  color: var(--text-mute);
-  font-size: 18px;
-  line-height: 1;
-  padding: 0 4px;
-  opacity: 0;
-  transition: opacity var(--transition), color var(--transition);
-}
-
-.table-row:hover .delete-btn {
-  opacity: 1;
-}
-
-.delete-btn:hover {
-  color: var(--red);
-}
 
 /* Platform picker in rental modal */
 .platform-picker {
@@ -676,25 +657,6 @@
 
 .expenses-cols {
   grid-template-columns: 110px 1fr 140px 100px 70px 64px !important;
-}
-
-.edit-btn {
-  background: none;
-  border: none;
-  color: var(--text-mute);
-  font-size: 14px;
-  line-height: 1;
-  padding: 0 3px;
-  opacity: 0;
-  transition: opacity var(--transition), color var(--transition);
-}
-
-.table-row:hover .edit-btn {
-  opacity: 1;
-}
-
-.edit-btn:hover {
-  color: var(--gold);
 }
 
 /* ── Projektion-flik ─────────────────────────────────────────────────────── */
@@ -894,74 +856,6 @@
   text-align: right;
 }
 
-/* ── Market page ─────────────────────────────────────────────────────────── */
-.market-cols {
-  grid-template-columns: 1fr 90px 70px 100px 90px 80px 130px 60px !important;
-}
-
-.market-compare-chart {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.market-compare-row {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  align-items: center;
-  gap: 16px;
-}
-
-.market-compare-area {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-dim);
-}
-
-.market-compare-bars {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.market-compare-bar-wrap {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 16px;
-}
-
-.market-compare-bar {
-  height: 8px;
-  border-radius: 4px;
-  min-width: 4px;
-  transition: width 0.4s ease;
-}
-
-.market-compare-bar--price {
-  background: var(--gold);
-  opacity: 0.7;
-}
-
-.market-compare-bar--adr {
-  background: var(--green);
-  opacity: 0.5;
-}
-
-.market-compare-val {
-  font-size: 11px;
-  color: var(--text-mute);
-  white-space: nowrap;
-}
-
-.occupancy-pill {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
 /* ── Compare page ────────────────────────────────────────────────────────── */
 .compare-grid {
   display: grid;
@@ -1151,7 +1045,6 @@
   .detail-price-value{ font-size:26px; }
   .rentals-cols{ grid-template-columns:50px 50px 60px 90px 90px 80px 44px!important; gap:8px; }
   .expenses-cols{ grid-template-columns:90px 1fr 90px 70px 44px!important; gap:8px; }
-  .delete-btn,.edit-btn{ opacity:1; min-width:36px; min-height:36px; display:flex; align-items:center; justify-content:center; }
 }
 
 /* Calculator */

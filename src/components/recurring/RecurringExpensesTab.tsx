@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRecurringExpenses } from '../../hooks/useRecurringExpenses';
 import { RecurringExpense } from '../../types';
-import { Card, Btn, Badge } from '../ui';
+import { Card, Btn, Badge, IconBtn } from '../ui';
 import { fmtMoney } from '../../utils/calc.utils';
 import { EXPENSE_LABELS } from '../../data';
 import { frequencyLabel, annualizedCost } from '../../utils/recurring.utils';
@@ -88,7 +88,7 @@ export function RecurringExpensesTab({ propertyId }: RecurringExpensesTabProps) 
               <span></span>
             </div>
             {items.map(r => (
-              <div key={r.id} className="table-row"
+              <div key={r.id} className="group table-row"
                    style={{ gridTemplateColumns: '1.5fr 1fr 1fr 100px 100px 80px', opacity: r.active ? 1 : 0.5 }}>
                 <span>
                   <strong>{r.description}</strong>
@@ -99,8 +99,8 @@ export function RecurringExpensesTab({ propertyId }: RecurringExpensesTabProps) 
                 <span className="cell-amount">{fmtMoney(r.amount)}</span>
                 <span className="cell-amount text-gold">{fmtMoney(annualizedCost(r))}</span>
                 <span style={{ display: 'flex', gap: '4px', justifyContent: 'flex-end' }}>
-                  <button className="edit-btn"   onClick={() => { setEditing(r); setShowModal(true); }}>✎</button>
-                  <button className="delete-btn" onClick={() => handleDelete(r)}>×</button>
+                  <IconBtn variant="edit"   onClick={() => { setEditing(r); setShowModal(true); }} />
+                  <IconBtn variant="delete" onClick={() => handleDelete(r)} />
                 </span>
               </div>
             ))}

@@ -40,3 +40,5 @@ export type { FormGroupProps } from './FormGroup';
 export { YearButton }    from './YearButton';
 
 export { RowActionBtn }  from './RowActionBtn';
+
+export { IconBtn }       from './IconBtn';
