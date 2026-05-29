@@ -97,14 +97,16 @@ function AppContent() {
           <PageComp />
         </Suspense>
       </main>
-      <nav className="mobile-nav">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-bg-card border-t border-border flex z-50 pb-[env(safe-area-inset-bottom,0px)]">
         {MOBILE_NAV.map(item => (
           <button
             key={item.key}
-            className={`mobile-nav__btn ${state.activePage === item.key ? 'mobile-nav__btn--active' : ''}`}
+            className={`flex-1 flex flex-col items-center gap-[3px] py-2 px-1 bg-transparent border-0 text-[10px] transition-colors duration-150 [-webkit-tap-highlight-color:transparent] ${
+              state.activePage === item.key ? 'text-gold' : 'text-text-mute'
+            }`}
             onClick={() => navigate(item.key)}
           >
-            <span className="mobile-nav__icon">{item.icon}</span>
+            <span className="text-[20px] leading-none">{item.icon}</span>
             {item.label}
           </button>
         ))}

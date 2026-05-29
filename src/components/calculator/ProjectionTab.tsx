@@ -97,7 +97,7 @@ export function ProjectionTab({ projection, scenarioColor, horizonYears, amortPc
         </div>
       </Card>
 
-      <p className="calc-disclaimer">
+      <p className="text-[12px] text-text-mute mt-6 text-center italic">
         Projektion inkluderar inflation (2%/år på opex), realt ADR-tillväxt (max 5%/år), amortering {amortPct}%/år
         och IRNR-skatt 19%. Fastighetsvärde växer enligt valt scenario. Total förmögenhet = eget kapital +
         ackumulerat driftnetto − köpkostnader.

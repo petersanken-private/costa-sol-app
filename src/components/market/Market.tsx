@@ -8,7 +8,6 @@ import { OverviewCards } from './OverviewCards';
 import { MarketCharts } from './MarketCharts';
 import { MarketTable } from './MarketTable';
 import { MarketMobileCards } from './MarketMobileCards';
-import '../../styles/pages.css';
 
 // ── Modal-state-reducer ───────────────────────────────────────────────────────
 type Modal =

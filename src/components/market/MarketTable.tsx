@@ -12,7 +12,7 @@ interface Props {
 /** Desktop-tabell över alla områden. Döljs på mobil via CSS. */
 export function MarketTable({ markets, onEdit, onDelete }: Props) {
   return (
-    <Card className="market-desktop-table">
+    <Card className="max-md:hidden">
       <div className="table-header grid-cols-[1fr_90px_70px_100px_90px_80px_130px_60px]">
         <span>Område</span>
         <span>€/kvm</span>

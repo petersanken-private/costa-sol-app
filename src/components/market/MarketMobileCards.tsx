@@ -9,47 +9,41 @@ interface Props {
   onDelete: (id: string) => void;
 }
 
-/** Mobile-stacked card grid (CSS-toggles mellan tabell/cards baserat på viewport). */
+/** Mobile-stacked card grid (renderas alltid; CSS-toggle med md: hides on desktop). */
 export function MarketMobileCards({ markets, onEdit, onDelete }: Props) {
   return (
-    <div className="market-mobile-cards">
+    <div className="md:hidden flex flex-col gap-2.5">
       {markets.map(m => (
-        <Card key={m.id} className="card-p-md market-mobile-card">
-          <div className="market-mobile-card__top">
-            <p className="market-mobile-card__area">{m.area}</p>
-            <div style={{ display: 'flex', gap: '6px' }}>
+        <Card key={m.id} className="card-p-md">
+          <div className="flex justify-between items-start mb-3">
+            <p className="text-[14px] font-medium text-text">{m.area}</p>
+            <div className="flex gap-1.5">
               <RowActionBtn variant="edit"   onClick={() => onEdit(m)} />
               <RowActionBtn variant="delete" onClick={() => onDelete(m.id)} />
             </div>
           </div>
-          <div className="market-mobile-card__kpis">
-            <div className="market-mobile-card__kpi">
-              <span className="market-mobile-card__label">€/kvm</span>
-              <span className="market-mobile-card__val" style={{ color: 'var(--gold)' }}>{fmtMoney(m.pricePerSqm)}</span>
-            </div>
-            <div className="market-mobile-card__kpi">
-              <span className="market-mobile-card__label">ADR</span>
-              <span className="market-mobile-card__val">€{m.avgAdr}</span>
-            </div>
-            <div className="market-mobile-card__kpi">
-              <span className="market-mobile-card__label">Beläggning</span>
-              <span className="market-mobile-card__val" style={{ color: m.occupancyPct >= 65 ? 'var(--green)' : 'var(--text-dim)' }}>{m.occupancyPct}%</span>
-            </div>
-            <div className="market-mobile-card__kpi">
-              <span className="market-mobile-card__label">Yield-est.</span>
-              <span className="market-mobile-card__val" style={{ color: 'var(--gold)', fontWeight: 600 }}>{yieldEstimate(m).toFixed(1)}%</span>
-            </div>
-            <div className="market-mobile-card__kpi">
-              <span className="market-mobile-card__label">Tillväxt/år</span>
-              <span className="market-mobile-card__val" style={{ color: 'var(--green)' }}>+{m.annualGrowthPct}%</span>
-            </div>
-            <div className="market-mobile-card__kpi">
-              <span className="market-mobile-card__label">Källa</span>
-              <span style={{ fontSize: '10px', color: 'var(--text-mute)' }}>{m.source}</span>
+          <div className="grid grid-cols-2 gap-2.5">
+            <MobileKpi label="€/kvm"       value={fmtMoney(m.pricePerSqm)} color="var(--gold)" />
+            <MobileKpi label="ADR"         value={`€${m.avgAdr}`} />
+            <MobileKpi label="Beläggning"  value={`${m.occupancyPct}%`} color={m.occupancyPct >= 65 ? 'var(--green)' : 'var(--text-dim)'} />
+            <MobileKpi label="Yield-est."  value={`${yieldEstimate(m).toFixed(1)}%`} color="var(--gold)" bold />
+            <MobileKpi label="Tillväxt/år" value={`+${m.annualGrowthPct}%`} color="var(--green)" />
+            <div className="flex flex-col gap-0.5">
+              <span className="text-[10px] text-text-mute uppercase tracking-[0.5px]">Källa</span>
+              <span className="text-[10px] text-text-mute">{m.source}</span>
             </div>
           </div>
         </Card>
       ))}
+    </div>
+  );
+}
+
+function MobileKpi({ label, value, color, bold }: { label: string; value: string; color?: string; bold?: boolean }) {
+  return (
+    <div className="flex flex-col gap-0.5">
+      <span className="text-[10px] text-text-mute uppercase tracking-[0.5px]">{label}</span>
+      <span className="font-display text-[15px]" style={{ color, fontWeight: bold ? 600 : undefined }}>{value}</span>
     </div>
   );
 }

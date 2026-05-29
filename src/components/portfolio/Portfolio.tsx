@@ -74,7 +74,7 @@ export function Portfolio() {
       ) : (
         <>
           {/* Desktop */}
-          <Card className="portfolio-desktop-table">
+          <Card className="max-md:hidden">
             <div className="table-header grid-cols-[1fr_120px_100px_120px_120px_80px_64px] gap-3">
               <span>Fastighet</span>
               <span>Typ</span>
@@ -96,7 +96,7 @@ export function Portfolio() {
           </Card>
 
           {/* Mobile */}
-          <div className="portfolio-mobile-cards">
+          <div className="md:hidden">
             {filtered.map(p => (
               <PropertyCard
                 key={p.id}

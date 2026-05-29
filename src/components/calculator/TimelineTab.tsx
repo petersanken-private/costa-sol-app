@@ -25,18 +25,18 @@ export function TimelineTab({ result, purchasePrice, scenario, horizonYears }: T
 
         return (
           <Card key={yr} className="card-p-sm">
-            <div className="timeline-row">
-              <div className="timeline-row__meta">
+            <div className="flex justify-between items-center gap-3 max-md:flex-col max-md:items-start max-md:gap-1">
+              <div className="flex flex-wrap items-center gap-2 max-md:gap-2 text-[12px] text-text-mute">
                 <span>År {START_YEAR + yr}</span>
                 <span>Hyra: {fmtMoney(rentAccum)}</span>
                 <span>Värdestegring: {fmtMoney(gain - gainTax)}</span>
               </div>
-              <span className="timeline-row__value" style={{ color: scenario.color }}>
+              <span className="font-display text-[16px]" style={{ color: scenario.color }}>
                 {fmtMoney(total)}
               </span>
             </div>
-            <div className="timeline-bar-wrap">
-              <div className="timeline-bar" style={{ width: `${pct}%`, background: scenario.color }} />
+            <div className="h-1.5 bg-border rounded-[2px] overflow-hidden mt-2">
+              <div className="h-full rounded-[2px] transition-[width] duration-[400ms] ease-in-out" style={{ width: `${pct}%`, background: scenario.color }} />
             </div>
           </Card>
         );

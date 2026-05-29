@@ -38,21 +38,21 @@ export function CalcTab({ property }: CalcTabProps) {
 
   return (
     <div>
-      <div className="scenario-list" style={{ marginBottom: '20px', maxWidth: '600px' }}>
+      <div className="flex flex-col gap-2 mb-5 max-w-[600px]">
         {SCENARIOS.map(s => (
           <button
             key={s.key}
-            className="scenario-btn"
+            className="flex flex-col items-start gap-1 p-3 max-md:min-h-[48px] bg-bg-card border border-border rounded-[10px] text-left transition-all duration-150 hover:border-border-hi"
             style={{
               borderColor: scenario === s.key ? s.color : undefined,
               background:  scenario === s.key ? s.color + '10' : undefined,
             }}
             onClick={() => setScenario(s.key)}
           >
-            <span className="scenario-btn__label" style={{ color: scenario === s.key ? s.color : undefined }}>
+            <span className="text-[13px] font-medium text-text-dim" style={{ color: scenario === s.key ? s.color : undefined }}>
               {s.label}
             </span>
-            <span className="scenario-btn__meta">
+            <span className="text-[11px] text-text-mute">
               {s.nights} nätter · €{s.adr}/natt · +{s.annualGrowthPct}%/år
             </span>
           </button>
