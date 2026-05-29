@@ -18,35 +18,35 @@ export function ProjectionTab({ projection, scenarioColor, horizonYears, amortPc
       {/* Wealth chart */}
       <Card className="card-p">
         <SectionHeader title="Total förmögenhetstillväxt" />
-        <div className="proj-chart">
+        <div className="flex items-end gap-1.5 h-[140px] pb-2 mb-2 max-md:h-[100px] max-md:gap-1">
           {projection.map((p, i) => {
             const wealthH = Math.max((p.totalWealth / maxWealth) * 120, p.totalWealth > 0 ? 4 : 0);
             const rentH   = Math.max((p.netAfterTax / maxRent) * 120, 4);
             return (
-              <div key={i} className="proj-bar-group">
-                <div className="proj-bar-pair">
+              <div key={i} className="flex-1 flex flex-col items-center gap-1.5 justify-end">
+                <div className="flex items-end gap-0.5">
                   <div
-                    className="proj-bar proj-bar--wealth"
+                    className="w-3.5 max-md:w-2.5 rounded-t-[3px] rounded-b-[1px] transition-opacity duration-150 min-h-1 opacity-85 hover:!opacity-100"
                     style={{ height: `${wealthH}px`, background: scenarioColor }}
                     title={`År ${p.calendarYear}: Total förmögenhet ${fmtMoney(p.totalWealth)}`}
                   />
                   <div
-                    className="proj-bar proj-bar--rent"
+                    className="w-3.5 max-md:w-2.5 rounded-t-[3px] rounded-b-[1px] transition-opacity duration-150 min-h-1 bg-gold opacity-50 hover:!opacity-100"
                     style={{ height: `${rentH}px` }}
                     title={`År ${p.calendarYear}: Driftnetto ${fmtMoney(p.netAfterTax)}`}
                   />
                 </div>
-                <span className="proj-bar-label">{p.calendarYear}</span>
+                <span className="text-[9px] max-md:text-[8px] text-text-mute whitespace-nowrap">{p.calendarYear}</span>
               </div>
             );
           })}
         </div>
-        <div className="proj-legend">
-          <span className="proj-legend-item">
-            <span className="proj-legend-dot" style={{ background: scenarioColor }} /> Total förmögenhet
+        <div className="flex gap-5 pt-3 border-t border-border mt-2">
+          <span className="flex items-center gap-1.5 text-[12px] text-text-dim">
+            <span className="w-2.5 h-2.5 rounded-[2px] opacity-85" style={{ background: scenarioColor }} /> Total förmögenhet
           </span>
-          <span className="proj-legend-item">
-            <span className="proj-legend-dot proj-legend-dot--rent" /> Driftnetto per år
+          <span className="flex items-center gap-1.5 text-[12px] text-text-dim">
+            <span className="w-2.5 h-2.5 rounded-[2px] bg-gold opacity-50" /> Driftnetto per år
           </span>
         </div>
       </Card>
@@ -54,7 +54,7 @@ export function ProjectionTab({ projection, scenarioColor, horizonYears, amortPc
       {/* Year-by-year table */}
       <Card>
         <div className="calc-projection-scroll">
-          <div className="table-header proj-cols">
+          <div className="table-header grid-cols-[60px_1fr_1fr_1fr_1fr_1fr_1fr] max-md:!grid-cols-[50px_1fr_1fr_1fr_1fr_1fr_1fr]">
             <span>År</span>
             <span>Fastighetsvärde</span>
             <span>Lånesaldo</span>
@@ -64,7 +64,10 @@ export function ProjectionTab({ projection, scenarioColor, horizonYears, amortPc
             <span>Total förmögenhet</span>
           </div>
           {projection.map((p, i) => (
-            <div key={i} className={`table-row proj-cols ${i % 2 === 1 ? 'proj-row--alt' : ''}`}>
+            <div
+              key={i}
+              className={`table-row grid-cols-[60px_1fr_1fr_1fr_1fr_1fr_1fr] max-md:!grid-cols-[50px_1fr_1fr_1fr_1fr_1fr_1fr] ${i % 2 === 1 ? 'bg-bg-subtle' : ''}`}
+            >
               <span className="text-mute">{p.calendarYear}</span>
               <span data-label="Fastighetsvärde" style={{ color: 'var(--gold)' }}>{fmtMoney(p.propertyValue)}</span>
               <span data-label="Lånesaldo" className="text-mute">{p.loanBalance > 0 ? `−${fmtMoney(p.loanBalance)}` : '—'}</span>

@@ -48,7 +48,7 @@ export function ExpensesTab({ property, expenses }: ExpensesTabProps) {
           </div>
         ) : (
           <>
-            <div className="table-header expenses-cols">
+            <div className="table-header grid-cols-[110px_1fr_140px_100px_70px_36px] gap-3 max-md:!grid-cols-[90px_1fr_90px_70px_44px] max-md:!gap-2">
               <span>Datum</span>
               <span>Beskrivning</span>
               <span>Kategori</span>
@@ -57,7 +57,7 @@ export function ExpensesTab({ property, expenses }: ExpensesTabProps) {
               <span></span>
             </div>
             {expenses.map(e => (
-              <div key={e.id} className="group table-row expenses-cols">
+              <div key={e.id} className="group table-row grid-cols-[110px_1fr_140px_100px_70px_36px] gap-3 max-md:!grid-cols-[90px_1fr_90px_70px_44px] max-md:!gap-2">
                 <span className="text-mute" style={{ fontSize: '12px' }}>{e.date}</span>
                 <span>{e.description}</span>
                 <Badge label={EXPENSE_LABELS[e.category] ?? e.category} color="var(--text-mute)" />
