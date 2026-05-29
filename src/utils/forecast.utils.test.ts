@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { buildForecast } from './forecast.utils';
-import type { Property, RentalEntry, Expense, RecurringExpense } from '../types';
+import type { Property, RentalEntry, RecurringExpense } from '../types';
 
 const PROP: Property = {
   id: 'p1', name: 'Test', development: '', area: 'Estepona',
