@@ -50,7 +50,7 @@ export function RentalsTab({ property, rentals }: RentalsTabProps) {
           </div>
         ) : (
           <>
-            <div className="table-header rentals-cols">
+            <div className="table-header grid-cols-[60px_60px_70px_110px_110px_100px_36px] gap-3 max-md:!grid-cols-[50px_50px_60px_90px_90px_80px_44px] max-md:!gap-2">
               <span>År</span>
               <span>Mån</span>
               <span>Nätter</span>
@@ -60,7 +60,7 @@ export function RentalsTab({ property, rentals }: RentalsTabProps) {
               <span></span>
             </div>
             {rentals.map(r => (
-              <div key={r.id} className="group table-row rentals-cols">
+              <div key={r.id} className="group table-row grid-cols-[60px_60px_70px_110px_110px_100px_36px] gap-3 max-md:!grid-cols-[50px_50px_60px_90px_90px_80px_44px] max-md:!gap-2">
                 <span className="text-mute">{r.year}</span>
                 <span className="text-mute">{MONTHS_SV[r.month - 1]}</span>
                 <span>{r.nights}</span>
