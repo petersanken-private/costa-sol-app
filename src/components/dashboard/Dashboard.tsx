@@ -21,18 +21,21 @@ export function Dashboard() {
   return (
     <div className="page">
       {alertMs.length > 0 && (
-        <div className="ms-alert-banner" onClick={() => navigate('milestones')}>
-          <span className="ms-alert-banner__icon">⏰</span>
-          <span className="ms-alert-banner__text">
+        <div
+          className="flex items-center gap-2.5 py-3 px-4 mb-4 bg-[#fff7ed] border border-[#fed7aa] rounded-[10px] cursor-pointer transition-colors duration-150 hover:bg-[#ffedd5]"
+          onClick={() => navigate('milestones')}
+        >
+          <span className="text-[18px] flex-shrink-0">⏰</span>
+          <span className="flex-1 text-[13px] text-[#92400e]">
             {alertMs.filter(m => m.status === 'overdue').length > 0 && (
-              <strong>{alertMs.filter(m => m.status === 'overdue').length} försenade</strong>
+              <strong className="text-red">{alertMs.filter(m => m.status === 'overdue').length} försenade</strong>
             )}
             {alertMs.filter(m => m.status === 'overdue').length > 0 && alertMs.filter(m => m.status === 'upcoming').length > 0 && ' · '}
             {alertMs.filter(m => m.status === 'upcoming').length > 0 && (
               <span>{alertMs.filter(m => m.status === 'upcoming').length} milstolpar inom 7 dagar</span>
             )}
           </span>
-          <span className="ms-alert-banner__cta">Visa →</span>
+          <span className="text-[12px] font-semibold text-[#c2410c] whitespace-nowrap">Visa →</span>
         </div>
       )}
 

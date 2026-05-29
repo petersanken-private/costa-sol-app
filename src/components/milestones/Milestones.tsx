@@ -78,7 +78,7 @@ export function Milestones() {
         totalPayments={totalPayments}
       />
 
-      <div className="ms-filter-tabs">
+      <div className="flex gap-1.5 flex-wrap mb-5 overflow-x-auto pb-0.5">
         {FILTER_OPTIONS.map(f => (
           <button
             key={f.key}
@@ -106,14 +106,14 @@ export function Milestones() {
           </div>
         </Card>
       ) : (
-        <div className="ms-groups">
+        <div className="flex flex-col gap-6">
           {filtered.map(group => (
-            <div key={group.key} className="ms-group">
-              <div className="ms-group__header">
-                <span className="ms-group__label" style={{ color: group.color }}>{group.label}</span>
-                <span className="ms-group__count">{group.items.length}</span>
+            <div key={group.key}>
+              <div className="flex items-center gap-2.5 mb-2.5">
+                <span className="text-[11px] font-semibold tracking-[1.5px] uppercase" style={{ color: group.color }}>{group.label}</span>
+                <span className="bg-bg-subtle border border-border rounded-[10px] px-2 py-px text-[11px] text-text-mute">{group.items.length}</span>
               </div>
-              <div className="ms-list">
+              <div className="flex flex-col gap-2">
                 {group.items.map(m => (
                   <MilestoneRow
                     key={m.id}
