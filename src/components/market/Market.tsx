@@ -54,7 +54,7 @@ export function Market() {
     <div className="page">
       <div className="page-header">
         <p className="page-eyebrow">Costa del Sol</p>
-        <div className="dashboard-top-bar">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
           <h1 className="page-title">Marknadsdata</h1>
           <Btn variant="primary" size="sm" onClick={() => dispatch({ type: 'open-add' })}>
             + Lägg till område

@@ -38,9 +38,9 @@ export function Dashboard() {
 
       <div className="page-header">
         <p className="page-eyebrow">Välkommen tillbaka</p>
-        <div className="dashboard-top-bar">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
           <h1 className="page-title">Portföljöversikt</h1>
-          <div className="dashboard-filters">
+          <div className="flex items-center gap-2.5 flex-wrap">
             <select
               className="bg-bg-card border border-border rounded-[6px] text-text-dim text-[13px] py-[7px] px-3 shadow-sm transition-colors duration-150 hover:border-border-hi focus:border-border-hi focus:outline-none"
               value={selectedProperty}

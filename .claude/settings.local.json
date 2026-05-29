@@ -40,7 +40,8 @@
       "Bash(git commit -m 'Etapp V: pages.css chunk 3 — 107 rader CSS borta + IconBtn-primitiv *)",
       "Bash(git commit -m 'Etapp W: pages.css chunk 4 — Valutawidget helt Tailwind \\(−116 rader\\) *)",
       "Bash(git commit -m 'Etapp X: pages.css chunk 5 — Compare page helt Tailwind \\(−171 rader\\) *)",
-      "Bash(git commit -m 'Etapp Y: pages.css chunk 6 — Projektion-flik + Rental/expense cols \\(−113 rader\\) *)"
+      "Bash(git commit -m 'Etapp Y: pages.css chunk 6 — Projektion-flik + Rental/expense cols \\(−113 rader\\) *)",
+      "Bash(git commit -m 'Etapp Z: pages.css chunk 7 — Dashboard chart additions \\(−124 rader\\) *)"
     ]
   }
 }
