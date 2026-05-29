@@ -34,7 +34,7 @@ export function Modelo210Checklist({
   return (
     <Card className="card-p">
       <SectionHeader title="Modelo 210 – Deklarationsunderlag" />
-      <div className="tax-modelo-grid">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
           <p className="form-label" style={{ marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '1.5px' }}>
             Att deklarera
@@ -60,7 +60,7 @@ export function Modelo210Checklist({
         </div>
       </div>
 
-      <p className="tax-note">
+      <p className="text-[12px] text-text-mute leading-[1.6] mt-4 pt-4 border-t border-border">
         Som EU/EEA-medborgare beskattas du med <strong>19% på nettoinkomst</strong> efter avdragsgilla kostnader.
         Anlita alltid en spansk gestor för att hantera deklarationen korrekt.
         Dubbelbeskattningsavtalet Sverige–Spanien förhindrar att du betalar skatt i båda länder.

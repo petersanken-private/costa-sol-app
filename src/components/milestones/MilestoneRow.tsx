@@ -3,6 +3,7 @@
 
 import { fmtMoney } from '../../utils/calc.utils';
 import { catInfo, DueBadge } from '.';
+import { RowActionBtn } from '../ui';
 import type { Milestone, Property } from '../../types';
 
 interface MilestoneRowProps {
@@ -44,8 +45,8 @@ export function MilestoneRow({ milestone: m, property: prop, onMarkDone, onEdit,
       </div>
 
       <div className="ms-row__actions">
-        <button className="row-action-btn row-action-btn--edit"  onClick={() => onEdit(m)}>✎</button>
-        <button className="row-action-btn row-action-btn--delete" onClick={() => onDelete(m)}>×</button>
+        <RowActionBtn variant="edit"   onClick={() => onEdit(m)} />
+        <RowActionBtn variant="delete" onClick={() => onDelete(m)} />
       </div>
     </div>
   );

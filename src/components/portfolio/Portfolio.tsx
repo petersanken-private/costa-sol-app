@@ -75,7 +75,7 @@ export function Portfolio() {
         <>
           {/* Desktop */}
           <Card className="portfolio-desktop-table">
-            <div className="table-header grid-cols-[1fr_120px_100px_120px_120px_80px] gap-3">
+            <div className="table-header grid-cols-[1fr_120px_100px_120px_120px_80px_64px] gap-3">
               <span>Fastighet</span>
               <span>Typ</span>
               <span>Status</span>

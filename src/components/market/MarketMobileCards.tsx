@@ -1,5 +1,5 @@
 import { AreaMarketData } from '../../types';
-import { Card } from '../ui';
+import { Card, RowActionBtn } from '../ui';
 import { fmtMoney } from '../../utils/calc.utils';
 import { yieldEstimate } from '../../utils/market.utils';
 
@@ -18,8 +18,8 @@ export function MarketMobileCards({ markets, onEdit, onDelete }: Props) {
           <div className="market-mobile-card__top">
             <p className="market-mobile-card__area">{m.area}</p>
             <div style={{ display: 'flex', gap: '6px' }}>
-              <button className="row-action-btn row-action-btn--edit"   onClick={() => onEdit(m)}>✎</button>
-              <button className="row-action-btn row-action-btn--delete" onClick={() => onDelete(m.id)}>×</button>
+              <RowActionBtn variant="edit"   onClick={() => onEdit(m)} />
+              <RowActionBtn variant="delete" onClick={() => onDelete(m.id)} />
             </div>
           </div>
           <div className="market-mobile-card__kpis">
