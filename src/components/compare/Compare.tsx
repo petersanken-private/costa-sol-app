@@ -10,7 +10,6 @@ import { ProspectCard } from './ProspectCard';
 import { SummaryTable } from './SummaryTable';
 import { useProspects } from '../../hooks/useProspects';
 import { useMarketData } from '../../hooks/useMarketData';
-import '../../styles/pages.css';
 
 // ── Reducer ───────────────────────────────────────────────────────────────────
 type Modal =

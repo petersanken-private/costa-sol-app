@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Card, SectionHeader } from '../ui';
 import { SECTIONS } from './guide.sections';
-import '../../styles/pages.css';
 
 export function Guide() {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set([SECTIONS[0].id]));

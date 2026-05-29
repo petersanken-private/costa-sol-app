@@ -48,17 +48,25 @@ export function MortgageCard({
       <p className="form-label mb-2.5 uppercase tracking-[0.094em]">Tidshorisont &amp; bolån</p>
       <Card className="card-p">
         <p className="form-label mb-2">Horisont (år)</p>
-        <div className="horizon-btns mb-4">
-          {HORIZON_OPTIONS.map(y => (
-            <button
-              key={y}
-              className={`horizon-btn ${horizonYears === y ? 'horizon-btn--active' : ''}`}
-              onClick={() => onHorizonChange(y)}
-            >{y}</button>
-          ))}
+        <div className="flex gap-2 mb-4">
+          {HORIZON_OPTIONS.map(y => {
+            const active = horizonYears === y;
+            return (
+              <button
+                key={y}
+                className={[
+                  'flex-1 py-2 px-3 min-h-[40px] max-md:min-h-[44px] rounded-[6px] border text-[13px] transition-all duration-150',
+                  active
+                    ? 'border-gold bg-gold-faint text-gold font-medium'
+                    : 'border-border bg-transparent text-text-mute hover:border-border-hi hover:text-text-dim',
+                ].join(' ')}
+                onClick={() => onHorizonChange(y)}
+              >{y}</button>
+            );
+          })}
         </div>
 
-        <div className="mortgage-toggle">
+        <div className="flex items-center gap-2.5">
           <input
             type="checkbox"
             className="toggle"
@@ -105,11 +113,16 @@ export function MortgageCard({
             </div>
 
             <p className="form-label mb-2">Belåningsgrad (LTV)</p>
-            <div className="ltv-btns">
+            <div className="flex gap-2">
               {LTV_OPTIONS.map(p => (
                 <button
                   key={p}
-                  className={`ltv-btn ${mortgagePct === p ? 'ltv-btn--active' : ''}`}
+                  className={[
+                    'flex-1 py-2 px-3 min-h-[40px] rounded-[6px] border text-[13px] transition-all duration-150',
+                    mortgagePct === p
+                      ? 'border-gold bg-gold-faint text-gold font-medium'
+                      : 'border-border bg-transparent text-text-mute hover:border-border-hi hover:text-text-dim',
+                  ].join(' ')}
                   onClick={() => onLtvChange(p)}
                 >{p}% LTV</button>
               ))}
@@ -117,11 +130,16 @@ export function MortgageCard({
 
             <div className="mt-3">
               <p className="form-label mb-2">Amortering per år</p>
-              <div className="ltv-btns">
+              <div className="flex gap-2">
                 {AMORT_OPTIONS.map(p => (
                   <button
                     key={p}
-                    className={`ltv-btn ${amortPct === p ? 'ltv-btn--active' : ''}`}
+                    className={[
+                      'flex-1 py-2 px-3 min-h-[40px] rounded-[6px] border text-[13px] transition-all duration-150',
+                      amortPct === p
+                        ? 'border-gold bg-gold-faint text-gold font-medium'
+                        : 'border-border bg-transparent text-text-mute hover:border-border-hi hover:text-text-dim',
+                    ].join(' ')}
                     onClick={() => onAmortChange(p)}
                   >{p}%</button>
                 ))}

@@ -6,7 +6,6 @@ import { useDashboard } from '../../hooks/useDashboard';
 import { RevenueChart } from './RevenueChart';
 import { PropertySidebar } from './PropertySidebar';
 import { MarketSnapshot } from './MarketSnapshot';
-import '../../styles/pages.css';
 
 export function Dashboard() {
   const {

@@ -46,7 +46,8 @@
       "Bash(sed -n '599p;826p' src/styles/pages.css)",
       "Bash(awk '/^\\\\/\\\\* ── Milstolpar/,/^\\\\/\\\\* ── Påminnelser/{if\\(/^\\\\./\\) print}' src/styles/pages.css)",
       "Bash(awk '/^\\\\/\\\\* ── Påminnelser/,/^\\\\/\\\\* ── Sidans padding/{if\\(/^\\\\./\\) print}' src/styles/pages.css)",
-      "Bash(git commit -m 'Etapp BB: pages.css mega-chunk — Påminnelser+Milstolpar+Dokument-flik \\(−763 rader\\) *)"
+      "Bash(git commit -m 'Etapp BB: pages.css mega-chunk — Påminnelser+Milstolpar+Dokument-flik \\(−763 rader\\) *)",
+      "Bash(git commit -m '🎯 Etapp CC: pages.css HELT BORTA — alla 572 rader eliminerade *)"
     ]
   }
 }

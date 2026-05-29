@@ -10,7 +10,6 @@ import { MortgageCard } from './MortgageCard';
 import {
   CashflowTab, ProjectionTab, TimelineTab, CostsTab, MonteCarloTab,
 } from '.';
-import '../../styles/pages.css';
 
 const CALC_TABS = [
   { id: 'cashflow',   label: 'Kassaflöde'   },
@@ -67,23 +66,32 @@ export function Calculator() {
 
       {/* Unit selector */}
       <p className="form-label mb-2.5 uppercase tracking-[0.094em]">Välj objekt</p>
-      <div className="calc-unit-grid mb-2.5">
-        {UNIT_PRESETS.map(u => (
-          <button
-            key={u.id}
-            className={`unit-btn ${selectedUnitId === u.id ? 'unit-btn--active' : ''}`}
-            onClick={() => setSelectedUnitId(u.id)}
-          >
-            <p className="unit-btn__label">{u.label}</p>
-            <p className="unit-btn__price">{fmtMoney(u.purchasePrice)}</p>
-            <p className="unit-btn__meta">{u.sizeSqm}m² + {u.terraceSqm}m² terrass</p>
-          </button>
-        ))}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-2.5">
+        {UNIT_PRESETS.map(u => {
+          const active = selectedUnitId === u.id;
+          return (
+            <button
+              key={u.id}
+              className={[
+                'p-3.5 bg-bg-card border rounded-[10px] text-left transition-all duration-150 hover:border-border-hi',
+                active ? '!border-gold bg-gold-faint' : 'border-border',
+              ].join(' ')}
+              onClick={() => setSelectedUnitId(u.id)}
+            >
+              <p className="text-[11px] text-text-mute uppercase tracking-[1px] mb-1">{u.label}</p>
+              <p className="font-display text-[18px] max-md:text-[16px] text-gold">{fmtMoney(u.purchasePrice)}</p>
+              <p className="text-[11px] text-text-mute mt-0.5">{u.sizeSqm}m² + {u.terraceSqm}m² terrass</p>
+            </button>
+          );
+        })}
         <button
-          className={`unit-btn ${isCustom ? 'unit-btn--custom-active' : 'unit-btn--custom'}`}
+          className={[
+            'p-3.5 bg-bg-card border-2 border-dashed rounded-[10px] text-left transition-all duration-150',
+            isCustom ? '!border-solid !border-gold bg-gold-faint' : 'border-border hover:border-border-hi',
+          ].join(' ')}
           onClick={() => setSelectedUnitId('custom')}
         >
-          <p className="unit-btn__label">Eget objekt</p>
+          <p className="text-[11px] text-text-mute uppercase tracking-[1px] mb-1">Eget objekt</p>
           <input
             className="form-input mt-1.5"
             value={customPrice}
@@ -95,12 +103,12 @@ export function Calculator() {
       </div>
 
       {state.properties.length > 0 && (
-        <div className="from-portfolio mb-6">
-          <span className="from-portfolio__label">Från portfölj:</span>
+        <div className="flex items-center gap-2 flex-wrap mb-6">
+          <span className="text-[11px] text-text-mute uppercase tracking-[1px]">Från portfölj:</span>
           {state.properties.map(p => (
             <button
               key={p.id}
-              className="from-portfolio__btn"
+              className="py-1.5 px-3 rounded-[20px] border border-border bg-bg-card text-text-mute text-[12px] transition-all duration-150 hover:border-border-hi hover:text-text-dim"
               onClick={() => { setSelectedUnitId(p.id); setCustomPrice(String(p.purchasePrice)); }}
             >
               {p.name}
@@ -113,21 +121,21 @@ export function Calculator() {
       <div className="grid-2 mb-6">
         <div>
           <p className="form-label mb-2.5 uppercase tracking-[0.094em]">Scenario</p>
-          <div className="scenario-list">
+          <div className="flex flex-col gap-2">
             {SCENARIOS.map(s => (
               <button
                 key={s.key}
-                className="scenario-btn"
+                className="flex flex-col items-start gap-1 p-3 max-md:min-h-[48px] bg-bg-card border border-border rounded-[10px] text-left transition-all duration-150 hover:border-border-hi"
                 style={{
                   borderColor: scenario === s.key ? s.color : undefined,
                   background:  scenario === s.key ? s.color + '15' : undefined,
                 }}
                 onClick={() => setScenario(s.key)}
               >
-                <span className="scenario-btn__label" style={{ color: scenario === s.key ? s.color : undefined }}>
+                <span className="text-[13px] font-medium text-text-dim" style={{ color: scenario === s.key ? s.color : undefined }}>
                   {s.label}
                 </span>
-                <span className="scenario-btn__meta">
+                <span className="text-[11px] text-text-mute">
                   {s.nights} nätter · €{s.adr}/natt · +{s.annualGrowthPct}%/år
                 </span>
               </button>
@@ -148,7 +156,7 @@ export function Calculator() {
       </div>
 
       {/* KPI strip */}
-      <div className="kpi-strip">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
         {[
           { label: 'Netto/år',                value: fmtMoney(result.netAfterTax),    color: result.netAfterTax > 0 ? sc.color : 'var(--red)' },
           { label: 'Nettoyield',              value: fmtPct(result.netYield),         color: sc.color },
@@ -169,7 +177,7 @@ export function Calculator() {
       {activeTab === 'costs'      && <CostsTab      rows={buyingCostRows} />}
       {activeTab === 'montecarlo' && <MonteCarloTab purchasePrice={purchasePrice} scenario={sc} horizonYears={horizonYears} useMortgage={useMortgage} mortgagePct={mortgagePct} mortgageRatePct={mortgageRatePct} />}
 
-      <p className="calc-disclaimer">
+      <p className="text-[12px] text-text-mute mt-6 text-center italic">
         Alla siffror är estimat baserade på marknadsdata. Konsultera alltid spansk gestor och advokat.
       </p>
     </div>
