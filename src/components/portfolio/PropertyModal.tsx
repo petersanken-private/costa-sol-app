@@ -35,7 +35,7 @@ export function PropertyModal({ title, initial, onClose, onSave }: PropertyModal
       onClose={onClose}
       footer={<>
         <Btn variant="ghost" onClick={onClose}>Avbryt</Btn>
-        {isEdit && <span className="modal-edit-hint">Ändringar sparas direkt i appen.</span>}
+        {isEdit && <span className="text-[11px] text-text-mute mr-auto self-center">Ändringar sparas direkt i appen.</span>}
         <Btn variant="primary" onClick={handleSave}>
           {isEdit ? 'Spara ändringar' : 'Lägg till'}
         </Btn>

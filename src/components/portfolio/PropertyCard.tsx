@@ -1,4 +1,4 @@
-import { Badge } from '../ui';
+import { Badge, RowActionBtn } from '../ui';
 import { Property } from '../../types';
 import { STATUS_LABELS, STATUS_COLORS } from '../../data';
 import { fmtMoney } from '../../utils/calc.utils';
@@ -20,8 +20,9 @@ export function PropertyCard({ property: p, onClick, onEdit, onDelete }: Propert
           <p className="prop-mobile-card__meta">{p.area} · {p.sizeSqm}m² · {p.bedrooms} sov</p>
         </div>
         <div className="prop-mobile-card__actions" onClick={e => e.stopPropagation()}>
-          <button className="row-action-btn row-action-btn--edit"   onClick={onEdit}>✎</button>
-          <button className="row-action-btn row-action-btn--delete" onClick={onDelete}>×</button>
+          <RowActionBtn variant="edit"   onClick={onEdit} />
+          <RowActionBtn variant="delete" onClick={onDelete} />
+
         </div>
       </div>
       <div className="prop-mobile-card__row">

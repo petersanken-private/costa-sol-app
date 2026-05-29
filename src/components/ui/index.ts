@@ -38,3 +38,5 @@ export { FormGroup }     from './FormGroup';
 export type { FormGroupProps } from './FormGroup';
 
 export { YearButton }    from './YearButton';
+
+export { RowActionBtn }  from './RowActionBtn';

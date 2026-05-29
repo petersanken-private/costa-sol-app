@@ -49,7 +49,7 @@ export function Taxes() {
     <div className="page">
       <div className="page-header">
         <p className="page-eyebrow">Skatteöversikt</p>
-        <div className="tax-top-bar">
+        <div className="flex justify-between items-end">
           <h1 className="page-title">Modelo 210 Underlag</h1>
           <div className="page-actions">
             <ExportMenu

@@ -62,7 +62,7 @@ export function TaxBreakdownGrid({
                    style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderTop: '1px solid var(--border)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <span className="text-dim">{EXPENSE_LABELS[cat] ?? cat}</span>
-                  {isDeductible && <span className="tax-deductible-tag">avdragsgill</span>}
+                  {isDeductible && <span className="text-[10px] text-green ml-2">avdragsgill</span>}
                 </div>
                 <span className="text-mute">−{fmtMoney(amount)}</span>
               </div>
