@@ -47,7 +47,9 @@
       "Bash(awk '/^\\\\/\\\\* ── Milstolpar/,/^\\\\/\\\\* ── Påminnelser/{if\\(/^\\\\./\\) print}' src/styles/pages.css)",
       "Bash(awk '/^\\\\/\\\\* ── Påminnelser/,/^\\\\/\\\\* ── Sidans padding/{if\\(/^\\\\./\\) print}' src/styles/pages.css)",
       "Bash(git commit -m 'Etapp BB: pages.css mega-chunk — Påminnelser+Milstolpar+Dokument-flik \\(−763 rader\\) *)",
-      "Bash(git commit -m '🎯 Etapp CC: pages.css HELT BORTA — alla 572 rader eliminerade *)"
+      "Bash(git commit -m '🎯 Etapp CC: pages.css HELT BORTA — alla 572 rader eliminerade *)",
+      "Bash(git commit -m 'feat: Kassaflödesprognos — 12-månaders likviditetsöversikt på Dashboard *)",
+      "Bash(git commit -m 'Fix: ta bort oanvänd Expense-import i forecast.utils.test.ts *)"
     ]
   }
 }
