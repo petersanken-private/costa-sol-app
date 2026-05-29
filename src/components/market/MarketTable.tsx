@@ -1,5 +1,5 @@
 import { AreaMarketData } from '../../types';
-import { Card } from '../ui';
+import { Card, IconBtn } from '../ui';
 import { fmtMoney } from '../../utils/calc.utils';
 import { yieldEstimate } from '../../utils/market.utils';
 
@@ -13,7 +13,7 @@ interface Props {
 export function MarketTable({ markets, onEdit, onDelete }: Props) {
   return (
     <Card className="market-desktop-table">
-      <div className="table-header market-cols">
+      <div className="table-header grid-cols-[1fr_90px_70px_100px_90px_80px_130px_60px]">
         <span>Område</span>
         <span>€/kvm</span>
         <span>ADR</span>
@@ -24,12 +24,12 @@ export function MarketTable({ markets, onEdit, onDelete }: Props) {
         <span></span>
       </div>
       {markets.map(m => (
-        <div key={m.id} className="table-row market-cols">
+        <div key={m.id} className="table-row grid-cols-[1fr_90px_70px_100px_90px_80px_130px_60px]">
           <span style={{ fontWeight: 500 }}>{m.area}</span>
           <span style={{ color: 'var(--gold)' }}>{fmtMoney(m.pricePerSqm)}</span>
           <span>€{m.avgAdr}</span>
           <span>
-            <span className="occupancy-pill" style={{
+            <span className="inline-block px-2 py-0.5 rounded-[12px] text-[12px] font-medium" style={{
               background: m.occupancyPct >= 65 ? 'var(--green-bg)' : 'var(--bg-subtle)',
               color: m.occupancyPct >= 65 ? 'var(--green)' : 'var(--text-dim)',
             }}>
@@ -40,8 +40,8 @@ export function MarketTable({ markets, onEdit, onDelete }: Props) {
           <span style={{ color: 'var(--gold)', fontWeight: 500 }}>{yieldEstimate(m).toFixed(1)}%</span>
           <span className="text-mute" style={{ fontSize: '11px' }}>{m.source}</span>
           <div style={{ display: 'flex', gap: '6px' }}>
-            <button className="edit-btn" style={{ opacity: 1 }} onClick={() => onEdit(m)}>✎</button>
-            <button className="delete-btn" onClick={() => onDelete(m.id)}>×</button>
+            <IconBtn variant="edit"   onClick={() => onEdit(m)}      alwaysVisible />
+            <IconBtn variant="delete" onClick={() => onDelete(m.id)} alwaysVisible />
           </div>
         </div>
       ))}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useApp } from '../../hooks/useApp';
-import { Card, Badge, Btn } from '../ui';
+import { Card, Badge, Btn, IconBtn } from '../ui';
 import { Property, Expense } from '../../types';
 import { EXPENSE_LABELS } from '../../data';
 import { fmtMoney } from '../../utils/calc.utils';
@@ -57,7 +57,7 @@ export function ExpensesTab({ property, expenses }: ExpensesTabProps) {
               <span></span>
             </div>
             {expenses.map(e => (
-              <div key={e.id} className="table-row expenses-cols">
+              <div key={e.id} className="group table-row expenses-cols">
                 <span className="text-mute" style={{ fontSize: '12px' }}>{e.date}</span>
                 <span>{e.description}</span>
                 <Badge label={EXPENSE_LABELS[e.category] ?? e.category} color="var(--text-mute)" />
@@ -65,8 +65,8 @@ export function ExpensesTab({ property, expenses }: ExpensesTabProps) {
                 <span style={{ color: e.deductible ? 'var(--green)' : 'var(--text-mute)', fontSize: '12px' }}>
                   {e.deductible ? '✓ Ja' : '—'}
                 </span>
-                <button className="edit-btn"  onClick={() => setEditExpense(e)} title="Redigera">✎</button>
-                <button className="delete-btn" onClick={() => handleDelete(e.id)} title="Ta bort">×</button>
+                <IconBtn variant="edit"   onClick={() => setEditExpense(e)} />
+                <IconBtn variant="delete" onClick={() => handleDelete(e.id)} />
               </div>
             ))}
             <div className="table-footer">

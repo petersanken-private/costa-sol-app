@@ -1,5 +1,5 @@
 import { ProspectProperty, ScenarioKey } from '../../types';
-import { Card } from '../ui';
+import { Card, IconBtn } from '../ui';
 import { fmtMoney, fmtPct } from '../../utils/calc.utils';
 import { evaluateProspect } from '../../utils/prospect.utils';
 import { exportBankPdf } from '../../utils/export';
@@ -35,8 +35,8 @@ export function ProspectCard({
           {p.development && <p className="text-mute" style={{ fontSize: '11px' }}>{p.development}</p>}
         </div>
         <div style={{ display: 'flex', gap: '6px' }}>
-          <button className="edit-btn" style={{ opacity: 1 }} onClick={onEdit}>✎</button>
-          <button className="delete-btn" onClick={onDelete}>×</button>
+          <IconBtn variant="edit"   onClick={onEdit}   alwaysVisible />
+          <IconBtn variant="delete" onClick={onDelete} alwaysVisible />
         </div>
       </div>
 

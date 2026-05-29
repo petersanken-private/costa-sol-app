@@ -36,7 +36,8 @@
       "Bash(git commit -m 'Etapp Q: Tailwind-konvertering av 8 UI-primitiver med Playwright-verifiering *)",
       "Bash(git commit -m 'Etapp R: Root-cause-fix för Tailwind-padding + Modal till Tailwind *)",
       "Bash(git commit -m 'Etapp S: Sidebar till Tailwind — sidebar.css raderad *)",
-      "Bash(git commit -m 'Etapp U: pages.css chunk 2 — 109 rader CSS borta + RowActionBtn-primitiv *)"
+      "Bash(git commit -m 'Etapp U: pages.css chunk 2 — 109 rader CSS borta + RowActionBtn-primitiv *)",
+      "Bash(git commit -m 'Etapp V: pages.css chunk 3 — 107 rader CSS borta + IconBtn-primitiv *)"
     ]
   }
 }

@@ -2,6 +2,7 @@
 // Rad med sparade mallar + mallhantering (lista med delete).
 
 import type { AIPromptTemplate } from '../../types';
+import { IconBtn } from '../ui';
 
 interface AITemplateListProps {
   templates:       AIPromptTemplate[];
@@ -57,7 +58,7 @@ export function AITemplateList({
                 <p style={{ margin: 0, fontSize: '13px', fontWeight: 500 }}>{t.name}</p>
                 <p className="text-mute" style={{ margin: '2px 0 0', fontSize: '12px' }}>{t.prompt}</p>
               </div>
-              <button className="delete-btn" onClick={() => onDelete(t.id)} title="Ta bort mall">×</button>
+              <IconBtn variant="delete" onClick={() => onDelete(t.id)} title="Ta bort mall" alwaysVisible />
             </div>
           ))}
         </div>

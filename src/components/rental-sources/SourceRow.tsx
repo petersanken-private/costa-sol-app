@@ -1,5 +1,5 @@
 import { RentalSource } from '../../types';
-import { Btn, Badge } from '../ui';
+import { Btn, Badge, IconBtn } from '../ui';
 import { PLATFORM_COLORS } from '../../data';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 /** En rad i iCal-listan. */
 export function SourceRow({ source: s, importing, onImport, onEdit, onDelete }: Props) {
   return (
-    <div className={`flex items-center gap-3 px-3 py-2.5 bg-surface rounded-md ${s.active ? '' : 'opacity-50'}`}>
+    <div className={`group flex items-center gap-3 px-3 py-2.5 bg-surface rounded-md ${s.active ? '' : 'opacity-50'}`}>
       <Badge label={s.platform} color={PLATFORM_COLORS[s.platform]} />
       <div className="flex-1 min-w-0">
         <p className="m-0 font-medium text-[14px]">
@@ -27,8 +27,8 @@ export function SourceRow({ source: s, importing, onImport, onEdit, onDelete }: 
         {s.lastError && <p className="mt-0.5 text-[11px] text-red">{s.lastError}</p>}
       </div>
       <Btn size="sm" onClick={onImport} disabled={importing || !s.active}>↻</Btn>
-      <button className="edit-btn"  onClick={onEdit}>✎</button>
-      <button className="delete-btn" onClick={onDelete}>×</button>
+      <IconBtn variant="edit"   onClick={onEdit}   alwaysVisible />
+      <IconBtn variant="delete" onClick={onDelete} alwaysVisible />
     </div>
   );
 }

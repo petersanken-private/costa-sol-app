@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Card, Btn, Badge, Stat, SectionHeader } from '../ui';
+import { Card, Btn, Badge, Stat, SectionHeader, IconBtn } from '../ui';
 import { MortgageWithPeriods } from '../../hooks/useMortgages';
 import { AmortizationType } from '../../types';
 import { fmtMoney, fmtPct } from '../../utils/calc.utils';
@@ -51,7 +51,7 @@ export function MortgageCard({
         </div>
         <div style={{ display: 'flex', gap: '8px' }}>
           <Btn size="sm" onClick={onToggle}>{expanded ? 'Dölj plan' : 'Visa plan'}</Btn>
-          <button className="delete-btn" onClick={onDelete} title="Ta bort">×</button>
+          <IconBtn variant="delete" onClick={onDelete} alwaysVisible />
         </div>
       </div>
 
@@ -81,12 +81,13 @@ export function MortgageCard({
             <span className="text-mute">{p.endDate ?? 'pågående'}</span>
             <Badge label={p.rateType === 'fixed' ? 'Fast' : 'Rörlig'} />
             <span className="cell-amount">{fmtPct(p.ratePct, 3)}</span>
-            <button
-              className="delete-btn"
+            <IconBtn
+              variant="delete"
               onClick={() => onRemovePeriod(p.id)}
               disabled={periods.length === 1}
               title={periods.length === 1 ? 'Måste ha minst en period' : 'Ta bort'}
-            >×</button>
+              alwaysVisible
+            />
           </div>
         ))}
       </div>

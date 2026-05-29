@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useApp } from '../../hooks/useApp';
-import { Card, Badge, Btn } from '../ui';
+import { Card, Badge, Btn, IconBtn } from '../ui';
 import { Property, RentalEntry } from '../../types';
 import { MONTHS_SV, PLATFORM_COLORS } from '../../data';
 import { fmtMoney } from '../../utils/calc.utils';
@@ -60,15 +60,15 @@ export function RentalsTab({ property, rentals }: RentalsTabProps) {
               <span></span>
             </div>
             {rentals.map(r => (
-              <div key={r.id} className="table-row rentals-cols">
+              <div key={r.id} className="group table-row rentals-cols">
                 <span className="text-mute">{r.year}</span>
                 <span className="text-mute">{MONTHS_SV[r.month - 1]}</span>
                 <span>{r.nights}</span>
                 <span className="cell-amount text-gold">{fmtMoney(r.revenue)}</span>
                 <Badge label={r.platform} color={PLATFORM_COLORS[r.platform]} />
                 <span className="text-mute">{fmtMoney(r.revenue / r.nights)}/natt</span>
-                <button className="edit-btn" onClick={() => setEditRental(r)} title="Redigera">✎</button>
-                <button className="delete-btn" onClick={() => handleDelete(r.id)} title="Ta bort">×</button>
+                <IconBtn variant="edit"   onClick={() => setEditRental(r)} />
+                <IconBtn variant="delete" onClick={() => handleDelete(r.id)} />
               </div>
             ))}
             <div className="table-footer">
