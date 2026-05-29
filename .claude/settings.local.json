@@ -38,7 +38,8 @@
       "Bash(git commit -m 'Etapp S: Sidebar till Tailwind — sidebar.css raderad *)",
       "Bash(git commit -m 'Etapp U: pages.css chunk 2 — 109 rader CSS borta + RowActionBtn-primitiv *)",
       "Bash(git commit -m 'Etapp V: pages.css chunk 3 — 107 rader CSS borta + IconBtn-primitiv *)",
-      "Bash(git commit -m 'Etapp W: pages.css chunk 4 — Valutawidget helt Tailwind \\(−116 rader\\) *)"
+      "Bash(git commit -m 'Etapp W: pages.css chunk 4 — Valutawidget helt Tailwind \\(−116 rader\\) *)",
+      "Bash(git commit -m 'Etapp X: pages.css chunk 5 — Compare page helt Tailwind \\(−171 rader\\) *)"
     ]
   }
 }

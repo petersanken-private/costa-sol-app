@@ -746,165 +746,6 @@
   background: var(--bg-subtle);
 }
 
-/* ── Compare page ────────────────────────────────────────────────────────── */
-.compare-grid {
-  display: grid;
-  gap: 16px;
-  margin-bottom: 8px;
-}
-
-.compare-card {
-  position: relative;
-}
-
-.compare-card--winner {
-  border-color: var(--gold) !important;
-  box-shadow: 0 0 0 1px var(--gold), var(--shadow-md) !important;
-}
-
-.compare-winner-badge {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--gold);
-  color: #fff;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  padding: 3px 10px;
-  border-radius: 20px;
-  white-space: nowrap;
-}
-
-.compare-card__name {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--text);
-}
-
-.compare-card__meta {
-  font-size: 12px;
-  color: var(--text-mute);
-  margin-top: 2px;
-}
-
-.compare-price-row {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.compare-price {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 400;
-  color: var(--text);
-}
-
-.compare-price-sqm {
-  font-size: 12px;
-  color: var(--text-mute);
-}
-
-.compare-vs-market {
-  font-size: 12px;
-  font-weight: 500;
-  margin-bottom: 4px;
-}
-
-.compare-kpis {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.compare-kpi {
-  background: var(--bg-subtle);
-  border-radius: var(--radius-sm);
-  padding: 10px 12px;
-}
-
-.compare-kpi__label {
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--text-mute);
-  margin-bottom: 3px;
-}
-
-.compare-kpi__value {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--text);
-}
-
-.compare-mini-chart {
-  display: flex;
-  align-items: flex-end;
-  gap: 3px;
-  height: 44px;
-  margin-bottom: 12px;
-  padding: 4px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.compare-mini-bar {
-  flex: 1;
-  border-radius: 2px 2px 0 0;
-  min-height: 3px;
-  opacity: 0.7;
-  transition: opacity var(--transition);
-}
-
-.compare-mini-bar:hover { opacity: 1; }
-
-.compare-data-note {
-  font-size: 11px;
-  color: var(--text-mute);
-  margin-bottom: 8px;
-}
-
-.compare-data-note--live {
-  color: var(--green);
-}
-
-.compare-bank-btn {
-  display: block;
-  width: 100%;
-  margin-top: 8px;
-  padding: 8px;
-  background: var(--bg-subtle);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  font-size: 12px;
-  color: var(--text-dim);
-  text-align: center;
-  transition: all var(--transition);
-}
-
-.compare-bank-btn:hover {
-  background: var(--gold-faint);
-  border-color: var(--gold);
-  color: var(--gold);
-}
-
-.compare-link {
-  display: block;
-  font-size: 12px;
-  color: var(--gold);
-  text-align: center;
-  margin-top: 6px;
-  text-decoration: none;
-  transition: color var(--transition);
-}
-
-.compare-link:hover { color: #9a7009; }
-
 /* ── Mobile layout ───────────────────────────────────────────────────────── */
 
 /* ════════════════════════════════════════════════════════════════
@@ -965,14 +806,6 @@
   .market-compare-row{ grid-template-columns:100px 1fr; }
   .market-compare-area{ font-size:12px; }
   .market-compare-val{ font-size:10px; }
-}
-
-/* Compare page */
-@media(max-width:767px){
-  .compare-grid{ grid-template-columns:1fr; }
-  .compare-price{ font-size:22px; }
-  .compare-kpi__value{ font-size:16px; }
-  .compare-bank-btn{ min-height:44px; }
 }
 
 /* Inputs — prevent iOS zoom */
@@ -1954,11 +1787,7 @@
   .grid-3 {
     grid-template-columns: repeat(2, 1fr) !important;
   }
-  /* Compare-grid: max 2 kort sida vid sida på iPad */
-  .compare-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-  /* Tabeller med många kolumner — låt dem scrolla men gör det tydligare */
+/* Tabeller med många kolumner — låt dem scrolla men gör det tydligare */
   .table-header, .table-row {
     font-size: 13px;
   }

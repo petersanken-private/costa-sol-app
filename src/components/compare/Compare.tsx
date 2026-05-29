@@ -107,7 +107,7 @@ export function Compare() {
       ) : (
         <>
           {/* Side-by-side comparison cards */}
-          <div className="compare-grid" style={{ gridTemplateColumns: `repeat(${Math.min(prospects.length, 3)}, 1fr)` }}>
+          <div className="grid gap-4 mb-2 max-md:!grid-cols-1" style={{ gridTemplateColumns: `repeat(${Math.min(prospects.length, 3)}, 1fr)` }}>
             {ranked.map(evaluation => (
               <ProspectCard
                 key={evaluation.p.id}
