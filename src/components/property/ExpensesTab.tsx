@@ -29,7 +29,7 @@ export function ExpensesTab({ property, expenses }: ExpensesTabProps) {
 
   return (
     <>
-      <div className="tab-action-bar">
+      <div className="flex justify-end mb-3">
         <ExportMenu
           label="Exportera"
           options={[
@@ -69,7 +69,7 @@ export function ExpensesTab({ property, expenses }: ExpensesTabProps) {
                 <IconBtn variant="delete" onClick={() => handleDelete(e.id)} />
               </div>
             ))}
-            <div className="table-footer">
+            <div className="flex justify-end gap-6 py-3 px-5 border-t border-border-hi text-[12px]">
               <span className="text-mute">Totalt: <strong style={{ color: 'var(--red)' }}>−{fmtMoney(totalExpenses)}</strong></span>
               <span className="text-mute">Avdragsgillt: <strong style={{ color: 'var(--green)' }}>{fmtMoney(deductibleTotal)}</strong></span>
             </div>

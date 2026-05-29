@@ -18,7 +18,13 @@ export function CashflowTab({ rows, scenarioColor }: CashflowTabProps) {
       {rows.map((row, i) => (
         <div
           key={i}
-          className={`cashflow-row ${row.isFinal ? 'cashflow-row--final' : ''} ${row.isNet ? 'cashflow-row--net' : ''}`}
+          className={[
+            'flex justify-between items-center border-t border-border first:border-t-0',
+            row.isFinal
+              ? 'py-3.5 max-md:py-3 px-5 max-md:px-3.5 !border-t-border-hi bg-bg-subtle text-[14px] font-semibold'
+              : 'py-2.5 max-md:py-2.5 px-5 max-md:px-3.5 text-[13px]',
+            row.isNet && !row.isFinal ? '!border-t-border-hi' : '',
+          ].join(' ')}
         >
           <span style={{ color: cashflowLabelColor(row) }}>
             {row.label}

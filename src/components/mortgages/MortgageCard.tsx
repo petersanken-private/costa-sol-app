@@ -80,7 +80,7 @@ export function MortgageCard({
             <span>{p.startDate}</span>
             <span className="text-mute">{p.endDate ?? 'pågående'}</span>
             <Badge label={p.rateType === 'fixed' ? 'Fast' : 'Rörlig'} />
-            <span className="cell-amount">{fmtPct(p.ratePct, 3)}</span>
+            <span className="font-display text-[18px]">{fmtPct(p.ratePct, 3)}</span>
             <IconBtn
               variant="delete"
               onClick={() => onRemovePeriod(p.id)}
@@ -106,10 +106,10 @@ export function MortgageCard({
           {yearSummary.map(y => (
             <div key={y.year} className="table-row" style={{ gridTemplateColumns: '80px 1fr 1fr 1fr 1fr' }}>
               <span><strong>{y.year}</strong></span>
-              <span className="cell-amount">{fmtMoney(y.totalPayment)}</span>
-              <span className="cell-amount" style={{ color: 'var(--red)' }}>{fmtMoney(y.totalInterest)}</span>
-              <span className="cell-amount" style={{ color: 'var(--green)' }}>{fmtMoney(y.totalAmort)}</span>
-              <span className="cell-amount text-mute">{fmtMoney(y.endBalance)}</span>
+              <span className="font-display text-[18px]">{fmtMoney(y.totalPayment)}</span>
+              <span className="font-display text-[18px]" style={{ color: 'var(--red)' }}>{fmtMoney(y.totalInterest)}</span>
+              <span className="font-display text-[18px]" style={{ color: 'var(--green)' }}>{fmtMoney(y.totalAmort)}</span>
+              <span className="font-display text-[18px] text-mute">{fmtMoney(y.endBalance)}</span>
             </div>
           ))}
         </div>

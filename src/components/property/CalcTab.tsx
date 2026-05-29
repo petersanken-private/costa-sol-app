@@ -65,8 +65,16 @@ export function CalcTab({ property }: CalcTabProps) {
             <SectionHeader title="Kassaflöde / år (est.)" />
           </div>
           {cashflowRows.map((row, i) => (
-            <div key={i}
-                 className={`cashflow-row ${row.isFinal ? 'cashflow-row--final' : ''} ${row.isNet ? 'cashflow-row--net' : ''}`}>
+            <div
+              key={i}
+              className={[
+                'flex justify-between items-center border-t border-border first:border-t-0',
+                row.isFinal
+                  ? 'py-3.5 max-md:py-3 px-5 max-md:px-3.5 !border-t-border-hi bg-bg-subtle text-[14px] font-semibold'
+                  : 'py-2.5 max-md:py-2.5 px-5 max-md:px-3.5 text-[13px]',
+                row.isNet && !row.isFinal ? '!border-t-border-hi' : '',
+              ].join(' ')}
+            >
               <span style={{ color: cashflowLabelColor(row) }}>{row.label}</span>
               <span style={{ color: cashflowValueColor(row, sc.color) }}>
                 {row.value >= 0 ? '+' : '−'}{fmtMoney(Math.abs(row.value))}
@@ -84,10 +92,10 @@ export function CalcTab({ property }: CalcTabProps) {
             <Stat label="Totalavkastning"   value={fmtPct(result.annualizedReturn)} sub="Annualiserat inkl. exit"  color={sc.color}       />
           </div>
           <Divider />
-          <div className="exit-highlight" style={{ background: sc.color + '10', border: `1px solid ${sc.color}30`, marginTop: '16px' }}>
-            <label>Total vinst efter 5 år</label>
-            <p style={{ color: sc.color }}>{fmtMoney(result.totalReturn)}</p>
-            <small>{fmtMoney(result.cumulativeRent)} hyra + {fmtMoney(result.saleProfit)} värdeökning (e. skatt)</small>
+          <div className="rounded-[10px] p-3.5 mt-1" style={{ background: sc.color + '10', border: `1px solid ${sc.color}30`, marginTop: '16px' }}>
+            <label className="text-[11px] text-text-mute block mb-1.5">Total vinst efter 5 år</label>
+            <p className="font-display text-[32px] max-md:text-[26px]" style={{ color: sc.color }}>{fmtMoney(result.totalReturn)}</p>
+            <small className="text-[12px] text-text-mute block mt-1">{fmtMoney(result.cumulativeRent)} hyra + {fmtMoney(result.saleProfit)} värdeökning (e. skatt)</small>
           </div>
         </Card>
       </div>

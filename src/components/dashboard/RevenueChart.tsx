@@ -21,37 +21,25 @@ export function RevenueChart({ year, chartData, platformData, kpis }: RevenueCha
         )}
       </div>
 
-      <div className="chart-bars">
+      <div className="flex items-end gap-2.5 max-md:gap-1 h-[140px] max-md:h-[100px] mb-2">
         {chartData.map((d, i) => (
-          <div key={i} className="chart-bar-col">
-            <span className="chart-bar-label">{d.revenue > 0 ? fmtMoney(d.revenue) : ''}</span>
+          <div key={i} className="flex-1 flex flex-col items-center h-full justify-end gap-1.5">
+            <span className="text-[10px] max-md:text-[8px] text-gold min-h-3.5">{d.revenue > 0 ? fmtMoney(d.revenue) : ''}</span>
             <div
-              className={`chart-bar ${!d.hasData ? 'chart-bar--empty' : ''}`}
+              className={`w-full rounded-t-[4px] rounded-b-[2px] transition-[height] duration-[400ms] ease-in-out min-h-[3px] ${d.hasData ? 'bg-gradient-to-b from-gold to-[rgba(184,134,11,0.4)]' : 'bg-border'}`}
               style={{ height: `${Math.max((d.revenue / maxRevenue) * 110, d.hasData ? 4 : 0)}px` }}
               title={d.hasData ? `${d.label}: ${fmtMoney(d.revenue)} · ${d.nights} nätter` : undefined}
             />
-            <span className={`chart-month ${d.hasData ? '' : 'opacity-[0.35]'}`}>{d.label}</span>
+            <span className={`text-[11px] max-md:text-[9px] text-text-mute ${d.hasData ? '' : 'opacity-[0.35]'}`}>{d.label}</span>
           </div>
         ))}
       </div>
 
-      <div className="chart-footer">
-        <div className="chart-footer-stat">
-          <label>Totalt {year}</label>
-          <p className="text-gold">{fmtMoney(totalRent)}</p>
-        </div>
-        <div className="chart-footer-stat">
-          <label>Snitt / aktiv mån</label>
-          <p>{activeMonths > 0 ? fmtMoney(avgPerMonth) : '—'}</p>
-        </div>
-        <div className="chart-footer-stat">
-          <label>Snitt ADR</label>
-          <p>{avgAdr > 0 ? `${fmtMoney(avgAdr)}/natt` : '—'}</p>
-        </div>
-        <div className="chart-footer-stat">
-          <label>Yield (est.)</label>
-          <p>{grossYieldEst}</p>
-        </div>
+      <div className="border-t border-border pt-3.5 flex gap-6">
+        <FooterStat label={`Totalt ${year}`}    value={fmtMoney(totalRent)} accent />
+        <FooterStat label="Snitt / aktiv mån"   value={activeMonths > 0 ? fmtMoney(avgPerMonth) : '—'} />
+        <FooterStat label="Snitt ADR"            value={avgAdr > 0 ? `${fmtMoney(avgAdr)}/natt` : '—'} />
+        <FooterStat label="Yield (est.)"         value={grossYieldEst} />
       </div>
 
       {platformData.length > 0 && (
@@ -73,5 +61,16 @@ export function RevenueChart({ year, chartData, platformData, kpis }: RevenueCha
         </div>
       )}
     </>
+  );
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+
+function FooterStat({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
+  return (
+    <div>
+      <label className="text-[11px] text-text-mute block">{label}</label>
+      <p className={`font-display text-[20px] max-md:text-[16px] mt-0.5 ${accent ? 'text-gold' : ''}`}>{value}</p>
+    </div>
   );
 }

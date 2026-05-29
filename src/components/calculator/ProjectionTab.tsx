@@ -87,7 +87,7 @@ export function ProjectionTab({ projection, scenarioColor, horizonYears, amortPc
             </div>
           ))}
         </div>
-        <div className="table-footer justify-end gap-6">
+        <div className="flex justify-end gap-6 py-3 px-5 border-t border-border-hi text-[12px]">
           <span className="text-mute">
             Equity år {horizonYears}: <strong style={{ color: 'var(--gold)' }}>{fmtMoney(last?.equity ?? 0)}</strong>
           </span>

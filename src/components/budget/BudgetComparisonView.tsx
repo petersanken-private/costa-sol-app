@@ -79,12 +79,12 @@ export function BudgetComparisonView({ comparison }: BudgetComparisonViewProps) 
           return (
             <div key={i} className="table-row" style={{ gridTemplateColumns: '1.5fr 1fr 1fr 1fr 80px' }}>
               <span><strong>{row.label}</strong></span>
-              <span className="cell-amount text-mute">{fmtMoney(row.expected)}</span>
-              <span className="cell-amount">{fmtMoney(row.actual)}</span>
-              <span className="cell-amount" style={{ color: varianceColor(row.variance, row.isIncome) }}>
+              <span className="font-display text-[18px] text-mute">{fmtMoney(row.expected)}</span>
+              <span className="font-display text-[18px]">{fmtMoney(row.actual)}</span>
+              <span className="font-display text-[18px]" style={{ color: varianceColor(row.variance, row.isIncome) }}>
                 {row.variance >= 0 ? '+' : ''}{fmtMoney(row.variance)}
               </span>
-              <span className="cell-amount text-mute" style={{ fontSize: '13px' }}>
+              <span className="font-display text-[18px] text-mute" style={{ fontSize: '13px' }}>
                 {row.expected !== 0 ? `${pctOf.toFixed(0)}%` : '—'}
               </span>
             </div>
