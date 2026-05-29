@@ -90,17 +90,25 @@ export function AddRentalModal({ propertyId, initial, onClose, onAdd }: AddRenta
         </FormGroup>
 
         <FormGroup label="Plattform" span2>
-          <div className="platform-picker">
-            {(['airbnb', 'booking', 'direct', 'long-term'] as RentalPlatform[]).map(p => (
-              <button
-                key={p}
-                type="button"
-                className={`platform-btn ${platform === p ? 'platform-btn--active' : ''}`}
-                onClick={() => setPlatform(p)}
-              >
-                {p}
-              </button>
-            ))}
+          <div className="flex gap-2 flex-wrap">
+            {(['airbnb', 'booking', 'direct', 'long-term'] as RentalPlatform[]).map(p => {
+              const active = platform === p;
+              return (
+                <button
+                  key={p}
+                  type="button"
+                  className={[
+                    'py-[7px] px-3.5 max-md:min-h-[44px] rounded-[6px] border text-[12px] capitalize transition-all duration-150',
+                    active
+                      ? 'border-gold bg-gold-faint text-gold'
+                      : 'border-border bg-transparent text-text-mute hover:border-border-hi hover:text-text-dim',
+                  ].join(' ')}
+                  onClick={() => setPlatform(p)}
+                >
+                  {p}
+                </button>
+              );
+            })}
           </div>
         </FormGroup>
 
@@ -112,9 +120,9 @@ export function AddRentalModal({ propertyId, initial, onClose, onAdd }: AddRenta
       {error && <p className="form-error">{error}</p>}
 
       {nights && revenue && (
-        <div className="modal-preview">
+        <div className="flex justify-between items-center mt-4 py-2.5 px-3.5 bg-gold-faint border border-[rgba(212,170,80,0.2)] rounded-[6px] text-[13px] text-text-mute">
           <span>Snitt per natt</span>
-          <strong>{fmtMoney(parseInt(revenue.replace(/\D/g, ''), 10) / parseInt(nights, 10))}</strong>
+          <strong className="font-display text-[20px] text-gold">{fmtMoney(parseInt(revenue.replace(/\D/g, ''), 10) / parseInt(nights, 10))}</strong>
         </div>
       )}
     </Modal>

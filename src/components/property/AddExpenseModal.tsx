@@ -88,7 +88,7 @@ export function AddExpenseModal({ propertyId, initial, onClose, onAdd }: AddExpe
           />
         </FormGroup>
 
-        <div className="col-span-2 deductible-toggle">
+        <div className="col-span-2 flex items-center gap-2.5 flex-wrap">
           <input
             type="checkbox"
             id="deductible"
@@ -99,7 +99,7 @@ export function AddExpenseModal({ propertyId, initial, onClose, onAdd }: AddExpe
           <label htmlFor="deductible" className="form-label" style={{ cursor: 'pointer', margin: 0 }}>
             Avdragsgill kostnad (IRNR)
           </label>
-          <span className="deductible-hint">Förvaltning, IBI, städning m.m. är avdragsgilla.</span>
+          <span className="text-[11px] text-text-mute basis-full -mt-1">Förvaltning, IBI, städning m.m. är avdragsgilla.</span>
         </div>
       </div>
 

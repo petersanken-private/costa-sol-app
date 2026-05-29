@@ -92,7 +92,7 @@ export function Dashboard() {
       </div>
 
       {/* Main grid */}
-      <div className="dashboard-grid">
+      <div className="grid grid-cols-[1fr_340px] max-md:grid-cols-1 gap-5 mt-5">
         <Card className="card-p">
           <RevenueChart
             year={selectedYear}

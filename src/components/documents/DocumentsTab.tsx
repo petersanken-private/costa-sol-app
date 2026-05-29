@@ -37,7 +37,7 @@ export function DocumentsTab({ propertyId }: Props) {
 
   return (
     <div>
-      <div className="tab-action-bar">
+      <div className="flex justify-end mb-3">
         <Btn variant="primary" size="sm" onClick={() => setShowUpload(true)}>
           + Ladda upp dokument
         </Btn>

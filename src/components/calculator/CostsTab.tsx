@@ -19,7 +19,13 @@ export function CostsTab({ rows }: CostsTabProps) {
       {rows.map((row, i) => (
         <div
           key={i}
-          className={`cashflow-row ${row.bold ? 'cashflow-row--net' : ''} ${row.highlight ? 'cashflow-row--final' : ''}`}
+          className={[
+            'flex justify-between items-center border-t border-border first:border-t-0',
+            row.highlight
+              ? 'py-3.5 max-md:py-3 px-5 max-md:px-3.5 !border-t-border-hi bg-bg-subtle text-[14px] font-semibold'
+              : 'py-2.5 max-md:py-2.5 px-5 max-md:px-3.5 text-[13px]',
+            row.bold && !row.highlight ? '!border-t-border-hi' : '',
+          ].join(' ')}
         >
           <div>
             <span style={buyingCostRowStyle(row)}>

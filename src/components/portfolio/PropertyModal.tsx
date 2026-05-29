@@ -124,7 +124,7 @@ export function PropertyModal({ title, initial, onClose, onSave }: PropertyModal
                     onChange={e => set('notes', e.target.value)} />
         </FormGroup>
 
-        <div className="col-span-2 deductible-toggle">
+        <div className="col-span-2 flex items-center gap-2.5 flex-wrap">
           <input type="checkbox" id="vft-modal" checked={form.hasVFTLicense}
                  onChange={e => set('hasVFTLicense', e.target.checked)}
                  style={{ accentColor: 'var(--gold)', width: '16px', height: '16px' }} />

@@ -48,7 +48,7 @@ export function BudgetTab({ propertyId }: BudgetTabProps) {
 
   return (
     <>
-      <div className="tab-action-bar">
+      <div className="flex justify-end mb-3">
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <span className="text-mute" style={{ fontSize: '13px' }}>År:</span>
           <select

@@ -28,7 +28,7 @@ export function MortgagesTab({ propertyId }: MortgagesTabProps) {
 
   return (
     <>
-      <div className="tab-action-bar">
+      <div className="flex justify-end mb-3">
         <span className="text-mute" style={{ fontSize: '13px' }}>
           {items.length} bolån registrera{items.length === 1 ? 't' : 'de'}
         </span>
