@@ -34,7 +34,7 @@ export function PropertySidebar({ properties, rentals, selectedYear, navigate }:
               <div className="property-card-price">
                 <span className="property-card-price-value">{fmtMoney(p.purchasePrice)}</span>
                 {propRent > 0 && (
-                  <span className="property-card-rent text-gold">{fmtMoney(propRent)} hyra {selectedYear}</span>
+                  <span className="text-[12px] text-gold">{fmtMoney(propRent)} hyra {selectedYear}</span>
                 )}
               </div>
             </Card>

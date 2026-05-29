@@ -524,121 +524,6 @@
   margin-top: 12px;
 }
 
-/* ── Dashboard – dynamic chart additions ─────────────────────────────────── */
-
-.dashboard-top-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.dashboard-filters {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.dash-filter-select {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text-dim);
-  font-size: 13px;
-  padding: 7px 12px;
-  transition: border-color var(--transition);
-}
-
-.dash-filter-select:hover,
-.dash-filter-select:focus {
-  border-color: var(--border-hi);
-  outline: none;
-}
-
-.chart-header {
-  margin-bottom: 4px;
-}
-
-.chart-empty-hint {
-  font-size: 12px;
-  color: var(--text-mute);
-  margin-top: -8px;
-  margin-bottom: 12px;
-}
-
-.chart-month--empty {
-  opacity: 0.35;
-}
-
-/* Platform breakdown below chart */
-.platform-breakdown {
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.platform-bar-row {
-  display: grid;
-  grid-template-columns: 10px 72px 1fr 80px 36px;
-  align-items: center;
-  gap: 10px;
-}
-
-.platform-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.platform-name {
-  font-size: 12px;
-  color: var(--text-dim);
-  text-transform: capitalize;
-}
-
-.platform-bar-track {
-  height: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.platform-bar-fill {
-  height: 100%;
-  border-radius: 2px;
-  opacity: 0.75;
-  transition: width 0.4s ease;
-}
-
-.platform-amount {
-  font-size: 12px;
-  color: var(--text-dim);
-  text-align: right;
-}
-
-.platform-pct {
-  font-size: 11px;
-  color: var(--text-mute);
-  text-align: right;
-}
-
-/* Property card rent line */
-.property-card-rent {
-  font-size: 12px;
-}
-
-/* Card selected state (for property filter highlight) */
-.card--selected {
-  border-color: var(--gold) !important;
-  background: var(--gold-faint) !important;
-}
-
 /* ── Mobile layout ───────────────────────────────────────────────────────── */
 
 /* ════════════════════════════════════════════════════════════════
@@ -1619,16 +1504,7 @@
     min-height: 38px;
   }
 
-  /* Dashboard top-bar och liknande — wrap istället för crunch */
-  .dashboard-top-bar {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .dashboard-top-bar > h1 {
-    flex: 1 1 100%;
-  }
-
-  /* Section header — låt åtgärden hamna under titeln om plats saknas */
+/* Section header — låt åtgärden hamna under titeln om plats saknas */
   .section-header {
     flex-wrap: wrap;
     gap: 8px;

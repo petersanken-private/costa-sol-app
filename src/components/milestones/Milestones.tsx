@@ -63,7 +63,7 @@ export function Milestones() {
     <div className="page">
       <div className="page-header">
         <p className="page-eyebrow">Tidslinje</p>
-        <div className="dashboard-top-bar">
+        <div className="flex items-center justify-between gap-4 flex-wrap">
           <h1 className="page-title">Milstolpar</h1>
           <Btn variant="primary" size="sm" onClick={() => { setEditItem(null); setShowModal(true); }}>
             + Ny milstolpe
