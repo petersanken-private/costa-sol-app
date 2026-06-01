@@ -3,7 +3,7 @@
 // Konvertering mellan Property-typen och formulärstate i PropertyModal.
 // Extraherade rena funktioner gör dem enkla att enhetstesta.
 
-import type { Property } from '../types';
+import type { Property, PropertyOwner } from '../types';
 
 export interface PropertyFormState {
   name:           string;
@@ -21,6 +21,7 @@ export interface PropertyFormState {
   rentalStrategy: Property['rentalStrategy'];
   hasVFTLicense:  boolean;
   notes:          string;
+  owners:         PropertyOwner[];
 }
 
 export function propertyToFormState(p?: Property): PropertyFormState {
@@ -34,6 +35,7 @@ export function propertyToFormState(p?: Property): PropertyFormState {
       completionDate: '',
       rentalStrategy: 'short-term',
       hasVFTLicense: false, notes: '',
+      owners: [],
     };
   }
   return {
@@ -52,6 +54,7 @@ export function propertyToFormState(p?: Property): PropertyFormState {
     rentalStrategy: p.rentalStrategy,
     hasVFTLicense:  p.hasVFTLicense,
     notes:          p.notes ?? '',
+    owners:         p.owners ?? [],
   };
 }
 
@@ -78,5 +81,7 @@ export function formStateToProperty(f: PropertyFormState, existing?: Property): 
     rentalStrategy: f.rentalStrategy,
     hasVFTLicense:  f.hasVFTLicense,
     notes:          f.notes.trim() || undefined,
+    // Spara bara owners om användaren har satt upp split (annars tom = single 100%)
+    owners:         f.owners.length > 0 ? f.owners : undefined,
   };
 }

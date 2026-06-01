@@ -23,6 +23,15 @@ export type DocCategory =
   | 'bank'          // Bankrelaterat
   | 'other';        // Övrigt
 
+/**
+ * Per-fastighet ägarstruktur. Tom array = single owner 100% (bakåtkompatibelt).
+ * Summan av share_pct ska vara 100 — valideras i UI:t.
+ */
+export interface PropertyOwner {
+  name:       string;
+  sharePct:   number;       // 0-100
+}
+
 export interface Property {
   id:              string;
   name:            string;
@@ -41,6 +50,8 @@ export interface Property {
   rentalStrategy:  RentalStrategy;
   hasVFTLicense:   boolean;
   notes?:          string;
+  /** Tom array = ensam ägare 100%. */
+  owners?:         PropertyOwner[];
 }
 
 export interface RentalEntry {

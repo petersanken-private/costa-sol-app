@@ -6,9 +6,11 @@ import { fmtMoney } from '../../utils/calc.utils';
 import { CurrencyWidget } from '../CurrencyWidget';
 import { AIPanel } from '../ai';
 import { useDashboard } from '../../hooks/useDashboard';
+import { useApp } from '../../hooks/useApp';
 import { RevenueChart } from './RevenueChart';
 import { PropertySidebar } from './PropertySidebar';
 import { MarketSnapshot } from './MarketSnapshot';
+import { OwnerSplitStrip } from './OwnerSplitStrip';
 
 export function DashboardOverview() {
   const {
@@ -17,6 +19,7 @@ export function DashboardOverview() {
     selectedProperty, setSelectedProperty,
     chartData, platformData, kpis, navigate,
   } = useDashboard();
+  const { state } = useApp();
 
   const { totalInvested, totalCurrentValue, unrealizedGain, totalRent, totalNights, totalExpCost, netIncome } = kpis;
 
@@ -70,6 +73,14 @@ export function DashboardOverview() {
           />
         </Card>
       </div>
+
+      {/* Per-ägare-split (visas bara om någon fastighet har 2+ delägare) */}
+      <OwnerSplitStrip
+        properties={properties}
+        rentals={rentals}
+        expenses={state.expenses}
+        year={selectedYear}
+      />
 
       {/* Main grid */}
       <div className="grid grid-cols-[1fr_340px] max-md:grid-cols-1 gap-5 mt-5">

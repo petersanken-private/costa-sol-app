@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Btn, Modal, FormGroup } from '../ui';
 import { Property } from '../../types';
 import { PropertyFormState, propertyToFormState, formStateToProperty } from '../../utils/property.utils';
+import { validateOwners } from '../../utils/owner.utils';
+import { OwnerEditor } from './OwnerEditor';
 
 export interface PropertyModalProps {
   title:    string;
@@ -24,6 +26,8 @@ export function PropertyModal({ title, initial, onClose, onSave }: PropertyModal
     if (!form.purchasePrice)       { setError('Köpeskilling krävs.'); return; }
     const price = parseInt(form.purchasePrice.replace(/\D/g, ''), 10);
     if (isNaN(price) || price <= 0) { setError('Ogiltigt pris.');     return; }
+    const ownerErr = validateOwners(form.owners);
+    if (ownerErr)                  { setError(ownerErr);              return; }
     onSave(formStateToProperty(form, initial));
   }
 
@@ -132,6 +136,8 @@ export function PropertyModal({ title, initial, onClose, onSave }: PropertyModal
             Har VFT-licens (turistuthyrningslicens)
           </label>
         </div>
+
+        <OwnerEditor owners={form.owners} onChange={owners => set('owners', owners)} />
       </div>
 
       {error && <p className="form-error">{error}</p>}
