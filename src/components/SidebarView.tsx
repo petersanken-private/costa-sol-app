@@ -24,6 +24,7 @@ export interface SidebarViewProps {
 const NAV_ITEMS: { key: PageKey; icon: string; label: string; group: string }[] = [
   { key: 'dashboard',  icon: '▦', label: 'Dashboard',           group: 'Portfölj'  },
   { key: 'portfolio',  icon: '◈', label: 'Portfölj',            group: 'Portfölj'  },
+  { key: 'calendar',   icon: '📅', label: 'Kalender',            group: 'Portfölj'  },
   { key: 'milestones', icon: '🗓', label: 'Påminnelser',         group: 'Portfölj'  },
   { key: 'taxes',      icon: '⊡', label: 'Skatt',               group: 'Portfölj'  },
   { key: 'market',     icon: '◉', label: 'Marknadsdata',        group: 'Köpanalys' },

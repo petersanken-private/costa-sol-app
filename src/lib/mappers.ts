@@ -109,7 +109,7 @@ const PROPERTY_OPTIONAL:  (keyof Property)[]          = ['purchaseDate', 'comple
 // annars ge 'hasVftLicense'. Detta override:r läsvägen så app-typen behåller
 // 'hasVFTLicense'. Skrivvägen funkar automatiskt via smart camelToSnake.
 const PROPERTY_FROM_DB_OVERRIDES = { has_vft_license: 'hasVFTLicense' };
-const RENTAL_OPTIONAL:    (keyof RentalEntry)[]       = ['notes'];
+const RENTAL_OPTIONAL:    (keyof RentalEntry)[]       = ['notes', 'sourceId', 'icalUid', 'checkinDate', 'checkoutDate'];
 const EXPENSE_OPTIONAL:   (keyof Expense)[]           = [];
 const DOC_OPTIONAL:       (keyof PropertyDocument)[]  = ['notes'];
 const PROSPECT_OPTIONAL:  (keyof ProspectProperty)[]  = ['floor', 'development', 'link', 'notes'];

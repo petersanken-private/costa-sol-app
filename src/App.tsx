@@ -21,6 +21,7 @@ const Taxes          = lazy(() => import('./components/taxes/Taxes').then(m => (
 const Market         = lazy(() => import('./components/market/Market').then(m => ({ default: m.Market })));
 const Compare        = lazy(() => import('./components/compare/Compare').then(m => ({ default: m.Compare })));
 const Milestones     = lazy(() => import('./components/milestones/Milestones').then(m => ({ default: m.Milestones })));
+const Calendar       = lazy(() => import('./components/calendar').then(m => ({ default: m.Calendar })));
 const Guide          = lazy(() => import('./components/guide/Guide').then(m => ({ default: m.Guide })));
 
 const PAGE_MAP: Record<PageKey, React.ComponentType> = {
@@ -32,6 +33,7 @@ const PAGE_MAP: Record<PageKey, React.ComponentType> = {
   market:     Market,
   compare:    Compare,
   milestones: Milestones,
+  calendar:   Calendar,
   guide:      Guide,
 };
 

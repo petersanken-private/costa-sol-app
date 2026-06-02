@@ -11,4 +11,5 @@ export type PageKey =
   | 'market'
   | 'compare'
   | 'milestones'
+  | 'calendar'
   | 'guide';
