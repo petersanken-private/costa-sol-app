@@ -55,14 +55,19 @@ export interface Property {
 }
 
 export interface RentalEntry {
-  id:         string;
-  propertyId: string;
-  year:       number;
-  month:      number;
-  nights:     number;
-  revenue:    number;
-  platform:   RentalPlatform;
-  notes?:     string;
+  id:            string;
+  propertyId:    string;
+  year:          number;
+  month:         number;
+  nights:        number;
+  revenue:       number;
+  platform:      RentalPlatform;
+  notes?:        string;
+  // iCal-import (saknas för manuellt skapade entries)
+  sourceId?:     string;
+  icalUid?:      string;
+  checkinDate?:  string;   // ISO YYYY-MM-DD
+  checkoutDate?: string;   // ISO YYYY-MM-DD (exklusiv per iCal-konvention)
 }
 
 export interface Expense {

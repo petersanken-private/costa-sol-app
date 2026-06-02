@@ -50,7 +50,8 @@
       "Bash(git commit -m '🎯 Etapp CC: pages.css HELT BORTA — alla 572 rader eliminerade *)",
       "Bash(git commit -m 'feat: Kassaflödesprognos — 12-månaders likviditetsöversikt på Dashboard *)",
       "Bash(git commit -m 'Fix: ta bort oanvänd Expense-import i forecast.utils.test.ts *)",
-      "Bash(git commit -m 'feat: Co-owner split — per-ägare P&L för sambo/skuldebrev-scenarion *)"
+      "Bash(git commit -m 'feat: Co-owner split — per-ägare P&L för sambo/skuldebrev-scenarion *)",
+      "Bash(git commit -m 'feat: Bokningskalender — Gantt-vy per fastighet × dag *)"
     ]
   }
 }
