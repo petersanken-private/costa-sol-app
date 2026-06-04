@@ -5,6 +5,7 @@ import { SCENARIOS, UNIT_PRESETS } from '../../data';
 import { ScenarioKey } from '../../types';
 import { fmtMoney, fmtPct, calcInvestment, calcBuyingCosts, calcProjection } from '../../utils/calc.utils';
 import { buildCashflowRows, buildBuyingCostRows } from '../../utils/calculator.utils';
+import { deriveActualScenario } from '../../utils/portfolio-calc.utils';
 import { useMortgages } from '../../hooks/useMortgages';
 import { MortgageCard } from './MortgageCard';
 import {
@@ -26,6 +27,7 @@ export function Calculator() {
   const { items: mortgages } = useMortgages();
 
   const [selectedUnitId,   setSelectedUnitId]   = useState(UNIT_PRESETS[0].id);
+  const [selectedPropertyId, setSelectedPropertyId] = useState<string | null>(null);
   const [customPrice,      setCustomPrice]       = useState('');
   const [scenario,         setScenario]          = useState<ScenarioKey>('base');
   const [horizonYears,     setHorizonYears]      = useState(10);
@@ -41,7 +43,17 @@ export function Calculator() {
     ? (parseInt(customPrice.replace(/\D/g, ''), 10) || 500_000)
     : (selectedPreset?.purchasePrice ?? 780_000);
 
-  const sc         = SCENARIOS.find(s => s.key === scenario)!;
+  // Valt portföljobjekt → härled "Faktisk"-scenario från riktiga uthyrningar.
+  // Värdetillväxten ärvs fortfarande från det valda presets-scenariot.
+  const baseScenario     = SCENARIOS.find(s => s.key === scenario)!;
+  const selectedProperty = selectedPropertyId
+    ? state.properties.find(p => p.id === selectedPropertyId) ?? null
+    : null;
+  const actual = selectedProperty
+    ? deriveActualScenario(selectedProperty, state.rentals, baseScenario)
+    : null;
+  const sc = actual?.scenario ?? baseScenario;
+
   const result     = calcInvestment({ purchasePrice, scenario: sc, horizonYears, useMortgage, mortgagePct, mortgageRate: mortgageRatePct / 100 });
   const costs      = calcBuyingCosts(purchasePrice);
   const projection = calcProjection({
@@ -76,7 +88,7 @@ export function Calculator() {
                 'p-3.5 bg-bg-card border rounded-[10px] text-left transition-all duration-150 hover:border-border-hi',
                 active ? '!border-gold bg-gold-faint' : 'border-border',
               ].join(' ')}
-              onClick={() => setSelectedUnitId(u.id)}
+              onClick={() => { setSelectedUnitId(u.id); setSelectedPropertyId(null); }}
             >
               <p className="text-[11px] text-text-mute uppercase tracking-[1px] mb-1">{u.label}</p>
               <p className="font-display text-[18px] max-md:text-[16px] text-gold">{fmtMoney(u.purchasePrice)}</p>
@@ -89,32 +101,59 @@ export function Calculator() {
             'p-3.5 bg-bg-card border-2 border-dashed rounded-[10px] text-left transition-all duration-150',
             isCustom ? '!border-solid !border-gold bg-gold-faint' : 'border-border hover:border-border-hi',
           ].join(' ')}
-          onClick={() => setSelectedUnitId('custom')}
+          onClick={() => { setSelectedUnitId('custom'); setSelectedPropertyId(null); }}
         >
           <p className="text-[11px] text-text-mute uppercase tracking-[1px] mb-1">Eget objekt</p>
           <input
             className="form-input mt-1.5"
             value={customPrice}
             placeholder="€ Pris..."
-            onChange={e => { setCustomPrice(e.target.value); setSelectedUnitId('custom'); }}
+            onChange={e => { setCustomPrice(e.target.value); setSelectedUnitId('custom'); setSelectedPropertyId(null); }}
             onClick={e => e.stopPropagation()}
           />
         </button>
       </div>
 
       {state.properties.length > 0 && (
-        <div className="flex items-center gap-2 flex-wrap mb-6">
+        <div className="flex items-center gap-2 flex-wrap mb-2.5">
           <span className="text-[11px] text-text-mute uppercase tracking-[1px]">Från portfölj:</span>
-          {state.properties.map(p => (
-            <button
-              key={p.id}
-              className="py-1.5 px-3 rounded-[20px] border border-border bg-bg-card text-text-mute text-[12px] transition-all duration-150 hover:border-border-hi hover:text-text-dim"
-              onClick={() => { setSelectedUnitId(p.id); setCustomPrice(String(p.purchasePrice)); }}
-            >
-              {p.name}
-            </button>
-          ))}
+          {state.properties.map(p => {
+            const active = selectedPropertyId === p.id;
+            return (
+              <button
+                key={p.id}
+                className={[
+                  'py-1.5 px-3 rounded-[20px] border text-[12px] transition-all duration-150',
+                  active
+                    ? '!border-gold bg-gold-faint text-gold'
+                    : 'border-border bg-bg-card text-text-mute hover:border-border-hi hover:text-text-dim',
+                ].join(' ')}
+                onClick={() => {
+                  setSelectedUnitId('custom');
+                  setCustomPrice(String(p.purchasePrice));
+                  setSelectedPropertyId(p.id);
+                }}
+              >
+                {p.name}
+              </button>
+            );
+          })}
         </div>
+      )}
+
+      {actual ? (
+        <div className="mb-6 p-3 rounded-[10px] border border-gold/40 bg-gold-faint text-[12px] text-text-dim">
+          Intäkter baserade på <strong className="text-gold">faktisk uthyrning</strong> av {selectedProperty?.name} —{' '}
+          {actual.usage.nights} nätter · {fmtMoney(Math.round(actual.usage.adr))}/natt
+          {actual.usage.months < 12 && <> ({actual.usage.months} mån data)</>}.
+          Värdetillväxten följer valt scenario nedan.
+        </div>
+      ) : selectedProperty ? (
+        <div className="mb-6 p-3 rounded-[10px] border border-border bg-bg-card text-[12px] text-text-mute">
+          {selectedProperty.name} saknar registrerad uthyrning — intäkter beräknas från valt scenario nedan.
+        </div>
+      ) : (
+        <div className="mb-6" />
       )}
 
       {/* Scenario + horizon/mortgage */}
