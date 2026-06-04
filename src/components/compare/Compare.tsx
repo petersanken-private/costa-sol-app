@@ -1,21 +1,23 @@
 import { useMemo, useReducer } from 'react';
-import { ProspectProperty, ScenarioKey } from '../../types';
+import { ProspectProperty, PropertyStatus, ScenarioKey } from '../../types';
 import { Card, Btn } from '../ui';
 import { SCENARIOS } from '../../data';
-import { evaluateProspect, rankByNetYield } from '../../utils/prospect.utils';
+import { evaluateProspect, rankByNetYield, prospectToProperty } from '../../utils/prospect.utils';
 import { AIPanel } from '../ai';
-import { ProspectModal } from '.';
+import { ProspectModal, ConvertProspectModal } from '.';
 import { ScenarioControls } from './ScenarioControls';
 import { ProspectCard } from './ProspectCard';
 import { SummaryTable } from './SummaryTable';
 import { useProspects } from '../../hooks/useProspects';
 import { useMarketData } from '../../hooks/useMarketData';
+import { useApp } from '../../hooks/useApp';
 
 // ── Reducer ───────────────────────────────────────────────────────────────────
 type Modal =
   | { kind: 'closed' }
   | { kind: 'add' }
-  | { kind: 'edit'; item: ProspectProperty };
+  | { kind: 'edit'; item: ProspectProperty }
+  | { kind: 'convert'; item: ProspectProperty };
 
 interface State {
   modal:    Modal;
@@ -26,6 +28,7 @@ interface State {
 type Action =
   | { type: 'open-add' }
   | { type: 'open-edit'; item: ProspectProperty }
+  | { type: 'open-convert'; item: ProspectProperty }
   | { type: 'close' }
   | { type: 'set-scenario'; scenario: ScenarioKey }
   | { type: 'set-horizon'; horizon: number };
@@ -34,6 +37,7 @@ function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'open-add':     return { ...state, modal: { kind: 'add' } };
     case 'open-edit':    return { ...state, modal: { kind: 'edit', item: action.item } };
+    case 'open-convert': return { ...state, modal: { kind: 'convert', item: action.item } };
     case 'close':        return { ...state, modal: { kind: 'closed' } };
     case 'set-scenario': return { ...state, scenario: action.scenario };
     case 'set-horizon':  return { ...state, horizon: action.horizon };
@@ -46,6 +50,7 @@ const INITIAL: State = { modal: { kind: 'closed' }, scenario: 'base', horizon: 1
 export function Compare() {
   const { prospects, loading: prospectsLoading, upsert: upsertProspect, remove: removeProspect } = useProspects();
   const { markets,   loading: marketsLoading }   = useMarketData();
+  const { dispatch: appDispatch, navigate }      = useApp();
   const [state, dispatch] = useReducer(reducer, INITIAL);
   const { modal, scenario, horizon } = state;
 
@@ -59,6 +64,14 @@ export function Compare() {
   async function handleDelete(id: string) {
     if (!window.confirm('Ta bort detta prospekt?')) return;
     await removeProspect(id);
+  }
+
+  async function handleConvert(p: ProspectProperty, opts: { status: PropertyStatus; purchaseDate?: string }) {
+    const property = prospectToProperty(p, { id: `prop-${Date.now()}`, ...opts });
+    await appDispatch({ type: 'ADD_PROPERTY', property });
+    await removeProspect(p.id);
+    dispatch({ type: 'close' });
+    navigate('portfolio');
   }
 
   const sc = SCENARIOS.find(s => s.key === scenario)!;
@@ -117,6 +130,7 @@ export function Compare() {
                 isWinner={evaluation.p.id === winner && prospects.length > 1}
                 onEdit={() => dispatch({ type: 'open-edit', item: evaluation.p })}
                 onDelete={() => handleDelete(evaluation.p.id)}
+                onConvert={() => dispatch({ type: 'open-convert', item: evaluation.p })}
               />
             ))}
           </div>
@@ -135,11 +149,19 @@ export function Compare() {
         </>
       )}
 
-      {modal.kind !== 'closed' && (
+      {(modal.kind === 'add' || modal.kind === 'edit') && (
         <ProspectModal
           initial={modal.kind === 'edit' ? modal.item : null}
           onClose={() => dispatch({ type: 'close' })}
           onSave={handleSave}
+        />
+      )}
+
+      {modal.kind === 'convert' && (
+        <ConvertProspectModal
+          prospect={modal.item}
+          onClose={() => dispatch({ type: 'close' })}
+          onConfirm={opts => handleConvert(modal.item, opts)}
         />
       )}
     </div>

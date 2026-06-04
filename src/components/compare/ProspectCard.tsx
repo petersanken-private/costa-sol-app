@@ -14,11 +14,12 @@ interface Props {
   isWinner:   boolean;
   onEdit:     () => void;
   onDelete:   () => void;
+  onConvert:  () => void;
 }
 
 /** En "stor" prospect-jämförelsekort med KPIer + mini wealth-chart + actions. */
 export function ProspectCard({
-  prospect: p, evaluation, scenario, horizon, isWinner, onEdit, onDelete,
+  prospect: p, evaluation, scenario, horizon, isWinner, onEdit, onDelete, onConvert,
 }: Props) {
   const { result, projection, costs, pricePerSqmObj, vsMarket, mkt, usedMarket } = evaluation;
   const lastYear = projection[projection.length - 1];
@@ -101,6 +102,12 @@ export function ProspectCard({
         </p>
       )}
 
+      <button
+        className="block w-full mt-2 py-2 px-2 bg-gold text-white border border-gold rounded-[6px] text-[12px] font-medium text-center transition-all duration-150 hover:opacity-90 max-md:min-h-[44px]"
+        onClick={onConvert}
+      >
+        ✓ Markera som köpt
+      </button>
       <button
         className="block w-full mt-2 py-2 px-2 bg-bg-subtle border border-border rounded-[6px] text-[12px] text-text-dim text-center transition-all duration-150 hover:bg-gold-faint hover:border-gold hover:text-gold max-md:min-h-[44px]"
         onClick={() => exportBankPdf(p, mkt ?? undefined, scenario, horizon)}
