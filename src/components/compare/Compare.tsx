@@ -2,7 +2,7 @@ import { useMemo, useReducer } from 'react';
 import { ProspectProperty, PropertyStatus, ScenarioKey } from '../../types';
 import { Card, Btn } from '../ui';
 import { SCENARIOS } from '../../data';
-import { evaluateProspect, rankByNetYield, prospectToProperty } from '../../utils/prospect.utils';
+import { evaluateProspect, rankByNetYield, prospectToProperty, propertyToProspect } from '../../utils/prospect.utils';
 import { AIPanel } from '../ai';
 import { ProspectModal, ConvertProspectModal } from '.';
 import { ScenarioControls } from './ScenarioControls';
@@ -50,7 +50,7 @@ const INITIAL: State = { modal: { kind: 'closed' }, scenario: 'base', horizon: 1
 export function Compare() {
   const { prospects, loading: prospectsLoading, upsert: upsertProspect, remove: removeProspect } = useProspects();
   const { markets,   loading: marketsLoading }   = useMarketData();
-  const { dispatch: appDispatch, navigate }      = useApp();
+  const { state: appState, dispatch: appDispatch, navigate } = useApp();
   const [state, dispatch] = useReducer(reducer, INITIAL);
   const { modal, scenario, horizon } = state;
 
@@ -76,10 +76,20 @@ export function Compare() {
 
   const sc = SCENARIOS.find(s => s.key === scenario)!;
 
-  // Bygg utvärdering för varje prospekt (med marknadsdata om tillgänglig).
+  // Bevakade portföljobjekt (status 'watchlist') visas i Compare bredvid
+  // prospekten. Portföljen är källan — vi adaptar dem bara till prospekt-form.
+  const watchlistItems = useMemo(
+    () => appState.properties.filter(p => p.status === 'watchlist').map(propertyToProspect),
+    [appState.properties],
+  );
+  const watchlistIds = useMemo(() => new Set(watchlistItems.map(p => p.id)), [watchlistItems]);
+
+  const allItems = useMemo(() => [...prospects, ...watchlistItems], [prospects, watchlistItems]);
+
+  // Bygg utvärdering för varje objekt (med marknadsdata om tillgänglig).
   const calcResults = useMemo(
-    () => prospects.map(p => evaluateProspect(p, markets, sc, horizon)),
-    [prospects, markets, sc, horizon],
+    () => allItems.map(p => evaluateProspect(p, markets, sc, horizon)),
+    [allItems, markets, sc, horizon],
   );
 
   const ranked = rankByNetYield(calcResults);
@@ -101,43 +111,48 @@ export function Compare() {
         scenario={scenario}
         horizon={horizon}
         usingMarketCount={calcResults.filter(r => r.usedMarket).length}
-        totalProspects={prospects.length}
+        totalProspects={allItems.length}
         onScenario={s => dispatch({ type: 'set-scenario', scenario: s })}
         onHorizon={h  => dispatch({ type: 'set-horizon',  horizon: h  })}
       />
 
       {loading ? (
         <p className="text-mute">Laddar…</p>
-      ) : prospects.length === 0 ? (
+      ) : allItems.length === 0 ? (
         <Card className="card-p">
           <div className="empty-state">
             <p className="empty-state__icon">🏠</p>
-            <p className="empty-state__title">Inga prospekt ännu</p>
-            <p className="empty-state__sub">Lägg till objekt du hittat på Idealista för att jämföra dem.</p>
+            <p className="empty-state__title">Inga objekt ännu</p>
+            <p className="empty-state__sub">Lägg till objekt du hittat på Idealista, eller markera ett portföljobjekt som "Bevakas" — båda visas här.</p>
           </div>
         </Card>
       ) : (
         <>
           {/* Side-by-side comparison cards */}
-          <div className="grid gap-4 mb-2 max-md:!grid-cols-1" style={{ gridTemplateColumns: `repeat(${Math.min(prospects.length, 3)}, 1fr)` }}>
-            {ranked.map(evaluation => (
-              <ProspectCard
-                key={evaluation.p.id}
-                prospect={evaluation.p}
-                evaluation={evaluation}
-                scenario={scenario}
-                horizon={horizon}
-                isWinner={evaluation.p.id === winner && prospects.length > 1}
-                onEdit={() => dispatch({ type: 'open-edit', item: evaluation.p })}
-                onDelete={() => handleDelete(evaluation.p.id)}
-                onConvert={() => dispatch({ type: 'open-convert', item: evaluation.p })}
-              />
-            ))}
+          <div className="grid gap-4 mb-2 max-md:!grid-cols-1" style={{ gridTemplateColumns: `repeat(${Math.min(allItems.length, 3)}, 1fr)` }}>
+            {ranked.map(evaluation => {
+              const isWatchlist = watchlistIds.has(evaluation.p.id);
+              return (
+                <ProspectCard
+                  key={evaluation.p.id}
+                  prospect={evaluation.p}
+                  evaluation={evaluation}
+                  scenario={scenario}
+                  horizon={horizon}
+                  isWinner={evaluation.p.id === winner && allItems.length > 1}
+                  isWatchlist={isWatchlist}
+                  onEdit={() => dispatch({ type: 'open-edit', item: evaluation.p })}
+                  onDelete={() => handleDelete(evaluation.p.id)}
+                  onConvert={() => dispatch({ type: 'open-convert', item: evaluation.p })}
+                  onOpenInPortfolio={() => navigate('property', evaluation.p.id)}
+                />
+              );
+            })}
           </div>
 
-          {prospects.length > 1 && <SummaryTable ranked={ranked} horizon={horizon} />}
+          {allItems.length > 1 && <SummaryTable ranked={ranked} horizon={horizon} />}
 
-          {prospects.length > 0 && (
+          {allItems.length > 0 && (
             <AIPanel
               scope="portfolio"
               title="🤖 AI-rådgivning för prospekt"
