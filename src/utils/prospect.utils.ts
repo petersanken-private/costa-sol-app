@@ -153,3 +153,23 @@ export function prospectToProperty(p: ProspectProperty, conv: ProspectConversion
     notes:          p.notes,
   };
 }
+
+/**
+ * Mappa ett portföljobjekt till prospekt-form så att bevakade objekt
+ * (status 'watchlist') kan utvärderas och visas i Compare bredvid riktiga
+ * prospekt. Portföljen förblir källan — detta är en vy-adapter, inte en kopia.
+ */
+export function propertyToProspect(p: Property): ProspectProperty {
+  return {
+    id:            p.id,
+    name:          p.name,
+    area:          p.area,
+    type:          p.type,
+    bedrooms:      p.bedrooms,
+    sizeSqm:       p.sizeSqm,
+    terraceSqm:    p.terraceSqm,
+    purchasePrice: p.purchasePrice,
+    development:   p.development || undefined,
+    notes:         p.notes,
+  };
+}
