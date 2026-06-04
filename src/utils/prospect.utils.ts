@@ -1,4 +1,4 @@
-import { ProspectProperty, AreaMarketData, ScenarioConfig, CalcResult } from '../types';
+import { ProspectProperty, AreaMarketData, ScenarioConfig, CalcResult, Property, PropertyStatus } from '../types';
 import {
   calcInvestment, calcProjection, calcBuyingCosts,
   ProjectionYear, BuyingCostBreakdown,
@@ -112,4 +112,44 @@ export function evaluateProspect(
  */
 export function rankByNetYield(evaluations: ProspectEvaluation[]): ProspectEvaluation[] {
   return [...evaluations].sort((a, b) => b.result.netYield - a.result.netYield);
+}
+
+// ── Konvertera prospekt → ägt/kontrakterat objekt ────────────────────────────
+
+export interface ProspectConversion {
+  /** Id på det nya portföljobjektet (genereras av anroparen, t.ex. prop-<ts>). */
+  id:            string;
+  /** Status objektet ska få i portföljen. */
+  status:        PropertyStatus;
+  /** ISO-datum (YYYY-MM-DD) för köp/tillträde. Valfritt. */
+  purchaseDate?: string;
+}
+
+/**
+ * Bygg ett Property från ett prospekt vid köp. Överlappande fält mappas rakt av;
+ * det som prospekt saknar får rimliga defaults (currentValue = köpeskilling,
+ * inga badrum, korttidsuthyrning, ingen VFT-licens) som användaren justerar
+ * efteråt i portföljen.
+ *
+ * Pure: id och status kommer som parametrar så funktionen är deterministisk.
+ */
+export function prospectToProperty(p: ProspectProperty, conv: ProspectConversion): Property {
+  return {
+    id:             conv.id,
+    name:           p.name,
+    development:    p.development ?? '',
+    area:           p.area,
+    type:           p.type,
+    status:         conv.status,
+    bedrooms:       p.bedrooms,
+    bathrooms:      0,
+    sizeSqm:        p.sizeSqm,
+    terraceSqm:     p.terraceSqm,
+    purchasePrice:  p.purchasePrice,
+    currentValue:   p.purchasePrice,
+    purchaseDate:   conv.purchaseDate,
+    rentalStrategy: 'short-term',
+    hasVFTLicense:  false,
+    notes:          p.notes,
+  };
 }
