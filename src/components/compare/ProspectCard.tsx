@@ -15,11 +15,16 @@ interface Props {
   onEdit:     () => void;
   onDelete:   () => void;
   onConvert:  () => void;
+  /** True när kortet är ett bevakat portföljobjekt (status 'watchlist'), inte ett prospekt. */
+  isWatchlist?:       boolean;
+  /** Navigera till objektet i portföljen (endast bevakade objekt). */
+  onOpenInPortfolio?: () => void;
 }
 
 /** En "stor" prospect-jämförelsekort med KPIer + mini wealth-chart + actions. */
 export function ProspectCard({
   prospect: p, evaluation, scenario, horizon, isWinner, onEdit, onDelete, onConvert,
+  isWatchlist = false, onOpenInPortfolio,
 }: Props) {
   const { result, projection, costs, pricePerSqmObj, vsMarket, mkt, usedMarket } = evaluation;
   const lastYear = projection[projection.length - 1];
@@ -40,11 +45,19 @@ export function ProspectCard({
           <p className="font-display text-[18px] font-normal text-text">{p.name}</p>
           <p className="text-[12px] text-text-mute mt-0.5">{p.area} · {p.bedrooms} sov · {p.sizeSqm}m²</p>
           {p.development && <p className="text-mute text-[11px]">{p.development}</p>}
+          {isWatchlist && (
+            <span className="inline-block mt-1.5 py-[2px] px-2 rounded-[20px] bg-bg-subtle border border-border text-[10px] uppercase tracking-[0.5px] text-text-mute">
+              📁 Bevakas · portfölj
+            </span>
+          )}
         </div>
-        <div className="flex gap-1.5">
-          <IconBtn variant="edit"   onClick={onEdit}   alwaysVisible />
-          <IconBtn variant="delete" onClick={onDelete} alwaysVisible />
-        </div>
+        {/* Bevakade portföljobjekt redigeras/raderas i Portföljen — inte här. */}
+        {!isWatchlist && (
+          <div className="flex gap-1.5">
+            <IconBtn variant="edit"   onClick={onEdit}   alwaysVisible />
+            <IconBtn variant="delete" onClick={onDelete} alwaysVisible />
+          </div>
+        )}
       </div>
 
       {/* Price */}
@@ -102,12 +115,21 @@ export function ProspectCard({
         </p>
       )}
 
-      <button
-        className="block w-full mt-2 py-2 px-2 bg-gold text-white border border-gold rounded-[6px] text-[12px] font-medium text-center transition-all duration-150 hover:opacity-90 max-md:min-h-[44px]"
-        onClick={onConvert}
-      >
-        ✓ Markera som köpt
-      </button>
+      {isWatchlist ? (
+        <button
+          className="block w-full mt-2 py-2 px-2 bg-bg-subtle border border-border rounded-[6px] text-[12px] text-text-dim text-center transition-all duration-150 hover:bg-gold-faint hover:border-gold hover:text-gold max-md:min-h-[44px]"
+          onClick={onOpenInPortfolio}
+        >
+          📁 Öppna i portfölj →
+        </button>
+      ) : (
+        <button
+          className="block w-full mt-2 py-2 px-2 bg-gold text-white border border-gold rounded-[6px] text-[12px] font-medium text-center transition-all duration-150 hover:opacity-90 max-md:min-h-[44px]"
+          onClick={onConvert}
+        >
+          ✓ Markera som köpt
+        </button>
+      )}
       <button
         className="block w-full mt-2 py-2 px-2 bg-bg-subtle border border-border rounded-[6px] text-[12px] text-text-dim text-center transition-all duration-150 hover:bg-gold-faint hover:border-gold hover:text-gold max-md:min-h-[44px]"
         onClick={() => exportBankPdf(p, mkt ?? undefined, scenario, horizon)}
