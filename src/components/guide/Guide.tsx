@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Card, SectionHeader } from '../ui';
+import { Card, SectionHeader, Icon } from '../ui';
 import { SECTIONS } from './guide.sections';
 
 export function Guide() {
@@ -76,10 +76,12 @@ export function Guide() {
                 <div style={{ cursor: 'pointer' }} onClick={() => toggle(s.id)}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
                     <div style={{ flex: 1 }}>
-                      <p style={{ margin: 0, fontSize: '17px', fontWeight: 600 }}>{s.icon} {s.title}</p>
+                      <p className="font-display" style={{ margin: 0, fontSize: '20px', fontWeight: 500 }}>{s.icon} {s.title}</p>
                       {!open && <p className="text-mute" style={{ margin: '4px 0 0', fontSize: '13px' }}>{s.summary}</p>}
                     </div>
-                    <span style={{ color: 'var(--text-mute)', fontSize: '14px' }}>{open ? '▼' : '▶'}</span>
+                    <span className="text-text-mute flex-shrink-0 mt-1" style={{ transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s ease' }}>
+                      <Icon name="chevron" size={16} />
+                    </span>
                   </div>
                 </div>
                 {open && (

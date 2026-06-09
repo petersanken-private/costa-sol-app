@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { useApp } from '../../hooks/useApp';
-import { Card, Stat, YearButton } from '../ui';
+import { Stat, YearButton } from '../ui';
 import { fmtMoney, fmtPct } from '../../utils/calc.utils';
 import { TAX } from '../../constants/tax';
 import { ExportMenu } from '../ExportMenu';
@@ -68,22 +68,22 @@ export function Taxes() {
         </div>
       </div>
 
-      {/* KPI strip */}
-      <div className="grid-4" style={{ marginBottom: '24px' }}>
-        <Card className="card-p-md">
+      {/* KPI strip — joined stat-grid */}
+      <div className="stat-grid mb-6">
+        <div className="stat-cell">
           <Stat label="Bruttointäkt" value={fmtMoney(grossIncome)}
                 sub={`${yearRentals.reduce((s, r) => s + r.nights, 0)} nätter`} color="var(--green)" />
-        </Card>
-        <Card className="card-p-md">
+        </div>
+        <div className="stat-cell">
           <Stat label="Avdragsgilla kostn." value={fmtMoney(deductibleExpenses)} sub="IRNR-avdrag (EU/EEA)" />
-        </Card>
-        <Card className="card-p-md">
+        </div>
+        <div className="stat-cell">
           <Stat label="Beskattningsbar ink." value={fmtMoney(netTaxableIncome)} sub="Netto efter avdrag" />
-        </Card>
-        <Card className="card-p-md" style={{ background: 'rgba(239,68,68,0.04)', borderColor: 'rgba(239,68,68,0.2)' }}>
+        </div>
+        <div className="stat-cell">
           <Stat label="Beräknad IRNR-skatt" value={fmtMoney(taxOwed)}
                 sub={`Effektiv skattesats ${fmtPct(effectiveRate)}`} color="var(--red)" />
-        </Card>
+        </div>
       </div>
 
       <TaxBreakdownGrid
