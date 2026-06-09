@@ -1,6 +1,7 @@
-import { useReducer } from 'react';
+import { useReducer, useMemo } from 'react';
 import { AreaMarketData } from '../../types';
 import { Btn } from '../ui';
+import { useApp } from '../../hooks/useApp';
 import { useMarketRefresh } from '../../hooks/useMarketRefresh';
 import { useMarketData } from '../../hooks/useMarketData';
 import { MarketModal, RefreshBanner } from '.';
@@ -31,8 +32,15 @@ function modalReducer(_: Modal, action: Action): Modal {
 // ─────────────────────────────────────────────────────────────────────────────
 export function Market() {
   const { markets, loading, upsert, remove, reload } = useMarketData();
+  const { state: appState } = useApp();
   const [modal, dispatch] = useReducer(modalReducer, { kind: 'closed' });
   const { refresh, running, last } = useMarketRefresh();
+
+  // Områden där vi äger/bevakar objekt — highlightas i tabellen.
+  const ownedAreas = useMemo(
+    () => new Set(appState.properties.map(p => p.area.toLowerCase().trim())),
+    [appState.properties],
+  );
 
   async function handleRefresh() {
     await refresh();
@@ -69,7 +77,7 @@ export function Market() {
         <>
           <OverviewCards markets={markets} />
           <MarketCharts  markets={markets} />
-          <MarketTable        markets={markets} onEdit={m => dispatch({ type: 'open-edit', item: m })} onDelete={handleDelete} />
+          <MarketTable        markets={markets} ownedAreas={ownedAreas} onEdit={m => dispatch({ type: 'open-edit', item: m })} onDelete={handleDelete} />
           <MarketMobileCards  markets={markets} onEdit={m => dispatch({ type: 'open-edit', item: m })} onDelete={handleDelete} />
 
           <p style={{ fontSize: '11px', color: 'var(--text-mute)', marginTop: '12px' }}>

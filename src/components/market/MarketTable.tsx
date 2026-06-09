@@ -4,13 +4,14 @@ import { fmtMoney } from '../../utils/calc.utils';
 import { yieldEstimate } from '../../utils/market.utils';
 
 interface Props {
-  markets:  AreaMarketData[];
-  onEdit:   (m: AreaMarketData) => void;
-  onDelete: (id: string) => void;
+  markets:     AreaMarketData[];
+  ownedAreas?: Set<string>;
+  onEdit:      (m: AreaMarketData) => void;
+  onDelete:    (id: string) => void;
 }
 
 /** Desktop-tabell över alla områden. Döljs på mobil via CSS. */
-export function MarketTable({ markets, onEdit, onDelete }: Props) {
+export function MarketTable({ markets, ownedAreas, onEdit, onDelete }: Props) {
   return (
     <Card className="max-md:hidden">
       <div className="table-header grid-cols-[1fr_90px_70px_100px_90px_80px_130px_60px]">
@@ -23,9 +24,19 @@ export function MarketTable({ markets, onEdit, onDelete }: Props) {
         <span>Källa</span>
         <span></span>
       </div>
-      {markets.map(m => (
-        <div key={m.id} className="table-row grid-cols-[1fr_90px_70px_100px_90px_80px_130px_60px]">
-          <span style={{ fontWeight: 500 }}>{m.area}</span>
+      {markets.map(m => {
+        const isOurs = ownedAreas?.has(m.area.toLowerCase().trim()) ?? false;
+        return (
+        <div
+          key={m.id}
+          className="table-row grid-cols-[1fr_90px_70px_100px_90px_80px_130px_60px]"
+          style={isOurs ? { background: 'var(--green-soft)' } : undefined}
+        >
+          <span style={{ fontWeight: 500 }} className="flex items-center gap-2">
+            {isOurs && <span className="w-1.5 h-1.5 rounded-full bg-green flex-shrink-0" title="Din portfölj" />}
+            {m.area}
+            {isOurs && <span className="text-[10px] font-semibold text-green bg-green-soft border border-green/25 rounded-[6px] px-1.5 py-px">Din portfölj</span>}
+          </span>
           <span style={{ color: 'var(--green)' }}>{fmtMoney(m.pricePerSqm)}</span>
           <span>€{m.avgAdr}</span>
           <span>
@@ -44,7 +55,8 @@ export function MarketTable({ markets, onEdit, onDelete }: Props) {
             <IconBtn variant="delete" onClick={() => onDelete(m.id)} alwaysVisible />
           </div>
         </div>
-      ))}
+        );
+      })}
     </Card>
   );
 }

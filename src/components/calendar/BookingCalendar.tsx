@@ -5,7 +5,7 @@
 // Mobile: stackad lista per fastighet.
 
 import { useState, useMemo } from 'react';
-import { Card, SectionHeader, EmptyState, YearButton } from '../ui';
+import { Card, SectionHeader, EmptyState, YearButton, Stat, Icon } from '../ui';
 import { useApp } from '../../hooks/useApp';
 import { fmtMoney } from '../../utils/calc.utils';
 import { PLATFORM_COLORS, MONTHS_SV } from '../../data';
@@ -63,45 +63,36 @@ export function BookingCalendar() {
 
   return (
     <div className="flex flex-col gap-5">
-      {/* Månadsnavigation */}
-      <Card className="card-p">
-        <div className="flex items-center justify-between gap-4 flex-wrap">
-          <div className="flex items-center gap-2">
-            <button
-              className="w-9 h-9 rounded-[6px] border border-border bg-bg-card text-text-dim text-[16px] hover:border-border-hi hover:text-text transition-all duration-150"
-              onClick={() => shiftMonth(-1)}
-              aria-label="Föregående månad"
-            >‹</button>
-            <span className="font-display text-[20px] text-text min-w-[140px] text-center">
-              {MONTHS_SV[month - 1]} {year}
-            </span>
-            <button
-              className="w-9 h-9 rounded-[6px] border border-border bg-bg-card text-text-dim text-[16px] hover:border-border-hi hover:text-text transition-all duration-150"
-              onClick={() => shiftMonth(1)}
-              aria-label="Nästa månad"
-            >›</button>
-          </div>
-          <div className="flex gap-2 flex-wrap">
-            <YearButton
-              label="Idag"
-              active={year === now.getFullYear() && month === now.getMonth() + 1}
-              onClick={() => { setYear(now.getFullYear()); setMonth(now.getMonth() + 1); }}
-            />
-          </div>
+      {/* Månadsnavigation — pill */}
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div className="inline-flex items-center gap-1 border border-border rounded-pill bg-bg-card p-1">
+          <button
+            className="w-8 h-8 rounded-full flex items-center justify-center text-text-dim hover:bg-bg-hover hover:text-text transition-all duration-150"
+            onClick={() => shiftMonth(-1)}
+            aria-label="Föregående månad"
+          ><Icon name="chevron" size={16} className="rotate-180" /></button>
+          <span className="font-display text-[19px] text-text min-w-[130px] text-center capitalize">
+            {MONTHS_SV[month - 1]} {year}
+          </span>
+          <button
+            className="w-8 h-8 rounded-full flex items-center justify-center text-text-dim hover:bg-bg-hover hover:text-text transition-all duration-150"
+            onClick={() => shiftMonth(1)}
+            aria-label="Nästa månad"
+          ><Icon name="chevron" size={16} /></button>
         </div>
-      </Card>
-
-      {/* Månadsstatistik */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <KpiCard label="Bokade nätter"  value={`${portfolioStats.totalNights}`} sub={`av ${daysInMonth(year, month) * state.properties.length}`} color="var(--green)" />
-        <KpiCard label="Beläggning"      value={`${portfolioStats.occupancyPct.toFixed(0)}%`} sub={`${portfolioStats.occupiedDays} dagar`} />
-        <KpiCard label="Intäkt"           value={fmtMoney(portfolioStats.revenue)} sub="Bokningar i månaden" color="var(--green)" />
-        <KpiCard
-          label="Konflikter"
-          value={`${totalOverlapDays}`}
-          sub={totalOverlapDays > 0 ? 'Dagar med 2+ iCal-bokningar' : 'Inga overlaps'}
-          color={totalOverlapDays > 0 ? 'var(--red)' : undefined}
+        <YearButton
+          label="Idag"
+          active={year === now.getFullYear() && month === now.getMonth() + 1}
+          onClick={() => { setYear(now.getFullYear()); setMonth(now.getMonth() + 1); }}
         />
+      </div>
+
+      {/* Månadsstatistik — joined stat-grid */}
+      <div className="stat-grid">
+        <div className="stat-cell"><Stat label="Bokade nätter" value={`${portfolioStats.totalNights}`} sub={`av ${daysInMonth(year, month) * state.properties.length}`} color="var(--green)" /></div>
+        <div className="stat-cell"><Stat label="Beläggning"     value={`${portfolioStats.occupancyPct.toFixed(0)}%`} sub={`${portfolioStats.occupiedDays} dagar`} /></div>
+        <div className="stat-cell"><Stat label="Intäkt"          value={fmtMoney(portfolioStats.revenue)} sub="Bokningar i månaden" color="var(--green)" /></div>
+        <div className="stat-cell"><Stat label="Konflikter"      value={`${totalOverlapDays}`} sub={totalOverlapDays > 0 ? 'Dagar med 2+ iCal-bokningar' : 'Inga overlaps'} color={totalOverlapDays > 0 ? 'var(--red)' : undefined} /></div>
       </div>
 
       {/* Plattform-legend */}
@@ -130,18 +121,6 @@ export function BookingCalendar() {
         </div>
       </Card>
     </div>
-  );
-}
-
-// ── KPI ─────────────────────────────────────────────────────────────────────
-
-function KpiCard({ label, value, sub, color }: { label: string; value: string; sub: string; color?: string }) {
-  return (
-    <Card className="card-p-md">
-      <p className="text-[10px] tracking-[1.5px] uppercase text-text-mute mb-1">{label}</p>
-      <p className="font-display text-[22px] md:text-[26px] font-normal leading-none" style={{ color }}>{value}</p>
-      <p className="text-[11px] text-text-mute mt-1">{sub}</p>
-    </Card>
   );
 }
 
