@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useApp } from '../../hooks/useApp';
-import { Card, Stat, Tabs } from '../ui';
+import { Stat, Tabs } from '../ui';
 import { SCENARIOS, UNIT_PRESETS } from '../../data';
 import { ScenarioKey } from '../../types';
 import { fmtMoney, fmtPct, calcInvestment, calcBuyingCosts, calcProjection } from '../../utils/calc.utils';
@@ -194,17 +194,17 @@ export function Calculator() {
         />
       </div>
 
-      {/* KPI strip */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-5">
+      {/* KPI strip — joined stat-grid */}
+      <div className="stat-grid mb-5">
         {[
           { label: 'Netto/år',                value: fmtMoney(result.netAfterTax),    color: result.netAfterTax > 0 ? sc.color : 'var(--red)' },
           { label: 'Nettoyield',              value: fmtPct(result.netYield),         color: sc.color },
           { label: `Exit (${horizonYears}å)`, value: fmtMoney(result.exitPrice),      color: 'var(--green)' },
           { label: 'Totalavk. (ann.)',         value: fmtPct(result.annualizedReturn), color: sc.color },
         ].map((k, i) => (
-          <Card key={i} className="card-p-md">
+          <div key={i} className="stat-cell">
             <Stat label={k.label} value={k.value} color={k.color} />
-          </Card>
+          </div>
         ))}
       </div>
 
