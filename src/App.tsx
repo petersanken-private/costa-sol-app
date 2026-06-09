@@ -6,6 +6,7 @@ import { AuthScreen } from './components/AuthScreen';
 import { Sidebar, CurrencyPill } from './components/Sidebar';
 import { PWAStatus } from './components/PWAStatus';
 import { Dashboard } from './components/dashboard/Dashboard';
+import { Icon, IconName } from './components/ui/Icon';
 import { PageKey } from './types';
 import './styles/global.css';
 import './styles/components.css';
@@ -37,24 +38,46 @@ const PAGE_MAP: Record<PageKey, React.ComponentType> = {
   guide:      Guide,
 };
 
-const MOBILE_NAV: { key: PageKey; icon: string; label: string }[] = [
-  { key: 'dashboard',  icon: '▦', label: 'Start'      },
-  { key: 'portfolio',  icon: '◈', label: 'Portfölj'   },
-  { key: 'milestones', icon: '🗓', label: 'Deadlines'  },
-  { key: 'compare',    icon: '⊞', label: 'Jämför'     },
-  { key: 'calculator', icon: '◎', label: 'Kalkyl'     },
+const MOBILE_NAV: { key: PageKey; icon: IconName; label: string }[] = [
+  { key: 'dashboard',  icon: 'grid',    label: 'Start'    },
+  { key: 'portfolio',  icon: 'layers',  label: 'Portfölj' },
+  { key: 'milestones', icon: 'bell',    label: 'Deadlines'},
+  { key: 'compare',    icon: 'compare', label: 'Jämför'   },
+  { key: 'calculator', icon: 'calc',    label: 'Kalkyl'   },
 ];
 
-function MobileCurrencyToggle() {
+const PAGE_TITLES: Record<PageKey, string> = {
+  dashboard:  'Dashboard',
+  portfolio:  'Portfölj',
+  property:   'Objekt',
+  calculator: 'Kalkylator',
+  taxes:      'Skatt',
+  market:     'Marknadsdata',
+  compare:    'Jämför objekt',
+  milestones: 'Påminnelser',
+  calendar:   'Kalender',
+  guide:      'Investera i Spanien',
+};
+
+/** Mobil top-bar: brand-mark + aktuell vy-titel + currency-pill. */
+function MobileTopBar({ activePage }: { activePage: PageKey }) {
   const { currency, toggle } = useDisplayCurrency();
   return (
-    <button
-      className="inline-flex md:hidden fixed top-3 right-3 z-[60] bg-bg-card border border-border rounded-pill p-0.5 shadow-[0_2px_8px_rgba(0,0,0,0.15)]"
-      onClick={toggle}
-    >
-      <CurrencyPill label="EUR" active={currency === 'EUR'} />
-      <CurrencyPill label="SEK" active={currency === 'SEK'} />
-    </button>
+    <header className="md:hidden sticky top-0 z-40 flex items-center justify-between px-5 pt-3.5 pb-1.5 bg-bg-card border-b border-border">
+      <div className="flex items-center gap-2.5">
+        <span className="w-8 h-8 rounded-[8px] bg-green text-white font-display font-medium text-[14px] flex items-center justify-center tracking-[0.5px]">
+          CS
+        </span>
+        <span className="font-display font-medium text-[17px] text-text">{PAGE_TITLES[activePage]}</span>
+      </div>
+      <button
+        className="flex bg-transparent border border-border rounded-pill p-0.5"
+        onClick={toggle}
+      >
+        <CurrencyPill label="EUR" active={currency === 'EUR'} />
+        <CurrencyPill label="SEK" active={currency === 'SEK'} />
+      </button>
+    </header>
   );
 }
 
@@ -87,7 +110,7 @@ function AppContent() {
   return (
     <div className="app-shell">
       <Sidebar />
-      <MobileCurrencyToggle />
+      <MobileTopBar activePage={state.activePage} />
       <main className="app-main">
         {dbError && (
           <div className="db-error-banner">
@@ -103,12 +126,12 @@ function AppContent() {
         {MOBILE_NAV.map(item => (
           <button
             key={item.key}
-            className={`flex-1 flex flex-col items-center gap-[3px] py-2 px-1 bg-transparent border-0 text-[10px] transition-colors duration-150 [-webkit-tap-highlight-color:transparent] ${
-              state.activePage === item.key ? 'text-gold' : 'text-text-mute'
+            className={`flex-1 flex flex-col items-center gap-1 py-2 px-1 bg-transparent border-0 text-[10px] transition-colors duration-150 [-webkit-tap-highlight-color:transparent] ${
+              state.activePage === item.key ? 'text-green' : 'text-text-mute'
             }`}
             onClick={() => navigate(item.key)}
           >
-            <span className="text-[20px] leading-none">{item.icon}</span>
+            <Icon name={item.icon} size={20} />
             {item.label}
           </button>
         ))}

@@ -51,9 +51,8 @@ const PRINT_CSS = `
   tr:last-child td { border-bottom: none; }
   .num { text-align: right; font-variant-numeric: tabular-nums; }
   .bold { font-weight: 600; }
-  .gold { color: #b8860b; }
-  .red  { color: #c0392b; }
-  .green { color: #27ae60; }
+  .green { color: #2f5d4d; }
+  .red  { color: #9c4b3b; }
   .mute { color: #888; }
   .kpi-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 28px; }
   .kpi { background: #f9f9f9; border-radius: 6px; padding: 14px; }

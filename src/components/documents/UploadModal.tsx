@@ -57,11 +57,11 @@ export function UploadModal({ onClose, onUploaded, uploadFn }: Props) {
         className={[
           'border-2 rounded-[10px] text-center cursor-pointer transition-all duration-150',
           file
-            ? 'border-solid border-gold bg-gold-faint p-4'
+            ? 'border-solid border-green bg-green-soft p-4'
             : 'border-dashed py-8 px-4 bg-bg-subtle',
           dragOver || file
-            ? 'border-gold bg-gold-faint'
-            : 'border-border hover:border-gold hover:bg-gold-faint',
+            ? 'border-green bg-green-soft'
+            : 'border-border hover:border-green hover:bg-green-soft',
         ].join(' ')}
         onClick={() => fileRef.current?.click()}
         onDragOver={e => { e.preventDefault(); setDrag(true); }}
@@ -101,7 +101,7 @@ export function UploadModal({ onClose, onUploaded, uploadFn }: Props) {
       {/* Progress bar */}
       {uploading && (
         <div className="h-1 bg-border rounded-[2px] mt-3 overflow-hidden">
-          <div className="h-full bg-gold rounded-[2px] transition-[width] duration-300 ease-in-out" style={{ width: `${progress}%` }} />
+          <div className="h-full bg-green rounded-[2px] transition-[width] duration-300 ease-in-out" style={{ width: `${progress}%` }} />
         </div>
       )}
 
@@ -116,7 +116,7 @@ export function UploadModal({ onClose, onUploaded, uploadFn }: Props) {
                   className={[
                     'flex flex-col items-center gap-1 py-2.5 px-1.5 min-h-[60px] rounded-[6px] border bg-transparent text-[11px] text-center transition-all duration-150 leading-[1.2]',
                     active
-                      ? 'border-gold bg-gold-faint text-gold'
+                      ? 'border-green bg-green-soft text-green'
                       : 'border-border text-text-mute hover:border-border-hi hover:text-text-dim hover:bg-bg-subtle',
                   ].join(' ')}
                   onClick={() => setCat(c.key)}

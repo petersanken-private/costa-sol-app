@@ -1,4 +1,4 @@
-import { Card, Stat } from '../ui';
+import { Stat } from '../ui';
 import { fmtMoney } from '../../utils/calc.utils';
 
 export interface PropertyQuickStatsProps {
@@ -19,11 +19,11 @@ export function PropertyQuickStats({
   ];
 
   return (
-    <div className="grid-4" style={{ marginBottom: '24px' }}>
+    <div className="stat-grid mb-6">
       {items.map((s, i) => (
-        <Card key={i} className="card-p-md">
+        <div key={i} className="stat-cell">
           <Stat label={s.label} value={s.value} sub={s.sub} />
-        </Card>
+        </div>
       ))}
     </div>
   );

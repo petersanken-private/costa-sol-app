@@ -38,7 +38,7 @@ export function OwnerSplitStrip({ properties, rentals, expenses, year }: Props) 
               <Stat label="Nuv. värde"       value={fmtMoney(o.totalCurrentValue)}
                     sub={`${o.unrealizedGain >= 0 ? '+' : ''}${fmtMoney(o.unrealizedGain)}`}
                     color={o.unrealizedGain >= 0 ? 'var(--green)' : 'var(--red)'} />
-              <Stat label={`Bruttohyra ${year}`} value={fmtMoney(o.grossRentalIncome)} color="var(--gold)" />
+              <Stat label={`Bruttohyra ${year}`} value={fmtMoney(o.grossRentalIncome)} color="var(--green)" />
               <Stat label="Skatt (est.)"      value={fmtMoney(o.estimatedTax)} color="var(--red)" />
             </div>
           </div>

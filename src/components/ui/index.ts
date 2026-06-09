@@ -42,3 +42,12 @@ export { YearButton }    from './YearButton';
 export { RowActionBtn }  from './RowActionBtn';
 
 export { IconBtn }       from './IconBtn';
+
+export { Icon }          from './Icon';
+export type { IconName, IconProps } from './Icon';
+
+export { HeroValue }     from './HeroValue';
+export type { HeroValueProps } from './HeroValue';
+
+export { PhotoPlaceholder } from './PhotoPlaceholder';
+export type { PhotoPlaceholderProps } from './PhotoPlaceholder';

@@ -54,7 +54,7 @@ export function Modelo210Checklist({
           {dateRows.map((row, i) => (
             <div key={i} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderTop: i > 0 ? '1px solid var(--border)' : 'none' }}>
               <span className="text-dim">{row.label}</span>
-              <Badge label={row.date} color="var(--gold)" />
+              <Badge label={row.date} color="var(--green)" />
             </div>
           ))}
         </div>

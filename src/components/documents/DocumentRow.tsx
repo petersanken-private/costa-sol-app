@@ -35,7 +35,7 @@ export function DocumentRow({ doc, isOpening, isDeleting, onOpen, onDelete }: Pr
 
       <div className="flex gap-1.5 flex-shrink-0">
         <button
-          className={`${ACTION_BTN_BASE} enabled:hover:border-gold enabled:hover:text-gold enabled:hover:bg-gold-faint`}
+          className={`${ACTION_BTN_BASE} enabled:hover:border-green enabled:hover:text-green enabled:hover:bg-green-soft`}
           onClick={onOpen}
           disabled={isOpening}
           title="Öppna"

@@ -17,7 +17,7 @@ export function MonteCarloResults({ result, maxCount }: MonteCarloResultsProps) 
         <SectionHeader title="Resultat" />
         <div className="mc-stats-grid">
           <Stat label="Medel (avk./år)"    value={fmtPct(result.meanAnnualizedReturn)}   color={result.meanAnnualizedReturn > 5 ? 'var(--green)' : 'var(--text)'} />
-          <Stat label="Median"             value={fmtPct(result.medianAnnualizedReturn)} color="var(--gold)" />
+          <Stat label="Median"             value={fmtPct(result.medianAnnualizedReturn)} color="var(--green)" />
           <Stat label="Pessimistisk (P10)" value={fmtPct(result.p10AnnualizedReturn)}    color={result.p10AnnualizedReturn > 0 ? 'var(--text)' : 'var(--red)'} />
           <Stat label="Optimistisk (P90)"  value={fmtPct(result.p90AnnualizedReturn)}    color="var(--green)" />
         </div>
@@ -26,8 +26,8 @@ export function MonteCarloResults({ result, maxCount }: MonteCarloResultsProps) 
           <p className="section-title" style={{ fontSize: '14px', marginTop: '20px' }}>Sannolikheter</p>
           <div className="mc-prob-grid">
             <ProbabilityRow label="Positiv avkastning" value={result.probabilityPositive} color="var(--green)" />
-            <ProbabilityRow label="Över 5%/år"         value={result.probabilityAbove5}   color="var(--gold)" />
-            <ProbabilityRow label="Över 10%/år"        value={result.probabilityAbove10}  color="var(--gold)" />
+            <ProbabilityRow label="Över 5%/år"         value={result.probabilityAbove5}   color="var(--green)" />
+            <ProbabilityRow label="Över 10%/år"        value={result.probabilityAbove10}  color="var(--green)" />
             <ProbabilityRow label="Över 15%/år"        value={result.probabilityAbove15}  color="var(--green)" />
           </div>
         </div>
@@ -42,7 +42,7 @@ export function MonteCarloResults({ result, maxCount }: MonteCarloResultsProps) 
                 className="mc-bar"
                 style={{
                   height:     `${(h.count / maxCount) * 100}%`,
-                  background: h.bin >= 0 ? 'var(--gold)' : 'var(--red)',
+                  background: h.bin >= 0 ? 'var(--green)' : 'var(--red)',
                 }}
               />
             </div>

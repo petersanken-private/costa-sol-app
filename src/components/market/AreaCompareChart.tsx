@@ -23,7 +23,7 @@ export function AreaCompareChart({ markets }: Props) {
           <div className="flex flex-col gap-1">
             <div className="flex items-center gap-2 h-4" title={`€/kvm: ${fmtMoney(m.pricePerSqm)}`}>
               <div
-                className="h-2 rounded-[4px] min-w-[4px] bg-gold opacity-70 transition-[width] duration-[400ms] ease-in-out"
+                className="h-2 rounded-[4px] min-w-[4px] bg-green opacity-70 transition-[width] duration-[400ms] ease-in-out"
                 style={{ width: `${(m.pricePerSqm / maxPricePerSqm) * 100}%` }}
               />
               <span className="text-[11px] text-text-mute whitespace-nowrap">{fmtMoney(m.pricePerSqm)}/kvm</span>

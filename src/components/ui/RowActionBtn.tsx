@@ -12,7 +12,7 @@ interface RowActionBtnProps {
 const BASE = 'bg-transparent border border-border rounded-[6px] w-7 h-7 text-[14px] text-text-mute flex items-center justify-center transition-all duration-150';
 
 const HOVER = {
-  edit:   'hover:border-gold hover:text-gold hover:bg-gold-faint',
+  edit:   'hover:border-green hover:text-green hover:bg-green-soft',
   delete: 'hover:border-red hover:text-red hover:bg-red-bg',
 } as const;
 

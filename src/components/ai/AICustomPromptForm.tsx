@@ -38,8 +38,8 @@ export function AICustomPromptForm({
       </div>
 
       {showSaveAs && customPrompt.trim() && (
-        <div style={{ marginTop: '12px', padding: '10px 12px', background: 'var(--gold-faint)', borderRadius: '6px', border: '1px solid rgba(184,134,11,0.2)' }}>
-          <p style={{ fontSize: '12px', fontWeight: 500, marginBottom: '8px', color: 'var(--gold)' }}>
+        <div style={{ marginTop: '12px', padding: '10px 12px', background: 'var(--green-soft)', borderRadius: '6px', border: '1px solid rgba(47,93,77,0.2)' }}>
+          <p style={{ fontSize: '12px', fontWeight: 500, marginBottom: '8px', color: 'var(--green)' }}>
             🔖 Spara som mall för snabb återanvändning?
           </p>
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>

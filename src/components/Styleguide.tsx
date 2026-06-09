@@ -11,7 +11,9 @@
 import {
   Badge, Btn, Card, Divider, EmptyState,
   FormGroup, Modal, SectionHeader, Stat, Tabs, YearButton,
+  Icon, HeroValue, PhotoPlaceholder,
 } from './ui';
+import type { IconName } from './ui';
 import { SidebarView } from './SidebarView';
 import { useState } from 'react';
 import '../styles/global.css';
@@ -62,7 +64,7 @@ export function Styleguide() {
         <SubSection label="Default + colored">
           <Badge label="Default" />
           <Badge label="Ägs" color="var(--green)" />
-          <Badge label="Off-plan" color="var(--gold)" />
+          <Badge label="Off-plan" color="var(--green)" />
           <Badge label="Förfallen" color="var(--red)" />
           <Badge label="Bevakas" color="var(--text-mute)" />
         </SubSection>
@@ -86,8 +88,8 @@ export function Styleguide() {
           <Card className="card-p" dashed><p>Dashed card</p></Card>
         </div>
         <div className="grid-3" style={{ marginTop: '12px' }}>
-          <Card className="card-p card--gold"><p>Gold-variant</p></Card>
-          <Card className="card-p card--selected"><p>Selected (gold border)</p></Card>
+          <Card className="card-p card--green"><p>Grön variant</p></Card>
+          <Card className="card-p card--selected"><p>Selected (green border)</p></Card>
           <Card className="card-p-sm"><p>Small padding (card-p-sm)</p></Card>
         </div>
       </Section>
@@ -178,8 +180,8 @@ export function Styleguide() {
       {/* ── Typography helpers ─────────────────────────────────────────────── */}
       <Section title="Typography helpers">
         <Card className="card-p">
-          <p className="text-display" style={{ fontSize: '24px' }}>text-display (Cormorant Garamond)</p>
-          <p className="text-gold">text-gold</p>
+          <p className="text-display" style={{ fontSize: '24px' }}>text-display (Spectral)</p>
+          <p className="text-green">text-green</p>
           <p className="text-dim">text-dim (text-text-dim)</p>
           <p className="text-mute">text-mute (text-text-mute)</p>
           <p className="text-green">text-green</p>
@@ -194,6 +196,45 @@ export function Styleguide() {
           <YearButton label={2025} active={true}  onClick={() => {}} />
           <YearButton label={2026} active={false} onClick={() => {}} />
           <YearButton label="3 år" active={false} onClick={() => {}} />
+        </div>
+      </Section>
+
+      {/* ── Icons ──────────────────────────────────────────────────────────── */}
+      <Section title="Icon (stroke, 24-viewBox)">
+        <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap', color: 'var(--text-dim)' }}>
+          {(['grid','layers','calendar','bell','receipt','chart','compare','calc','book','search','plus','arrow','back','bed','bath','sqm','pin','filter','sort','check','chevron','cog'] as IconName[]).map(n => (
+            <div key={n} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', width: '56px' }}>
+              <Icon name={n} size={20} />
+              <code style={{ fontSize: '9px', color: 'var(--text-mute)' }}>{n}</code>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* ── HeroValue ──────────────────────────────────────────────────────── */}
+      <Section title="HeroValue (Spectral display)">
+        <Card className="card-p">
+          <p className="text-[11px] tracking-[2px] uppercase text-text-mute mb-3.5">Portföljvärde</p>
+          <HeroValue value="€1 205 000" />
+        </Card>
+      </Section>
+
+      {/* ── stat-grid ──────────────────────────────────────────────────────── */}
+      <Section title="stat-grid (joined 1px-delad)">
+        <div className="stat-grid">
+          <div className="stat-cell"><Stat label="Totalt värde"  value="€1 205 000" sub="2 fastigheter" /></div>
+          <div className="stat-cell"><Stat label="Investerat"    value="€1 165 000" sub="Köpeskilling" /></div>
+          <div className="stat-cell"><Stat label="Hyresintäkt"   value="€28 980"    sub="112 nätter" color="var(--green)" /></div>
+          <div className="stat-cell"><Stat label="Direktavk."    value="+3,4 %"     sub="Netto / inv." color="var(--green)" /></div>
+        </div>
+      </Section>
+
+      {/* ── PhotoPlaceholder ───────────────────────────────────────────────── */}
+      <Section title="PhotoPlaceholder (statustonad)">
+        <div className="grid-3">
+          <PhotoPlaceholder height={140} tint="#2f5d4d" label="Uthyrd / VFT" radius={14} />
+          <PhotoPlaceholder height={140} tint="#9a6b1e" label="Off-plan" radius={14} />
+          <PhotoPlaceholder height={140} tint="#9a9286" label="Bevakas" radius={14} />
         </div>
       </Section>
 
@@ -220,21 +261,22 @@ export function Styleguide() {
       {/* ── Color tokens ───────────────────────────────────────────────────── */}
       <Section title="Color tokens">
         <div className="grid-4">
-          <ColorSwatch name="--gold"        cssVar="var(--gold)"        />
-          <ColorSwatch name="--gold-dim"    cssVar="var(--gold-dim)"    />
-          <ColorSwatch name="--gold-faint"  cssVar="var(--gold-faint)"  />
+          <ColorSwatch name="--green"       cssVar="var(--green)"       />
+          <ColorSwatch name="--green-soft"  cssVar="var(--green-soft)"  />
+          <ColorSwatch name="--amber"       cssVar="var(--amber)"       />
+          <ColorSwatch name="--amber-soft"  cssVar="var(--amber-soft)"  />
+          <ColorSwatch name="--red"         cssVar="var(--red)"         />
+          <ColorSwatch name="--red-soft"    cssVar="var(--red-soft)"    />
+          <ColorSwatch name="--blue"        cssVar="var(--blue)"        />
+          <ColorSwatch name="--blue-soft"   cssVar="var(--blue-soft)"   />
           <ColorSwatch name="--bg"          cssVar="var(--bg)"          />
           <ColorSwatch name="--bg-card"     cssVar="var(--bg-card)"     />
-          <ColorSwatch name="--bg-subtle"   cssVar="var(--bg-subtle)"   />
           <ColorSwatch name="--bg-hover"    cssVar="var(--bg-hover)"    />
           <ColorSwatch name="--border"      cssVar="var(--border)"      />
           <ColorSwatch name="--border-hi"   cssVar="var(--border-hi)"   />
           <ColorSwatch name="--text"        cssVar="var(--text)"        />
           <ColorSwatch name="--text-dim"    cssVar="var(--text-dim)"    />
           <ColorSwatch name="--text-mute"   cssVar="var(--text-mute)"   />
-          <ColorSwatch name="--green"       cssVar="var(--green)"       />
-          <ColorSwatch name="--red"         cssVar="var(--red)"         />
-          <ColorSwatch name="--blue"        cssVar="var(--blue)"        />
         </div>
       </Section>
     </div>

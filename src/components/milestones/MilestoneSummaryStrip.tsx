@@ -22,15 +22,15 @@ export function MilestoneSummaryStrip({ milestones, overdueCount, soonCount, tot
           {overdueCount}
         </p>
       </div>
-      <div className={CARD} style={{ borderColor: soonCount > 0 ? '#d97706' : undefined }}>
+      <div className={CARD} style={{ borderColor: soonCount > 0 ? 'var(--amber)' : undefined }}>
         <p className="stat-label">Inom 7 dagar</p>
-        <p className="stat-value" style={{ color: soonCount > 0 ? '#d97706' : 'var(--text-mute)' }}>
+        <p className="stat-value" style={{ color: soonCount > 0 ? 'var(--amber)' : 'var(--text-mute)' }}>
           {soonCount}
         </p>
       </div>
       <div className={CARD}>
         <p className="stat-label">Kommande betalningar</p>
-        <p className="stat-value" style={{ color: totalPayments > 0 ? 'var(--gold)' : 'var(--text-mute)' }}>
+        <p className="stat-value" style={{ color: totalPayments > 0 ? 'var(--green)' : 'var(--text-mute)' }}>
           {totalPayments > 0 ? fmtMoney(totalPayments) : '—'}
         </p>
       </div>

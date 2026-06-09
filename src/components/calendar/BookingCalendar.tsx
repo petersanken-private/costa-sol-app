@@ -93,7 +93,7 @@ export function BookingCalendar() {
 
       {/* Månadsstatistik */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <KpiCard label="Bokade nätter"  value={`${portfolioStats.totalNights}`} sub={`av ${daysInMonth(year, month) * state.properties.length}`} color="var(--gold)" />
+        <KpiCard label="Bokade nätter"  value={`${portfolioStats.totalNights}`} sub={`av ${daysInMonth(year, month) * state.properties.length}`} color="var(--green)" />
         <KpiCard label="Beläggning"      value={`${portfolioStats.occupancyPct.toFixed(0)}%`} sub={`${portfolioStats.occupiedDays} dagar`} />
         <KpiCard label="Intäkt"           value={fmtMoney(portfolioStats.revenue)} sub="Bokningar i månaden" color="var(--green)" />
         <KpiCard
@@ -189,7 +189,7 @@ function PropertyRow({
               <div key={i} className="border-r border-border last:border-r-0 flex items-start justify-center pt-0.5">
                 <span className={[
                   'text-[9px] leading-none',
-                  isToday ? 'text-gold font-semibold' : 'text-text-mute',
+                  isToday ? 'text-green font-semibold' : 'text-text-mute',
                   cell.hasOverlap ? '!text-red' : '',
                 ].join(' ')}>{i + 1}</span>
               </div>
@@ -215,7 +215,7 @@ function PropertyRow({
               style={{
                 left:       `${leftPct}%`,
                 width:      `${widthPct}%`,
-                background: PLATFORM_COLORS[b.platform] ?? 'var(--gold)',
+                background: PLATFORM_COLORS[b.platform] ?? 'var(--green)',
               }}
               title={`${b.platform} · ${b.startDate} → ${b.endDate} · ${b.nights} nätter · ${fmtMoney(b.revenue)}${b.source === 'manual' ? ' (manuellt entry, exakt datum saknas)' : ''}`}
             >

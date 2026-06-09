@@ -86,7 +86,7 @@ export function MilestoneModal({ initial, properties, saving, onClose, onSave }:
                 className={[
                   'flex flex-col items-center gap-1 py-2.5 px-1.5 min-h-[60px] rounded-[6px] border bg-transparent text-[11px] text-center transition-all duration-150 leading-[1.2]',
                   active
-                    ? 'border-gold bg-gold-faint text-gold'
+                    ? 'border-green bg-green-soft text-green'
                     : 'border-border text-text-mute hover:border-border-hi hover:text-text-dim hover:bg-bg-subtle',
                 ].join(' ')}
                 onClick={() => handleCategoryChange(c.key)}

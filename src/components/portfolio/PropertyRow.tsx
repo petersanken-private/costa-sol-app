@@ -24,7 +24,7 @@ export function PropertyRow({ property: p, onClick, onEdit, onDelete }: Property
       </div>
       <p className="text-[12px] text-text-dim capitalize">{p.type}</p>
       <Badge label={STATUS_LABELS[p.status]} color={STATUS_COLORS[p.status]} />
-      <p className="font-display text-[18px] text-gold">{fmtMoney(p.purchasePrice)}</p>
+      <p className="font-display text-[18px] text-green">{fmtMoney(p.purchasePrice)}</p>
       <div>
         <p className="font-display text-[18px] text-text">{fmtMoney(p.currentValue)}</p>
         <p className="text-[11px] mt-0.5" style={{ color: gain >= 0 ? 'var(--green)' : 'var(--red)' }}>

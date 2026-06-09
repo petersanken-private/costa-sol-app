@@ -47,7 +47,7 @@ export function MilestoneRow({ milestone: m, property: prop, onMarkDone, onEdit,
         <div className="flex flex-wrap gap-1.5 text-[12px] text-text-mute items-center">
           <span className="bg-bg-subtle border border-border rounded-[10px] py-px px-2 text-[11px] text-text-dim">{cat.label}</span>
           {prop && <span>· {prop.name}</span>}
-          {m.amount && <span>· <strong style={{ color: 'var(--gold)' }}>{fmtMoney(m.amount)}</strong></span>}
+          {m.amount && <span>· <strong style={{ color: 'var(--green)' }}>{fmtMoney(m.amount)}</strong></span>}
           {m.notes && <span className="italic text-[11px] whitespace-nowrap overflow-hidden text-ellipsis max-w-[200px]">· {m.notes}</span>}
         </div>
       </div>

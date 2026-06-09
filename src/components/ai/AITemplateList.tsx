@@ -33,8 +33,8 @@ export function AITemplateList({
             disabled={analyzing || blocked}
             style={{
               display: 'inline-flex', alignItems: 'center', gap: '4px',
-              padding: '5px 10px', borderRadius: '6px', border: '1px solid rgba(184,134,11,0.3)',
-              background: 'var(--gold-faint)', color: 'var(--gold)',
+              padding: '5px 10px', borderRadius: '6px', border: '1px solid rgba(47,93,77,0.3)',
+              background: 'var(--green-soft)', color: 'var(--green)',
               fontSize: '12px', cursor: 'pointer', fontWeight: 500,
             }}
           >

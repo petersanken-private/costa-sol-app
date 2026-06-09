@@ -94,7 +94,7 @@ export function AddExpenseModal({ propertyId, initial, onClose, onAdd }: AddExpe
             id="deductible"
             checked={deductible}
             onChange={e => setDeductible(e.target.checked)}
-            style={{ accentColor: 'var(--gold)', width: '16px', height: '16px' }}
+            style={{ accentColor: 'var(--green)', width: '16px', height: '16px' }}
           />
           <label htmlFor="deductible" className="form-label" style={{ cursor: 'pointer', margin: 0 }}>
             Avdragsgill kostnad (IRNR)

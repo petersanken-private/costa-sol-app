@@ -64,7 +64,7 @@ export function RentalsTab({ property, rentals }: RentalsTabProps) {
                 <span className="text-mute">{r.year}</span>
                 <span className="text-mute">{MONTHS_SV[r.month - 1]}</span>
                 <span>{r.nights}</span>
-                <span className="font-display text-[18px] text-gold">{fmtMoney(r.revenue)}</span>
+                <span className="font-display text-[18px] text-green">{fmtMoney(r.revenue)}</span>
                 <Badge label={r.platform} color={PLATFORM_COLORS[r.platform]} />
                 <span className="text-mute">{fmtMoney(r.revenue / r.nights)}/natt</span>
                 <IconBtn variant="edit"   onClick={() => setEditRental(r)} />
@@ -72,7 +72,7 @@ export function RentalsTab({ property, rentals }: RentalsTabProps) {
               </div>
             ))}
             <div className="flex justify-end gap-6 py-3 px-5 border-t border-border-hi text-[12px]">
-              <span className="text-mute">Totalt: <strong className="text-gold">{fmtMoney(totalRevenue)}</strong></span>
+              <span className="text-mute">Totalt: <strong className="text-green">{fmtMoney(totalRevenue)}</strong></span>
               <span className="text-mute">{totalNights} nätter</span>
             </div>
           </>

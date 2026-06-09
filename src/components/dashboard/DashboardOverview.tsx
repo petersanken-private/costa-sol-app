@@ -1,7 +1,7 @@
 // DashboardOverview — den ursprungliga "Översikt"-vyn på Dashboard.
 // Extraherad så att Dashboard.tsx kan ha tabs (Översikt / Prognos).
 
-import { Card, Stat, YearButton } from '../ui';
+import { Card, Stat, YearButton, HeroValue } from '../ui';
 import { fmtMoney } from '../../utils/calc.utils';
 import { CurrencyWidget } from '../CurrencyWidget';
 import { AIPanel } from '../ai';
@@ -23,6 +23,11 @@ export function DashboardOverview() {
 
   const { totalInvested, totalCurrentValue, unrealizedGain, totalRent, totalNights, totalExpCost, netIncome } = kpis;
 
+  const gainPct = totalInvested > 0 ? (unrealizedGain / totalInvested) * 100 : 0;
+  const gainPositive = unrealizedGain >= 0;
+  const directYield = totalInvested > 0 ? (netIncome / totalInvested) * 100 : 0;
+  const fmtPct1 = (n: number) => `${n >= 0 ? '' : '−'}${Math.abs(n).toFixed(1).replace('.', ',')} %`;
+
   return (
     <>
       <div className="flex items-center gap-2.5 flex-wrap mb-5">
@@ -43,35 +48,67 @@ export function DashboardOverview() {
         </div>
       </div>
 
-      {/* KPI strip */}
-      <div className="grid-4 mb-7">
-        <Card className="card-p-md">
+      {/* Hero — portföljvärde + nyckeltal */}
+      <Card className="px-6 py-7 md:px-9 md:py-8 mb-5">
+        <div className="grid md:grid-cols-2 gap-7">
+          <div>
+            <p className="text-[11px] tracking-[2px] uppercase text-text-mute mb-3.5">Portföljvärde</p>
+            <HeroValue value={fmtMoney(totalCurrentValue)} />
+            <div className="flex items-center gap-2.5 mt-4 flex-wrap">
+              <span
+                className={`inline-flex items-center gap-1 text-[13px] font-semibold py-[5px] px-2.5 rounded-[8px] ${
+                  gainPositive ? 'bg-green-soft text-green' : 'bg-red-soft text-red'
+                }`}
+              >
+                {gainPositive ? '▲' : '▼'} {gainPositive ? '+' : ''}{fmtMoney(unrealizedGain)}
+              </span>
+              <span className="text-[13px] text-text-dim">{fmtPct1(gainPct)} orealiserat sedan köp</span>
+            </div>
+          </div>
+          <div className="md:border-l md:border-border md:pl-7">
+            <p className="text-[11px] tracking-[2px] uppercase text-text-mute mb-3.5">
+              Hyresintäkt · {selectedYear}
+            </p>
+            <p className="font-display text-[38px] font-normal leading-none tracking-[-0.3px] text-text">
+              {fmtMoney(totalRent)}
+            </p>
+            <p className="text-[13px] text-text-dim mt-3">
+              {totalNights > 0 ? `${totalNights} uthyrda nätter` : 'Ingen uthyrning ännu'}
+              {netIncome !== 0 && ` · netto ${fmtMoney(netIncome)}`}
+            </p>
+          </div>
+        </div>
+      </Card>
+
+      {/* KPI strip — joined 1px-delad stat-grid */}
+      <div className="stat-grid mb-7">
+        <div className="stat-cell">
           <Stat label="Totalt investerat" value={fmtMoney(totalInvested)} sub={`${properties.length} fastigheter`} />
-        </Card>
-        <Card className="card-p-md">
-          <Stat
-            label="Nuvarande värde"
-            value={fmtMoney(totalCurrentValue)}
-            sub={`${unrealizedGain >= 0 ? '+' : ''}${fmtMoney(unrealizedGain)} orealiserat`}
-            color={unrealizedGain >= 0 ? 'var(--green)' : 'var(--red)'}
-          />
-        </Card>
-        <Card className="card-p-md">
+        </div>
+        <div className="stat-cell">
           <Stat
             label={`Hyresintäkt ${selectedYear}`}
             value={fmtMoney(totalRent)}
             sub={totalNights > 0 ? `${totalNights} uthyrda nätter` : 'Ingen data ännu'}
-            color={totalRent > 0 ? 'var(--gold)' : undefined}
+            color={totalRent > 0 ? 'var(--green)' : undefined}
           />
-        </Card>
-        <Card className="card-p-md">
+        </div>
+        <div className="stat-cell">
           <Stat
-            label="Netto (hyra − kostn.)"
+            label={`Netto ${selectedYear}`}
             value={fmtMoney(netIncome)}
             sub={`Kostnader: −${fmtMoney(totalExpCost)}`}
             color={netIncome >= 0 ? 'var(--green)' : 'var(--red)'}
           />
-        </Card>
+        </div>
+        <div className="stat-cell">
+          <Stat
+            label="Direktavkastning"
+            value={fmtPct1(directYield)}
+            sub="Netto / investerat"
+            color={directYield >= 0 ? 'var(--green)' : 'var(--red)'}
+          />
+        </div>
       </div>
 
       {/* Per-ägare-split (visas bara om någon fastighet har 2+ delägare) */}

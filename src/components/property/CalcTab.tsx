@@ -88,7 +88,7 @@ export function CalcTab({ property }: CalcTabProps) {
           <div className="grid-2" style={{ marginBottom: '20px' }}>
             <Stat label="Direktavkastning" value={fmtPct(result.netYield)}         sub="Netto på eget kapital"   color={sc.color}       />
             <Stat label="Bruttoyield"       value={fmtPct(result.grossYield)}       sub="Brutto på köpeskilling"                          />
-            <Stat label="Exit-pris (5 år)"  value={fmtMoney(result.exitPrice)}        sub={`+${sc.annualGrowthPct}%/år`} color="var(--gold)" />
+            <Stat label="Exit-pris (5 år)"  value={fmtMoney(result.exitPrice)}        sub={`+${sc.annualGrowthPct}%/år`} color="var(--green)" />
             <Stat label="Totalavkastning"   value={fmtPct(result.annualizedReturn)} sub="Annualiserat inkl. exit"  color={sc.color}       />
           </div>
           <Divider />

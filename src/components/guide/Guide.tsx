@@ -28,7 +28,7 @@ export function Guide() {
         </p>
       </div>
 
-      <Card className="card-p" style={{ marginBottom: '20px', background: 'var(--surface-2)', borderLeft: '3px solid var(--gold)' }}>
+      <Card className="card-p" style={{ marginBottom: '20px', background: 'var(--surface-2)', borderLeft: '3px solid var(--green)' }}>
         <p style={{ margin: 0, fontSize: '13px', color: 'var(--text-mute)' }}>
           ⚠ <strong>Disclaimer:</strong> Detta är allmän information, inte juridisk eller skatterådgivning.
           Anlita alltid spansk advokat och svensk skatterådgivare för din specifika situation.

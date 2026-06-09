@@ -80,7 +80,7 @@ export function Forecast() {
             label="Totala intäkter"
             value={fmtMoney(summary.totalIncome)}
             sub="Förväntat (baseline + iCal)"
-            color="var(--gold)"
+            color="var(--green)"
           />
         </Card>
         <Card className="card-p-md">
@@ -163,8 +163,8 @@ function BalanceLineChart({ months, startBalance }: { months: ForecastMonth[]; s
       <svg viewBox={`0 0 ${W} ${H}`} className="w-full min-w-[600px] h-[200px] block">
         <defs>
           <linearGradient id="balance-grad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="var(--gold)" stopOpacity="0.18" />
-            <stop offset="100%" stopColor="var(--gold)" stopOpacity="0" />
+            <stop offset="0%" stopColor="var(--green)" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="var(--green)" stopOpacity="0" />
           </linearGradient>
         </defs>
 
@@ -178,12 +178,12 @@ function BalanceLineChart({ months, startBalance }: { months: ForecastMonth[]; s
 
         {/* Area + linje */}
         <path d={areaPath} fill="url(#balance-grad)" />
-        <path d={path}     fill="none" stroke="var(--gold)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <path d={path}     fill="none" stroke="var(--green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
 
         {/* Punkter + X-labels */}
         {months.map((m, i) => (
           <g key={i}>
-            <circle cx={xFor(i + 1)} cy={yFor(m.balanceEnd)} r="3" fill="var(--gold)" />
+            <circle cx={xFor(i + 1)} cy={yFor(m.balanceEnd)} r="3" fill="var(--green)" />
             {(i % 2 === 0) && (
               <text x={xFor(i + 1)} y={H - 4} fontSize="9" fill="var(--text-mute)" textAnchor="middle">
                 {m.label.split(' ')[0]}
@@ -209,7 +209,7 @@ function MonthRow({ month: m, expanded, onToggle }: { month: ForecastMonth; expa
   const tag = m.isPast
     ? <span className="text-[10px] uppercase tracking-[1px] text-text-mute ml-2">historik</span>
     : m.isCurrent
-    ? <span className="text-[10px] uppercase tracking-[1px] text-gold ml-2">nu</span>
+    ? <span className="text-[10px] uppercase tracking-[1px] text-green ml-2">nu</span>
     : null;
 
   const totalMortgage = m.mortgageInterest + m.mortgageAmort;
@@ -224,7 +224,7 @@ function MonthRow({ month: m, expanded, onToggle }: { month: ForecastMonth; expa
           {m.label}
           {tag}
         </span>
-        <span className="text-[13px] text-right text-gold tabular-nums">{fmtMoney(m.rentalIncome)}</span>
+        <span className="text-[13px] text-right text-green tabular-nums">{fmtMoney(m.rentalIncome)}</span>
         <span className="text-[13px] text-right text-text-dim tabular-nums">{totalMortgage > 0 ? `−${fmtMoney(totalMortgage)}` : '—'}</span>
         <span className="text-[13px] text-right text-text-dim tabular-nums">{m.taxPayment > 0 ? `−${fmtMoney(m.taxPayment)}` : '—'}</span>
         <span className={`text-[13px] font-semibold text-right tabular-nums ${m.netCashflow >= 0 ? 'text-green' : 'text-red'}`}>
@@ -238,7 +238,7 @@ function MonthRow({ month: m, expanded, onToggle }: { month: ForecastMonth; expa
       {expanded && (
         <div className="px-3 pb-3 pt-1">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-[12px]">
-            <Detail label="Hyresintäkter"  value={fmtMoney(m.rentalIncome)}      color="var(--gold)" />
+            <Detail label="Hyresintäkter"  value={fmtMoney(m.rentalIncome)}      color="var(--green)" />
             <Detail label="Recurring"       value={`−${fmtMoney(m.recurringExpenses)}`} />
             <Detail label="Ad-hoc utgifter" value={m.oneOffExpenses > 0 ? `−${fmtMoney(m.oneOffExpenses)}` : '—'} />
             <Detail label="Bolåneränta"     value={m.mortgageInterest > 0 ? `−${fmtMoney(m.mortgageInterest)}` : '—'} />

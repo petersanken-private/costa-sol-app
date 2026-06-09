@@ -38,7 +38,7 @@ export function CostsTab({ rows }: CostsTabProps) {
           <span style={{
             fontFamily: row.highlight ? 'var(--font-display)' : undefined,
             fontSize:   row.highlight ? '20px' : '14px',
-            color:      row.highlight ? 'var(--gold)' : row.bold ? 'var(--text)' : 'var(--text-mute)',
+            color:      row.highlight ? 'var(--green)' : row.bold ? 'var(--text)' : 'var(--text-mute)',
             fontWeight: row.bold ? 600 : 400,
           }}>
             {fmtMoney(row.value)}

@@ -57,7 +57,7 @@ export function MortgageCard({
 
       <div className="grid-4">
         <Stat label="Nuv. saldo"    value={fmtMoney(balance)}      sub={`av ${fmtMoney(mortgage.originalAmount)}`} />
-        <Stat label="Månadskostnad" value={fmtMoney(firstPayment)} sub="vid start"                                 color="var(--gold)" />
+        <Stat label="Månadskostnad" value={fmtMoney(firstPayment)} sub="vid start"                                 color="var(--green)" />
         <Stat label="Aktuell ränta" value={fmtPct(currentRate, 2)} sub={`${periods.length} period${periods.length === 1 ? '' : 'er'}`} />
         <Stat label="Total ränta"   value={fmtMoney(totalInt)}     sub="över hela perioden"                        color="var(--red)" />
       </div>
