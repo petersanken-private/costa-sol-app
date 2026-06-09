@@ -84,7 +84,7 @@ export function useDashboard() {
       .map(([platform, revenue]) => ({
         platform,
         revenue,
-        color: PLATFORM_COLORS[platform] ?? 'var(--gold)',
+        color: PLATFORM_COLORS[platform] ?? 'var(--green)',
       }));
   }, [filteredRentals]);
 

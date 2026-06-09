@@ -131,7 +131,7 @@ export function PropertyModal({ title, initial, onClose, onSave }: PropertyModal
         <div className="col-span-2 flex items-center gap-2.5 flex-wrap">
           <input type="checkbox" id="vft-modal" checked={form.hasVFTLicense}
                  onChange={e => set('hasVFTLicense', e.target.checked)}
-                 style={{ accentColor: 'var(--gold)', width: '16px', height: '16px' }} />
+                 style={{ accentColor: 'var(--green)', width: '16px', height: '16px' }} />
           <label htmlFor="vft-modal" className="form-label" style={{ cursor: 'pointer', margin: 0 }}>
             Har VFT-licens (turistuthyrningslicens)
           </label>

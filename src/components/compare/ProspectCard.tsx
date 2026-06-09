@@ -31,10 +31,10 @@ export function ProspectCard({
 
   return (
     <Card
-      className={`card-p relative ${isWinner ? '!border-gold shadow-[0_0_0_1px_var(--gold),var(--shadow-md)]' : ''}`}
+      className={`card-p relative ${isWinner ? '!border-green shadow-[0_0_0_1px_var(--green),var(--shadow-md)]' : ''}`}
     >
       {isWinner && (
-        <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-gold text-white text-[10px] font-semibold tracking-[0.5px] py-[3px] px-2.5 rounded-[20px] whitespace-nowrap">
+        <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-green text-white text-[10px] font-semibold tracking-[0.5px] py-[3px] px-2.5 rounded-[20px] whitespace-nowrap">
           ★ Bäst yield
         </div>
       )}
@@ -82,9 +82,9 @@ export function ProspectCard({
       {/* KPIs */}
       <div className="grid grid-cols-2 gap-2.5 mb-4">
         <Kpi label="Netto/år"             value={fmtMoney(result.netAfterTax)} color={result.netAfterTax > 0 ? 'var(--green)' : 'var(--red)'} />
-        <Kpi label="Nettoyield"           value={fmtPct(result.netYield)} color="var(--gold)" />
+        <Kpi label="Nettoyield"           value={fmtPct(result.netYield)} color="var(--green)" />
         <Kpi label={`Exit ${horizon}å`}    value={fmtMoney(result.exitPrice)} />
-        <Kpi label={`Total förmög. ${horizon}å`} value={fmtMoney(lastYear?.totalWealth ?? 0)} color="var(--gold)" bold />
+        <Kpi label={`Total förmög. ${horizon}å`} value={fmtMoney(lastYear?.totalWealth ?? 0)} color="var(--green)" bold />
         <Kpi label="Kapitalinsats"        value={fmtMoney(p.purchasePrice + costs.total)} />
         <Kpi label="Ann. avkastning"      value={fmtPct(result.annualizedReturn)} />
       </div>
@@ -97,7 +97,7 @@ export function ProspectCard({
             <div
               key={idx}
               className="flex-1 rounded-t-[2px] min-h-[3px] opacity-70 transition-opacity duration-150 hover:opacity-100"
-              style={{ height: `${h}px`, background: isWinner ? 'var(--gold)' : 'var(--border-hi)' }}
+              style={{ height: `${h}px`, background: isWinner ? 'var(--green)' : 'var(--border-hi)' }}
               title={`${yr.calendarYear}: ${fmtMoney(yr.totalWealth)}`}
             />
           );
@@ -117,21 +117,21 @@ export function ProspectCard({
 
       {isWatchlist ? (
         <button
-          className="block w-full mt-2 py-2 px-2 bg-bg-subtle border border-border rounded-[6px] text-[12px] text-text-dim text-center transition-all duration-150 hover:bg-gold-faint hover:border-gold hover:text-gold max-md:min-h-[44px]"
+          className="block w-full mt-2 py-2 px-2 bg-bg-subtle border border-border rounded-[6px] text-[12px] text-text-dim text-center transition-all duration-150 hover:bg-green-soft hover:border-green hover:text-green max-md:min-h-[44px]"
           onClick={onOpenInPortfolio}
         >
           📁 Öppna i portfölj →
         </button>
       ) : (
         <button
-          className="block w-full mt-2 py-2 px-2 bg-gold text-white border border-gold rounded-[6px] text-[12px] font-medium text-center transition-all duration-150 hover:opacity-90 max-md:min-h-[44px]"
+          className="block w-full mt-2 py-2 px-2 bg-green text-white border border-green rounded-[6px] text-[12px] font-medium text-center transition-all duration-150 hover:opacity-90 max-md:min-h-[44px]"
           onClick={onConvert}
         >
           ✓ Markera som köpt
         </button>
       )}
       <button
-        className="block w-full mt-2 py-2 px-2 bg-bg-subtle border border-border rounded-[6px] text-[12px] text-text-dim text-center transition-all duration-150 hover:bg-gold-faint hover:border-gold hover:text-gold max-md:min-h-[44px]"
+        className="block w-full mt-2 py-2 px-2 bg-bg-subtle border border-border rounded-[6px] text-[12px] text-text-dim text-center transition-all duration-150 hover:bg-green-soft hover:border-green hover:text-green max-md:min-h-[44px]"
         onClick={() => exportBankPdf(p, mkt ?? undefined, scenario, horizon)}
       >
         📄 Bankkalkyl PDF
@@ -141,7 +141,7 @@ export function ProspectCard({
           href={p.link}
           target="_blank"
           rel="noopener noreferrer"
-          className="block text-[12px] text-gold text-center mt-1.5 no-underline transition-colors duration-150 hover:text-[#9a7009]"
+          className="block text-[12px] text-green text-center mt-1.5 no-underline transition-colors duration-150 hover:text-[#244a3e]"
         >
           Öppna på Idealista →
         </a>

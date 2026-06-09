@@ -24,9 +24,9 @@ export function RevenueChart({ year, chartData, platformData, kpis }: RevenueCha
       <div className="flex items-end gap-2.5 max-md:gap-1 h-[140px] max-md:h-[100px] mb-2">
         {chartData.map((d, i) => (
           <div key={i} className="flex-1 flex flex-col items-center h-full justify-end gap-1.5">
-            <span className="text-[10px] max-md:text-[8px] text-gold min-h-3.5">{d.revenue > 0 ? fmtMoney(d.revenue) : ''}</span>
+            <span className="text-[10px] max-md:text-[8px] text-green min-h-3.5">{d.revenue > 0 ? fmtMoney(d.revenue) : ''}</span>
             <div
-              className={`w-full rounded-t-[4px] rounded-b-[2px] transition-[height] duration-[400ms] ease-in-out min-h-[3px] ${d.hasData ? 'bg-gradient-to-b from-gold to-[rgba(184,134,11,0.4)]' : 'bg-border'}`}
+              className={`w-full rounded-t-[4px] rounded-b-[2px] transition-[height] duration-[400ms] ease-in-out min-h-[3px] ${d.hasData ? 'bg-gradient-to-b from-green to-[rgba(47,93,77,0.4)]' : 'bg-border'}`}
               style={{ height: `${Math.max((d.revenue / maxRevenue) * 110, d.hasData ? 4 : 0)}px` }}
               title={d.hasData ? `${d.label}: ${fmtMoney(d.revenue)} · ${d.nights} nätter` : undefined}
             />
@@ -70,7 +70,7 @@ function FooterStat({ label, value, accent }: { label: string; value: string; ac
   return (
     <div>
       <label className="text-[11px] text-text-mute block">{label}</label>
-      <p className={`font-display text-[20px] max-md:text-[16px] mt-0.5 ${accent ? 'text-gold' : ''}`}>{value}</p>
+      <p className={`font-display text-[20px] max-md:text-[16px] mt-0.5 ${accent ? 'text-green' : ''}`}>{value}</p>
     </div>
   );
 }

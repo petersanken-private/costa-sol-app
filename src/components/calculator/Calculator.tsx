@@ -86,12 +86,12 @@ export function Calculator() {
               key={u.id}
               className={[
                 'p-3.5 bg-bg-card border rounded-[10px] text-left transition-all duration-150 hover:border-border-hi',
-                active ? '!border-gold bg-gold-faint' : 'border-border',
+                active ? '!border-green bg-green-soft' : 'border-border',
               ].join(' ')}
               onClick={() => { setSelectedUnitId(u.id); setSelectedPropertyId(null); }}
             >
               <p className="text-[11px] text-text-mute uppercase tracking-[1px] mb-1">{u.label}</p>
-              <p className="font-display text-[18px] max-md:text-[16px] text-gold">{fmtMoney(u.purchasePrice)}</p>
+              <p className="font-display text-[18px] max-md:text-[16px] text-green">{fmtMoney(u.purchasePrice)}</p>
               <p className="text-[11px] text-text-mute mt-0.5">{u.sizeSqm}m² + {u.terraceSqm}m² terrass</p>
             </button>
           );
@@ -99,7 +99,7 @@ export function Calculator() {
         <button
           className={[
             'p-3.5 bg-bg-card border-2 border-dashed rounded-[10px] text-left transition-all duration-150',
-            isCustom ? '!border-solid !border-gold bg-gold-faint' : 'border-border hover:border-border-hi',
+            isCustom ? '!border-solid !border-green bg-green-soft' : 'border-border hover:border-border-hi',
           ].join(' ')}
           onClick={() => { setSelectedUnitId('custom'); setSelectedPropertyId(null); }}
         >
@@ -125,7 +125,7 @@ export function Calculator() {
                 className={[
                   'py-1.5 px-3 rounded-[20px] border text-[12px] transition-all duration-150',
                   active
-                    ? '!border-gold bg-gold-faint text-gold'
+                    ? '!border-green bg-green-soft text-green'
                     : 'border-border bg-bg-card text-text-mute hover:border-border-hi hover:text-text-dim',
                 ].join(' ')}
                 onClick={() => {
@@ -142,8 +142,8 @@ export function Calculator() {
       )}
 
       {actual ? (
-        <div className="mb-6 p-3 rounded-[10px] border border-gold/40 bg-gold-faint text-[12px] text-text-dim">
-          Intäkter baserade på <strong className="text-gold">faktisk uthyrning</strong> av {selectedProperty?.name} —{' '}
+        <div className="mb-6 p-3 rounded-[10px] border border-green/40 bg-green-soft text-[12px] text-text-dim">
+          Intäkter baserade på <strong className="text-green">faktisk uthyrning</strong> av {selectedProperty?.name} —{' '}
           {actual.usage.nights} nätter · {fmtMoney(Math.round(actual.usage.adr))}/natt
           {actual.usage.months < 12 && <> ({actual.usage.months} mån data)</>}.
           Värdetillväxten följer valt scenario nedan.
@@ -199,7 +199,7 @@ export function Calculator() {
         {[
           { label: 'Netto/år',                value: fmtMoney(result.netAfterTax),    color: result.netAfterTax > 0 ? sc.color : 'var(--red)' },
           { label: 'Nettoyield',              value: fmtPct(result.netYield),         color: sc.color },
-          { label: `Exit (${horizonYears}å)`, value: fmtMoney(result.exitPrice),      color: 'var(--gold)' },
+          { label: `Exit (${horizonYears}å)`, value: fmtMoney(result.exitPrice),      color: 'var(--green)' },
           { label: 'Totalavk. (ann.)',         value: fmtPct(result.annualizedReturn), color: sc.color },
         ].map((k, i) => (
           <Card key={i} className="card-p-md">

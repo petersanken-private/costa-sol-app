@@ -36,7 +36,7 @@ export function PWAStatus() {
     <>
       {/* Update-prompt */}
       {needRefresh && updateSW && (
-        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-3 bg-surface-2 border border-gold rounded-lg px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.4)] max-w-[calc(100vw-32px)]">
+        <div className="fixed bottom-20 left-1/2 -translate-x-1/2 z-[9999] flex items-center gap-3 bg-surface-2 border border-green rounded-lg px-4 py-3 shadow-[0_8px_32px_rgba(0,0,0,0.4)] max-w-[calc(100vw-32px)]">
           <span className="text-[14px]">↻ Ny version tillgänglig</span>
           <Btn size="sm" variant="primary" onClick={() => updateSW(true)}>Uppdatera</Btn>
           <button

@@ -9,12 +9,12 @@ export interface DueBadgeProps {
 const BASE = 'inline-block px-2.5 py-0.5 rounded-[20px] text-[11px] font-semibold whitespace-nowrap flex-shrink-0 border';
 
 const VARIANTS = {
-  overdue:  'bg-red-bg text-red border-red/20',
-  today:    'bg-[#fef3c7] text-[#92400e] border-[#fde68a]',
-  soon:     'bg-[#fff7ed] text-[#c2410c] border-[#fed7aa]',
-  upcoming: 'bg-gold-faint text-gold border-gold/20',
+  overdue:  'bg-red-soft text-red border-red/20',
+  today:    'bg-amber-soft text-amber border-amber/30',
+  soon:     'bg-amber-soft text-amber border-amber/25',
+  upcoming: 'bg-green-soft text-green border-green/20',
   future:   'bg-bg-subtle text-text-mute border-border',
-  done:     'bg-green-bg text-green border-green/20',
+  done:     'bg-green-soft text-green border-green/20',
 } as const;
 
 export function DueBadge({ dueDate, status }: DueBadgeProps) {

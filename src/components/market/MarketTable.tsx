@@ -26,7 +26,7 @@ export function MarketTable({ markets, onEdit, onDelete }: Props) {
       {markets.map(m => (
         <div key={m.id} className="table-row grid-cols-[1fr_90px_70px_100px_90px_80px_130px_60px]">
           <span style={{ fontWeight: 500 }}>{m.area}</span>
-          <span style={{ color: 'var(--gold)' }}>{fmtMoney(m.pricePerSqm)}</span>
+          <span style={{ color: 'var(--green)' }}>{fmtMoney(m.pricePerSqm)}</span>
           <span>€{m.avgAdr}</span>
           <span>
             <span className="inline-block px-2 py-0.5 rounded-[12px] text-[12px] font-medium" style={{
@@ -37,7 +37,7 @@ export function MarketTable({ markets, onEdit, onDelete }: Props) {
             </span>
           </span>
           <span style={{ color: 'var(--green)' }}>+{m.annualGrowthPct}%</span>
-          <span style={{ color: 'var(--gold)', fontWeight: 500 }}>{yieldEstimate(m).toFixed(1)}%</span>
+          <span style={{ color: 'var(--green)', fontWeight: 500 }}>{yieldEstimate(m).toFixed(1)}%</span>
           <span className="text-mute" style={{ fontSize: '11px' }}>{m.source}</span>
           <div style={{ display: 'flex', gap: '6px' }}>
             <IconBtn variant="edit"   onClick={() => onEdit(m)}      alwaysVisible />

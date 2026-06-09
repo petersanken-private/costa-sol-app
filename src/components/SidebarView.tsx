@@ -8,6 +8,7 @@
 // ════════════════════════════════════════════════════════════════════════════
 
 import { PageKey } from '../types';
+import { Icon, IconName } from './ui/Icon';
 
 export interface SidebarViewProps {
   activePage:       PageKey;
@@ -21,23 +22,23 @@ export interface SidebarViewProps {
   onSignOut:        () => void;
 }
 
-const NAV_ITEMS: { key: PageKey; icon: string; label: string; group: string }[] = [
-  { key: 'dashboard',  icon: '▦', label: 'Dashboard',           group: 'Portfölj'  },
-  { key: 'portfolio',  icon: '◈', label: 'Portfölj',            group: 'Portfölj'  },
-  { key: 'calendar',   icon: '📅', label: 'Kalender',            group: 'Portfölj'  },
-  { key: 'milestones', icon: '🗓', label: 'Påminnelser',         group: 'Portfölj'  },
-  { key: 'taxes',      icon: '⊡', label: 'Skatt',               group: 'Portfölj'  },
-  { key: 'market',     icon: '◉', label: 'Marknadsdata',        group: 'Köpanalys' },
-  { key: 'compare',    icon: '⊞', label: 'Jämför objekt',       group: 'Köpanalys' },
-  { key: 'calculator', icon: '◎', label: 'Kalkylator',          group: 'Köpanalys' },
-  { key: 'guide',      icon: '📖', label: 'Investera i Spanien', group: 'Kunskap'  },
+const NAV_ITEMS: { key: PageKey; icon: IconName; label: string; group: string }[] = [
+  { key: 'dashboard',  icon: 'grid',     label: 'Dashboard',           group: 'Portfölj'  },
+  { key: 'portfolio',  icon: 'layers',   label: 'Portfölj',            group: 'Portfölj'  },
+  { key: 'calendar',   icon: 'calendar', label: 'Kalender',            group: 'Portfölj'  },
+  { key: 'milestones', icon: 'bell',     label: 'Påminnelser',         group: 'Portfölj'  },
+  { key: 'taxes',      icon: 'receipt',  label: 'Skatt',               group: 'Portfölj'  },
+  { key: 'market',     icon: 'chart',    label: 'Marknadsdata',        group: 'Köpanalys' },
+  { key: 'compare',    icon: 'compare',  label: 'Jämför objekt',       group: 'Köpanalys' },
+  { key: 'calculator', icon: 'calc',     label: 'Kalkylator',          group: 'Köpanalys' },
+  { key: 'guide',      icon: 'book',     label: 'Investera i Spanien', group: 'Kunskap'  },
 ];
 
 const GROUPS = ['Portfölj', 'Köpanalys', 'Kunskap'];
 
-const NAV_BTN_BASE     = 'flex items-center gap-2.5 w-full py-2.5 px-3 rounded-[6px] border-0 text-[13px] text-left transition-all duration-150 mb-0.5';
+const NAV_BTN_BASE     = 'relative flex items-center gap-2.5 w-full py-2 px-2.5 rounded-[8px] border-0 text-[13.5px] text-left transition-all duration-150 mb-px';
 const NAV_BTN_INACTIVE = 'bg-transparent text-text-dim font-normal hover:bg-bg-hover hover:text-text';
-const NAV_BTN_ACTIVE   = 'bg-gold-faint text-gold font-medium';
+const NAV_BTN_ACTIVE   = 'bg-green-soft text-green font-semibold';
 
 const RESET_BTN = 'bg-transparent border-0 p-0 text-[10px] text-border-hi transition-colors duration-150 hover:text-red text-left';
 
@@ -46,18 +47,29 @@ export function SidebarView({
   onNavigate, onToggleCurrency, onReset, onSignOut,
 }: SidebarViewProps) {
   return (
-    <aside className="hidden md:flex w-[220px] min-w-[220px] bg-white border-r border-border flex-col h-screen sticky top-0">
-      {/* Logo */}
-      <div className="px-6 pt-7 pb-6 border-b border-border">
-        <p className="font-display text-[20px] font-semibold text-gold tracking-[0.3px]">Costa Sol</p>
-        <p className="text-[10px] tracking-[2.5px] uppercase text-text-mute mt-[3px]">Fastighetsportfölj</p>
+    <aside className="hidden md:flex w-[248px] min-w-[248px] bg-bg-card border-r border-border flex-col h-screen sticky top-0 px-[18px] pt-[26px] pb-4">
+      {/* Brand */}
+      <div className="flex items-center gap-[11px] px-1.5 pb-[22px]">
+        <span className="w-[38px] h-[38px] rounded-[9px] bg-green text-white font-display font-medium text-[17px] flex items-center justify-center tracking-[0.5px]">
+          CS
+        </span>
+        <span>
+          <span className="block font-display text-[19px] font-medium text-text leading-none">Costa Sol</span>
+          <span className="block text-[10px] tracking-[2px] uppercase text-text-mute mt-[3px]">Fastighetsportfölj</span>
+        </span>
+      </div>
+
+      {/* Sök (visuell tills sökfunktion kopplas — TODO) */}
+      <div className="flex items-center gap-2 mb-5 py-[9px] px-3 border border-border rounded-[9px] text-text-mute text-[13px] bg-bg">
+        <Icon name="search" size={15} />
+        <span>Sök fastighet, datum …</span>
       </div>
 
       {/* Nav */}
-      <nav className="py-4 px-3 flex-1 overflow-y-auto">
+      <nav className="flex-1 overflow-y-auto">
         {GROUPS.map(group => (
-          <div key={group} className="mb-2">
-            <p className="text-[9px] tracking-[2px] uppercase text-text-mute pt-2.5 px-3 pb-1 block">{group}</p>
+          <div key={group} className="mb-[18px]">
+            <p className="text-[10px] tracking-[1.8px] uppercase text-text-mute px-2 pb-2">{group}</p>
             {NAV_ITEMS.filter(i => i.group === group).map(item => {
               const active    = activePage === item.key;
               const showBadge = item.key === 'milestones' && urgentCount > 0;
@@ -67,17 +79,17 @@ export function SidebarView({
                   className={`${NAV_BTN_BASE} ${active ? NAV_BTN_ACTIVE : NAV_BTN_INACTIVE}`}
                   onClick={() => onNavigate(item.key)}
                 >
-                  <span className={`text-[14px] flex-shrink-0 ${active ? 'opacity-100' : 'opacity-60'}`}>
-                    {item.icon}
+                  {active && (
+                    <span className="absolute -left-[18px] top-[7px] bottom-[7px] w-[3px] rounded-[2px] bg-green" />
+                  )}
+                  <span className={`flex-shrink-0 flex ${active ? 'opacity-100' : 'opacity-70'}`}>
+                    <Icon name={item.icon} size={17} />
                   </span>
-                  {item.label}
+                  <span className="flex-1">{item.label}</span>
                   {showBadge && (
-                    <span className="ml-auto inline-flex items-center justify-center min-w-[20px] h-[18px] px-1.5 rounded-pill bg-red text-white text-[10px] font-semibold leading-none">
+                    <span className="inline-flex items-center justify-center min-w-[18px] h-[18px] px-1.5 rounded-pill bg-red text-white text-[10px] font-bold leading-none">
                       {urgentCount}
                     </span>
-                  )}
-                  {active && !showBadge && (
-                    <span className="ml-auto w-1 h-1 rounded-full bg-gold" />
                   )}
                 </button>
               );
@@ -87,7 +99,7 @@ export function SidebarView({
       </nav>
 
       {/* Footer */}
-      <div className="px-6 py-4 border-t border-border">
+      <div className="pt-4 border-t border-border">
         <button
           className="flex bg-transparent border border-border rounded-pill p-0.5 mb-2.5 w-full cursor-pointer transition-colors duration-150 hover:border-border-hi"
           onClick={onToggleCurrency}
@@ -116,7 +128,7 @@ export function CurrencyPill({ label, active }: { label: string; active: boolean
   return (
     <span className={[
       'flex-1 text-[10px] font-medium tracking-[1px] py-1 px-2.5 rounded-pill transition-all duration-150',
-      active ? 'bg-gold text-bg' : 'text-text-mute',
+      active ? 'bg-green text-bg' : 'text-text-mute',
     ].join(' ')}>
       {label}
     </span>

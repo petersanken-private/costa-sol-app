@@ -1,35 +1,41 @@
-/* ── Design tokens ─────────────────────────────────────────────────────────── */
+/* ── Design tokens — "Stillhet" varm papper-palett ───────────────────────────── */
 :root {
-  --bg:          #f5f3ef;
-  --bg-card:     #ffffff;
-  --bg-hover:    #f0ede8;
-  --bg-subtle:   #faf9f7;
-  --border:      #e4dfd8;
-  --border-hi:   #cfc8bf;
+  --bg:          #f5f1e9;  /* paper */
+  --bg-card:     #fffdf8;  /* card */
+  --bg-hover:    #fbf6ec;  /* cardHi */
+  --bg-subtle:   #fbf6ec;
+  --border:      #e8e1d4;  /* line */
+  --border-hi:   #d8cfbf;  /* lineHi */
 
-  --gold:        #b8860b;
-  --gold-dim:    #d4aa50;
-  --gold-faint:  rgba(184, 134, 11, 0.08);
+  /* grön = primär accent OCH positiv (konvergerar — ersätter gammalt guld) */
+  --green:       #2f5d4d;
+  --green-soft:  #eef3ee;  /* greenSoft — soft fill / chip */
+  --green-bg:    #eef3ee;  /* alias för äldre usages */
 
-  --text:        #1a1714;
-  --text-dim:    #5a5248;
-  --text-mute:   #9c9088;
+  --amber:       #9a6b1e;
+  --amber-soft:  #f6efdf;
 
-  --green:       #166534;
-  --green-bg:    #f0fdf4;
-  --red:         #991b1b;
-  --red-bg:      #fef2f2;
-  --blue:        #3730a3;
+  --red:         #9c4b3b;
+  --red-soft:    #fbeee9;
+  --red-bg:      #fbeee9;   /* alias */
 
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-ui:      'DM Sans', system-ui, sans-serif;
+  --blue:        #3f5a78;
+  --blue-soft:   #e9eef3;
 
-  --radius-sm:   6px;
+  --text:        #1c1a16;  /* ink */
+  --text-dim:    #6c6457;  /* dim */
+  --text-mute:   #9a9286;  /* mute */
+
+  --font-display: 'Spectral', Georgia, serif;
+  --font-ui:      'Hanken Grotesk', system-ui, sans-serif;
+
+  --radius-sm:   8px;
   --radius-md:   10px;
   --radius-lg:   14px;
 
-  --shadow-sm:   0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:   0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  /* Inga skuggor — definition via 1px-ramar + varm bakgrundskontrast */
+  --shadow-sm:   none;
+  --shadow-md:   none;
 
   --transition:  0.15s ease;
 }
@@ -107,7 +113,7 @@ select option { background: #ffffff; color: var(--text); }
   width: 32px;
   height: 32px;
   border: 2px solid var(--border);
-  border-top-color: var(--gold);
+  border-top-color: var(--green);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }

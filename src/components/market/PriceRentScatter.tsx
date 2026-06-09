@@ -111,7 +111,7 @@ export function PriceRentScatter({ markets }: Props) {
           const cx = xOf(m.pricePerSqm);
           const cy = yOf(m.avgAdr);
           const isValueQuadrant = m.pricePerSqm < medPrice && m.avgAdr > medAdr;
-          const color = isValueQuadrant ? 'var(--green)' : 'var(--gold)';
+          const color = isValueQuadrant ? 'var(--green)' : 'var(--green)';
           return (
             <g key={m.id}>
               <circle cx={cx} cy={cy} r="6" fill={color} stroke="white" strokeWidth="2">

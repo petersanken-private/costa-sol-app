@@ -8,7 +8,7 @@ interface YearButtonProps {
 }
 
 const BASE   = 'py-1.5 px-3.5 rounded-pill border text-[12px] transition-all duration-150 shadow-sm';
-const ACTIVE = 'border-gold bg-gold-faint text-gold font-medium';
+const ACTIVE = 'border-green bg-green-soft text-green font-medium';
 const INACTIVE = 'border-border bg-bg-card text-text-mute hover:border-border-hi hover:text-text-dim';
 
 export function YearButton({ label, active, onClick }: YearButtonProps) {

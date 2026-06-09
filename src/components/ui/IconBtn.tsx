@@ -16,7 +16,7 @@ interface IconBtnProps {
 }
 
 const VARIANTS = {
-  edit:   { icon: '✎', size: 'text-[14px] px-[3px]', hover: 'hover:text-gold' },
+  edit:   { icon: '✎', size: 'text-[14px] px-[3px]', hover: 'hover:text-green' },
   delete: { icon: '×', size: 'text-[18px] px-1',     hover: 'hover:text-red'  },
 } as const;
 

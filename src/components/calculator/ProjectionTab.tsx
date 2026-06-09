@@ -31,7 +31,7 @@ export function ProjectionTab({ projection, scenarioColor, horizonYears, amortPc
                     title={`År ${p.calendarYear}: Total förmögenhet ${fmtMoney(p.totalWealth)}`}
                   />
                   <div
-                    className="w-3.5 max-md:w-2.5 rounded-t-[3px] rounded-b-[1px] transition-opacity duration-150 min-h-1 bg-gold opacity-50 hover:!opacity-100"
+                    className="w-3.5 max-md:w-2.5 rounded-t-[3px] rounded-b-[1px] transition-opacity duration-150 min-h-1 bg-green opacity-50 hover:!opacity-100"
                     style={{ height: `${rentH}px` }}
                     title={`År ${p.calendarYear}: Driftnetto ${fmtMoney(p.netAfterTax)}`}
                   />
@@ -46,7 +46,7 @@ export function ProjectionTab({ projection, scenarioColor, horizonYears, amortPc
             <span className="w-2.5 h-2.5 rounded-[2px] opacity-85" style={{ background: scenarioColor }} /> Total förmögenhet
           </span>
           <span className="flex items-center gap-1.5 text-[12px] text-text-dim">
-            <span className="w-2.5 h-2.5 rounded-[2px] bg-gold opacity-50" /> Driftnetto per år
+            <span className="w-2.5 h-2.5 rounded-[2px] bg-green opacity-50" /> Driftnetto per år
           </span>
         </div>
       </Card>
@@ -69,7 +69,7 @@ export function ProjectionTab({ projection, scenarioColor, horizonYears, amortPc
               className={`table-row grid-cols-[60px_1fr_1fr_1fr_1fr_1fr_1fr] max-md:!grid-cols-[50px_1fr_1fr_1fr_1fr_1fr_1fr] ${i % 2 === 1 ? 'bg-bg-subtle' : ''}`}
             >
               <span className="text-mute">{p.calendarYear}</span>
-              <span data-label="Fastighetsvärde" style={{ color: 'var(--gold)' }}>{fmtMoney(p.propertyValue)}</span>
+              <span data-label="Fastighetsvärde" style={{ color: 'var(--green)' }}>{fmtMoney(p.propertyValue)}</span>
               <span data-label="Lånesaldo" className="text-mute">{p.loanBalance > 0 ? `−${fmtMoney(p.loanBalance)}` : '—'}</span>
               <span data-label="Eget kapital">{fmtMoney(p.equity)}</span>
               <span data-label="Driftnetto" style={{ color: p.netAfterTax >= 0 ? 'var(--green)' : 'var(--red)' }}>
@@ -89,7 +89,7 @@ export function ProjectionTab({ projection, scenarioColor, horizonYears, amortPc
         </div>
         <div className="flex justify-end gap-6 py-3 px-5 border-t border-border-hi text-[12px]">
           <span className="text-mute">
-            Equity år {horizonYears}: <strong style={{ color: 'var(--gold)' }}>{fmtMoney(last?.equity ?? 0)}</strong>
+            Equity år {horizonYears}: <strong style={{ color: 'var(--green)' }}>{fmtMoney(last?.equity ?? 0)}</strong>
           </span>
           <span className="text-mute">
             Total förmögenhet: <strong style={{ color: scenarioColor }}>{fmtMoney(last?.totalWealth ?? 0)}</strong>

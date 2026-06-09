@@ -378,6 +378,6 @@ export interface BuyingCostRowMeta {
 export function buyingCostRowStyle(row: BuyingCostRowMeta): { fontWeight: number; color: string } {
   return {
     fontWeight: row.bold ? 600 : 400,
-    color:      row.highlight ? 'var(--gold)' : row.bold ? 'var(--text)' : 'var(--text-dim)',
+    color:      row.highlight ? 'var(--green)' : row.bold ? 'var(--text)' : 'var(--text-dim)',
   };
 }

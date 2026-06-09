@@ -72,7 +72,7 @@ export function Taxes() {
       <div className="grid-4" style={{ marginBottom: '24px' }}>
         <Card className="card-p-md">
           <Stat label="Bruttointäkt" value={fmtMoney(grossIncome)}
-                sub={`${yearRentals.reduce((s, r) => s + r.nights, 0)} nätter`} color="var(--gold)" />
+                sub={`${yearRentals.reduce((s, r) => s + r.nights, 0)} nätter`} color="var(--green)" />
         </Card>
         <Card className="card-p-md">
           <Stat label="Avdragsgilla kostn." value={fmtMoney(deductibleExpenses)} sub="IRNR-avdrag (EU/EEA)" />

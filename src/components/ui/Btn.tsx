@@ -23,9 +23,9 @@ const SIZES = {
 } as const;
 
 const VARIANTS = {
-  primary: 'bg-gold text-white border-0 shadow-[0_1px_3px_rgba(184,134,11,0.25)] hover:bg-[#9a7009]',
-  ghost:   'bg-transparent text-text-dim border border-border hover:bg-bg-hover hover:border-border-hi',
-  danger:  'bg-red-bg text-red border border-red/20 hover:bg-[#fee2e2]',
+  primary: 'bg-green text-white border-0 hover:bg-[#244a3e]',
+  ghost:   'bg-transparent text-text-dim border border-border-hi hover:bg-bg-hover hover:text-text',
+  danger:  'bg-red-soft text-red border border-red/20 hover:bg-[#f5dcd4]',
 } as const;
 
 export function Btn({

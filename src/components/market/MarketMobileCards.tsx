@@ -23,10 +23,10 @@ export function MarketMobileCards({ markets, onEdit, onDelete }: Props) {
             </div>
           </div>
           <div className="grid grid-cols-2 gap-2.5">
-            <MobileKpi label="€/kvm"       value={fmtMoney(m.pricePerSqm)} color="var(--gold)" />
+            <MobileKpi label="€/kvm"       value={fmtMoney(m.pricePerSqm)} color="var(--green)" />
             <MobileKpi label="ADR"         value={`€${m.avgAdr}`} />
             <MobileKpi label="Beläggning"  value={`${m.occupancyPct}%`} color={m.occupancyPct >= 65 ? 'var(--green)' : 'var(--text-dim)'} />
-            <MobileKpi label="Yield-est."  value={`${yieldEstimate(m).toFixed(1)}%`} color="var(--gold)" bold />
+            <MobileKpi label="Yield-est."  value={`${yieldEstimate(m).toFixed(1)}%`} color="var(--green)" bold />
             <MobileKpi label="Tillväxt/år" value={`+${m.annualGrowthPct}%`} color="var(--green)" />
             <div className="flex flex-col gap-0.5">
               <span className="text-[10px] text-text-mute uppercase tracking-[0.5px]">Källa</span>

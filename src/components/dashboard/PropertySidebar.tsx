@@ -32,9 +32,9 @@ export function PropertySidebar({ properties, rentals, selectedYear, navigate }:
                 <Badge label={STATUS_LABELS[p.status]} color={STATUS_COLORS[p.status]} />
               </div>
               <div className="flex justify-between items-baseline">
-                <span className="font-display text-[18px] text-gold">{fmtMoney(p.purchasePrice)}</span>
+                <span className="font-display text-[18px] text-green">{fmtMoney(p.purchasePrice)}</span>
                 {propRent > 0 && (
-                  <span className="text-[12px] text-gold">{fmtMoney(propRent)} hyra {selectedYear}</span>
+                  <span className="text-[12px] text-green">{fmtMoney(propRent)} hyra {selectedYear}</span>
                 )}
               </div>
             </Card>

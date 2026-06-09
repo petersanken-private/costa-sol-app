@@ -8,11 +8,11 @@ interface Props {
 }
 
 const PILL_BASE     = 'inline-flex items-center gap-1.5 py-1.5 px-3 min-h-[36px] rounded-[20px] border text-[12px] transition-all duration-150 whitespace-nowrap';
-const PILL_ACTIVE   = 'border-gold bg-gold-faint text-gold';
+const PILL_ACTIVE   = 'border-green bg-green-soft text-green';
 const PILL_INACTIVE = 'border-border bg-bg-card text-text-mute hover:border-border-hi hover:text-text-dim';
 
 const COUNT_BASE   = 'rounded-[10px] px-1.5 py-px text-[10px]';
-const COUNT_ACTIVE = 'bg-gold/15';
+const COUNT_ACTIVE = 'bg-green/15';
 const COUNT_INACTIVE = 'bg-bg-subtle';
 
 /**

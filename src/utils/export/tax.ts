@@ -66,7 +66,7 @@ export function exportTaxPdf({ year, rentals, expenses, properties }: TaxData): 
       <td>${MONTHS_SV[r.month - 1]} ${r.year}</td>
       <td>${r.nights}</td>
       <td class="num">${r.platform}</td>
-      <td class="num gold bold">${eur(r.revenue)}</td>
+      <td class="num green bold">${eur(r.revenue)}</td>
     </tr>`;
   }).join('');
 
@@ -87,7 +87,7 @@ export function exportTaxPdf({ year, rentals, expenses, properties }: TaxData): 
     <p class="meta">Costa Sol · Genererat ${today()} · För gestor/skattemyndigheten</p>
 
     <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-label">Bruttointäkt</div><div class="kpi-value gold">${eur(grossIncome)}</div></div>
+      <div class="kpi"><div class="kpi-label">Bruttointäkt</div><div class="kpi-value green">${eur(grossIncome)}</div></div>
       <div class="kpi"><div class="kpi-label">Avdragsgilla kostn.</div><div class="kpi-value">${eur(deductible)}</div></div>
       <div class="kpi"><div class="kpi-label">Beskattningsbar ink.</div><div class="kpi-value">${eur(netTaxable)}</div></div>
       <div class="kpi"><div class="kpi-label">IRNR-skatt (${ratePct}%)</div><div class="kpi-value red">${eur(tax)}</div></div>
@@ -99,7 +99,7 @@ export function exportTaxPdf({ year, rentals, expenses, properties }: TaxData): 
       <tbody>${rentalRows || '<tr><td colspan="5" class="mute">Inga hyresintäkter registrerade.</td></tr>'}</tbody>
       <tfoot><tr>
         <td class="bold" colspan="4">Totalt brutto</td>
-        <td class="num bold gold">${eur(grossIncome)}</td>
+        <td class="num bold green">${eur(grossIncome)}</td>
       </tr></tfoot>
     </table>
 
@@ -115,7 +115,7 @@ export function exportTaxPdf({ year, rentals, expenses, properties }: TaxData): 
     </table>
 
     <h2>Sammanfattning Modelo 210</h2>
-    <div class="summary-row"><span>Bruttointäkt hyra</span><span class="gold bold">${eur(grossIncome)}</span></div>
+    <div class="summary-row"><span>Bruttointäkt hyra</span><span class="green bold">${eur(grossIncome)}</span></div>
     <div class="summary-row"><span>Avdragsgilla kostnader (EU/EEA)</span><span class="red">−${eur(deductible)}</span></div>
     <div class="summary-row bold"><span>Beskattningsbar nettoinkomst</span><span>${eur(netTaxable)}</span></div>
     <div class="summary-row"><span>Skattesats IRNR (EU/EEA-medborgare)</span><span>${ratePct}%</span></div>

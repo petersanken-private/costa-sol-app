@@ -7,7 +7,7 @@ interface Props { markets: AreaMarketData[]; }
 
 /**
  * Horisontell bar-chart: områden rangordnade efter beräknad nettoyield.
- * Bästa området högst upp, gold-färgad. Övriga grå.
+ * Bästa området högst upp, green-färgad. Övriga grå.
  */
 export function YieldRanking({ markets }: Props) {
   const ranked = useMemo(
@@ -33,7 +33,7 @@ export function YieldRanking({ markets }: Props) {
             <span style={{
               fontSize: '13px',
               fontWeight: isBest ? 600 : 400,
-              color: isBest ? 'var(--gold)' : 'var(--text-dim)',
+              color: isBest ? 'var(--green)' : 'var(--text-dim)',
               display: 'flex',
               alignItems: 'center',
               gap: '6px',
@@ -45,7 +45,7 @@ export function YieldRanking({ markets }: Props) {
               <div style={{
                 width: `${widthPct}%`,
                 height: '100%',
-                background: isBest ? 'var(--gold)' : 'var(--border-hi)',
+                background: isBest ? 'var(--green)' : 'var(--border-hi)',
                 borderRadius: '4px',
                 transition: 'width 0.3s ease',
               }} />
@@ -54,7 +54,7 @@ export function YieldRanking({ markets }: Props) {
               fontSize: '12px',
               fontVariantNumeric: 'tabular-nums',
               textAlign: 'right',
-              color: isBest ? 'var(--gold)' : 'var(--text-dim)',
+              color: isBest ? 'var(--green)' : 'var(--text-dim)',
               fontWeight: isBest ? 600 : 500,
             }}>
               {y.toFixed(1)}%

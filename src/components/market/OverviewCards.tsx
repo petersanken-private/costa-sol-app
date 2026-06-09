@@ -20,14 +20,14 @@ export function OverviewCards({ markets }: Props) {
     <div className="grid-3" style={{ marginBottom: '28px' }}>
       <Card className="card-p-md">
         <p className="stat-label">Snitt €/kvm (portfölj)</p>
-        <p className="stat-value" style={{ color: 'var(--gold)' }}>
+        <p className="stat-value" style={{ color: 'var(--green)' }}>
           {avgPricePerSqm !== null ? fmtMoney(avgPricePerSqm) : '—'}
         </p>
         <p className="stat-sub">{markets.length} områden spårade</p>
       </Card>
       <Card className="card-p-md">
         <p className="stat-label">Snitt ADR</p>
-        <p className="stat-value" style={{ color: 'var(--gold)' }}>
+        <p className="stat-value" style={{ color: 'var(--green)' }}>
           {avgAdr !== null ? fmtMoney(avgAdr) : '—'}
         </p>
         <p className="stat-sub">Per natt, alla områden</p>

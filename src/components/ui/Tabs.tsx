@@ -25,7 +25,7 @@ export function Tabs({ tabs, active, onChange }: TabsProps) {
             key={t.id}
             className={`${TAB_BASE} ${
               isActive
-                ? 'text-gold border-b-gold'
+                ? 'text-green border-b-green'
                 : 'text-text-mute border-b-transparent hover:text-text-dim'
             }`}
             onClick={() => onChange(t.id)}

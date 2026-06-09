@@ -9,10 +9,10 @@ export interface CardProps {
   style?:     CSSProperties;
 }
 
-// Bas: 10px radius mobil, 14px desktop — matchar original --radius-md/lg.
-const BASE   = 'bg-bg-card border border-border rounded-[10px] md:rounded-[14px] shadow-sm transition-all duration-150';
-const HOVER  = 'cursor-pointer hover:bg-bg-subtle hover:border-border-hi hover:shadow-md';
-const DASHED = 'border-dashed text-center shadow-none';
+// Bas: 14px radius — border-only (inga skuggor), matchar designens "Stillhet".
+const BASE   = 'bg-bg-card border border-border rounded-[14px] transition-all duration-150';
+const HOVER  = 'cursor-pointer hover:bg-bg-hover hover:border-border-hi hover:-translate-y-0.5';
+const DASHED = 'border-dashed text-center hover:bg-bg-hover hover:border-green hover:text-green';
 
 export function Card({ children, className = '', onClick, hoverable, dashed, style }: CardProps) {
   const classes = [

@@ -45,7 +45,7 @@ export function RecurringExpensesTab({ propertyId }: RecurringExpensesTabProps) 
     <>
       <div className="flex justify-end mb-3">
         <span className="text-mute" style={{ fontSize: '13px' }}>
-          Totalt årligen: <strong className="text-gold">{fmtMoney(totalAnnualized)}</strong>
+          Totalt årligen: <strong className="text-green">{fmtMoney(totalAnnualized)}</strong>
         </span>
         <div style={{ display: 'flex', gap: '8px' }}>
           <Btn size="sm" onClick={handleGenerate} disabled={generating || items.length === 0}>
@@ -97,7 +97,7 @@ export function RecurringExpensesTab({ propertyId }: RecurringExpensesTabProps) 
                 <Badge label={EXPENSE_LABELS[r.category] ?? r.category} />
                 <span className="text-mute" style={{ fontSize: '13px' }}>{frequencyLabel(r)}</span>
                 <span className="font-display text-[18px]">{fmtMoney(r.amount)}</span>
-                <span className="font-display text-[18px] text-gold">{fmtMoney(annualizedCost(r))}</span>
+                <span className="font-display text-[18px] text-green">{fmtMoney(annualizedCost(r))}</span>
                 <span style={{ display: 'flex', gap: '4px', justifyContent: 'flex-end' }}>
                   <IconBtn variant="edit"   onClick={() => { setEditing(r); setShowModal(true); }} />
                   <IconBtn variant="delete" onClick={() => handleDelete(r)} />

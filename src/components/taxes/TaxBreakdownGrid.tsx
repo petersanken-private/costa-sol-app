@@ -33,7 +33,7 @@ export function TaxBreakdownGrid({
                   <Badge label={platform} color={PLATFORM_COLORS[platform]} />
                   <span className="text-mute" style={{ fontSize: '12px' }}>{data.nights} nätter</span>
                 </div>
-                <span style={{ fontFamily: 'var(--font-display)', fontSize: '18px', color: 'var(--gold)' }}>
+                <span style={{ fontFamily: 'var(--font-display)', fontSize: '18px', color: 'var(--green)' }}>
                   {fmtMoney(data.revenue)}
                 </span>
               </div>
@@ -41,7 +41,7 @@ export function TaxBreakdownGrid({
             <Divider className="mt-8 mb-8" />
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
               <span style={{ fontWeight: 600 }}>Totalt</span>
-              <span style={{ fontFamily: 'var(--font-display)', fontSize: '20px', color: 'var(--gold)' }}>
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: '20px', color: 'var(--green)' }}>
                 {fmtMoney(grossIncome)}
               </span>
             </div>

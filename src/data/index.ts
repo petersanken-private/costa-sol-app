@@ -10,9 +10,9 @@ export const STORAGE_KEYS = {
 } as const;
 
 export const SCENARIOS: ScenarioConfig[] = [
-  { key: 'conservative', label: 'Försiktig',   nights: 160, adr: 180, annualGrowthPct: 4,  color: '#6B7280' },
-  { key: 'base',         label: 'Realistisk',  nights: 220, adr: 210, annualGrowthPct: 7,  color: '#D4AA50' },
-  { key: 'optimistic',   label: 'Optimistisk', nights: 270, adr: 250, annualGrowthPct: 11, color: '#10B981' },
+  { key: 'conservative', label: 'Försiktig',   nights: 160, adr: 180, annualGrowthPct: 4,  color: '#6c6457' },
+  { key: 'base',         label: 'Realistisk',  nights: 220, adr: 210, annualGrowthPct: 7,  color: '#2f5d4d' },
+  { key: 'optimistic',   label: 'Optimistisk', nights: 270, adr: 250, annualGrowthPct: 11, color: '#9a6b1e' },
 ];
 
 export const UNIT_PRESETS: UnitPreset[] = [
@@ -45,17 +45,17 @@ export const STATUS_LABELS: Record<string, string> = {
 };
 
 export const STATUS_COLORS: Record<string, string> = {
-  'off-plan':       '#D4AA50',
-  'owned':          '#10B981',
-  'under-contract': '#6366F1',
-  'watchlist':      '#6B7280',
+  'off-plan':       '#9a6b1e',  /* amber */
+  'owned':          '#2f5d4d',  /* green */
+  'under-contract': '#3f5a78',  /* blue */
+  'watchlist':      '#9a9286',  /* mute */
 };
 
 export const PLATFORM_COLORS: Record<string, string> = {
-  airbnb:      '#FF5A5F',
-  booking:     '#4A90E2',
-  direct:      '#D4AA50',
-  'long-term': '#10B981',
+  airbnb:      '#d96655',
+  booking:     '#3f5a78',  /* blue */
+  direct:      '#9a6b1e',  /* amber */
+  'long-term': '#2f5d4d',  /* green */
 };
 
 export const SEED_PROPERTIES: Property[] = [

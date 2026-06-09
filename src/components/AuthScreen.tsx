@@ -4,7 +4,7 @@ import { Btn } from './ui';
 
 /**
  * Helsides-login som visas när användaren inte är inloggad.
- * Stilen matchar app-shell:ens estetik (svart bakgrund + gold accent).
+ * Stilen matchar app-shell:ens estetik (varm papper-bakgrund + grön accent).
  */
 export function AuthScreen() {
   const { signIn } = useAuth();
@@ -27,7 +27,7 @@ export function AuthScreen() {
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-bg">
       <div className="w-full max-w-[380px] text-center">
-        <p className="font-display text-[36px] font-medium text-gold m-0">Costa Sol</p>
+        <p className="font-display text-[36px] font-medium text-green m-0">Costa Sol</p>
         <p className="text-text-mute text-[13px] tracking-[2px] uppercase mt-1">Fastighetsportfölj</p>
 
         <form onSubmit={handleSubmit} className="mt-10 flex flex-col gap-3.5 text-left">

@@ -17,7 +17,7 @@ function sparkPath(data: { rate: number }[], width: number, height: number): str
 
 const VIEW_BTN_BASE     = 'py-1 px-2.5 rounded-[20px] border text-[11px] transition-all duration-150';
 const VIEW_BTN_INACTIVE = 'border-border bg-transparent text-text-mute hover:border-border-hi hover:text-text-dim';
-const VIEW_BTN_ACTIVE   = 'border-gold bg-gold-faint text-gold';
+const VIEW_BTN_ACTIVE   = 'border-green bg-green-soft text-green';
 
 export function CurrencyWidget() {
   const fx = useCurrency();
@@ -70,8 +70,8 @@ export function CurrencyWidget() {
           <svg viewBox={`0 0 280 48`} className="w-full h-12 block">
             <defs>
               <linearGradient id="spark-grad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor={positive ? '#166534' : '#991b1b'} stopOpacity="0.15"/>
-                <stop offset="100%" stopColor={positive ? '#166534' : '#991b1b'} stopOpacity="0"/>
+                <stop offset="0%" stopColor={positive ? '#2f5d4d' : '#9c4b3b'} stopOpacity="0.15"/>
+                <stop offset="100%" stopColor={positive ? '#2f5d4d' : '#9c4b3b'} stopOpacity="0"/>
               </linearGradient>
             </defs>
             <path
@@ -98,7 +98,7 @@ export function CurrencyWidget() {
           <StatItem label="12 månader" value={fx.change1y}  formatter={pctChange} />
           <div className="flex flex-col gap-0.5">
             <span className="text-[10px] text-text-mute tracking-[0.5px]">€100k =</span>
-            <span className="text-gold text-[12px] font-medium">
+            <span className="text-green text-[12px] font-medium">
               {(sek100k / 1_000_000).toFixed(2)}M kr
             </span>
           </div>

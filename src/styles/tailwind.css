@@ -4,54 +4,59 @@
    Costa Sol — Tailwind design tokens
    ════════════════════════════════════════════════════════════════════════════
    Konfigurerar Tailwind med våra befintliga CSS-variabler så att utility-klasser
-   som `bg-surface`, `text-gold`, `font-display` matchar resten av appens stil.
+   som `bg-surface`, `text-green`, `font-display` matchar resten av appens stil.
 
    Befintliga CSS-variabler i global.css fortsätter fungera oförändrat — denna
    konfig bara registrerar dem som Tailwind-tokens.
    ════════════════════════════════════════════════════════════════════════════ */
 
 @theme {
-  /* ── Färger ─────────────────────────────────────────────────────────────── */
-  --color-bg:         #f5f3ef;
-  --color-bg-card:    #ffffff;
-  --color-bg-hover:   #f0ede8;
-  --color-bg-subtle:  #faf9f7;
-  --color-surface:    #ffffff;
-  --color-surface-2:  #faf9f7;
+  /* ── Färger — "Stillhet" varm papper-palett ────────────────────────────── */
+  --color-bg:         #f5f1e9;
+  --color-bg-card:    #fffdf8;
+  --color-bg-hover:   #fbf6ec;
+  --color-bg-subtle:  #fbf6ec;
+  --color-surface:    #fffdf8;
+  --color-surface-2:  #fbf6ec;
 
-  --color-border:     #e4dfd8;
-  --color-border-hi:  #cfc8bf;
+  --color-border:     #e8e1d4;
+  --color-border-hi:  #d8cfbf;
 
-  --color-gold:       #b8860b;
-  --color-gold-dim:   #d4aa50;
-  --color-gold-faint: rgba(184, 134, 11, 0.08);
+  --color-green:      #2f5d4d;
+  --color-green-soft: #eef3ee;
+  --color-green-bg:   #eef3ee;
 
-  --color-text:       #1a1714;
-  --color-text-dim:   #5a5248;
-  --color-text-mute:  #9c9088;
+  --color-amber:      #9a6b1e;
+  --color-amber-soft: #f6efdf;
 
-  --color-green:      #166534;
-  --color-green-bg:   #f0fdf4;
-  --color-red:        #991b1b;
-  --color-red-bg:     #fef2f2;
+  --color-red:        #9c4b3b;
+  --color-red-soft:   #fbeee9;
+  --color-red-bg:     #fbeee9;
+
+  --color-blue:       #3f5a78;
+  --color-blue-soft:  #e9eef3;
+
+  --color-text:       #1c1a16;
+  --color-text-dim:   #6c6457;
+  --color-text-mute:  #9a9286;
 
   /* ── Typografi ──────────────────────────────────────────────────────────── */
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-sans:    'DM Sans', system-ui, sans-serif;
+  --font-display: 'Spectral', Georgia, serif;
+  --font-sans:    'Hanken Grotesk', system-ui, sans-serif;
 
   /* ── Radius ─────────────────────────────────────────────────────────────── */
   --radius-card:   8px;
   --radius-pill:   999px;
   --radius-xs:     4px;
-  --radius-sm:     6px;
+  --radius-sm:     8px;
   --radius-base:   10px;
   --radius-lg:     14px;
   --radius-xl:     16px;
   --radius-2xl:    20px;
 
-  /* ── Shadow ──────────────────────────────────────────────────────────────── */
-  --shadow-sm:     0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md:     0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  /* ── Shadow — inga skuggor (border-only design) ─────────────────────────── */
+  --shadow-sm:     none;
+  --shadow-md:     none;
 
   /* ── Transition ──────────────────────────────────────────────────────────── */
   --ease-ui:       0.15s ease;

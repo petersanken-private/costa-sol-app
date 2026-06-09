@@ -29,8 +29,8 @@ export function Milestones() {
 
   const groups = [
     { key: 'overdue', label: 'Försenade',    color: 'var(--red)',      items: milestones.filter(m => m.status === 'overdue') },
-    { key: 'soon',    label: 'Inom 7 dagar', color: '#d97706',         items: milestones.filter(m => m.status === 'upcoming' && daysUntil(m.dueDate) <= 7) },
-    { key: 'month',   label: 'Inom 30 dagar',color: 'var(--gold)',     items: milestones.filter(m => m.status === 'upcoming' && daysUntil(m.dueDate) > 7 && daysUntil(m.dueDate) <= 30) },
+    { key: 'soon',    label: 'Inom 7 dagar', color: 'var(--amber)',         items: milestones.filter(m => m.status === 'upcoming' && daysUntil(m.dueDate) <= 7) },
+    { key: 'month',   label: 'Inom 30 dagar',color: 'var(--green)',     items: milestones.filter(m => m.status === 'upcoming' && daysUntil(m.dueDate) > 7 && daysUntil(m.dueDate) <= 30) },
     { key: 'later',   label: 'Kommande',      color: 'var(--text-dim)', items: milestones.filter(m => m.status === 'upcoming' && daysUntil(m.dueDate) > 30) },
     { key: 'done',    label: 'Klara',         color: 'var(--green)',    items: milestones.filter(m => m.status === 'done') },
   ];

@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useApp } from '../../hooks/useApp';
 import { Property, PropertyStatus } from '../../types';
-import { Card, Btn, EmptyState } from '../ui';
+import { Btn, EmptyState, Stat, Icon } from '../ui';
+import { fmtMoney } from '../../utils/calc.utils';
 import { ExportMenu } from '../ExportMenu';
 import { exportPortfolioCsv, exportPortfolioPdf } from '../../utils/export';
-import { PropertyRow, PropertyCard, PropertyModal } from '.';
+import { PropertyCard, PropertyModal } from '.';
 
 const STATUS_FILTERS: { key: PropertyStatus | 'all'; label: string }[] = [
   { key: 'all',            label: 'Alla'           },
@@ -24,6 +25,13 @@ export function Portfolio() {
     ? state.properties
     : state.properties.filter(p => p.status === filter);
 
+  const all          = state.properties;
+  const totalValue   = all.reduce((s, p) => s + p.currentValue, 0);
+  const totalInvested = all.reduce((s, p) => s + p.purchasePrice, 0);
+  const rentableCount = all.filter(p => p.hasVFTLicense).length;
+  const avgGainPct   = totalInvested > 0 ? ((totalValue - totalInvested) / totalInvested) * 100 : 0;
+  const fmtPct1      = (n: number) => `${n >= 0 ? '+' : '−'}${Math.abs(n).toFixed(1).replace('.', ',')} %`;
+
   function handleDelete(property: Property) {
     const hasData =
       state.rentals.some(r => r.propertyId === property.id) ||
@@ -41,9 +49,9 @@ export function Portfolio() {
   return (
     <div className="page">
       <div className="page-header">
-        <p className="page-eyebrow">Fastighetsregister</p>
+        <p className="page-eyebrow">Portfölj · {all.length} {all.length === 1 ? 'fastighet' : 'fastigheter'}</p>
         <div className="flex justify-between items-end">
-          <h1 className="page-title">Portfölj</h1>
+          <h1 className="page-title">Dina objekt</h1>
           <div className="page-actions">
             <ExportMenu
               label="Exportera portfölj"
@@ -57,6 +65,16 @@ export function Portfolio() {
         </div>
       </div>
 
+      {/* Summering — joined stat-grid */}
+      {all.length > 0 && (
+        <div className="stat-grid mb-6">
+          <div className="stat-cell"><Stat label="Totalt värde"   value={fmtMoney(totalValue)}    sub={`${all.length} fastigheter`} /></div>
+          <div className="stat-cell"><Stat label="Investerat"     value={fmtMoney(totalInvested)} sub="Köpeskilling totalt" /></div>
+          <div className="stat-cell"><Stat label="Hyrs ut idag"   value={String(rentableCount)}   sub="Med VFT-licens" /></div>
+          <div className="stat-cell"><Stat label="Genomsn. avk."  value={fmtPct1(avgGainPct)}     sub="Värdeökning" color={avgGainPct >= 0 ? 'var(--green)' : 'var(--red)'} /></div>
+        </div>
+      )}
+
       <div className="filter-pills">
         {STATUS_FILTERS.map(f => (
           <button
@@ -69,45 +87,30 @@ export function Portfolio() {
         ))}
       </div>
 
-      {filtered.length === 0 ? (
-        <EmptyState icon="◈" title="Inga fastigheter" subtitle={`Inga objekt med status "${filter}".`} />
+      {all.length === 0 ? (
+        <EmptyState icon="◈" title="Inga fastigheter" subtitle="Lägg till ditt första objekt för att komma igång." />
       ) : (
-        <>
-          {/* Desktop */}
-          <Card className="max-md:hidden">
-            <div className="table-header grid-cols-[1fr_120px_100px_120px_120px_80px_64px] gap-3">
-              <span>Fastighet</span>
-              <span>Typ</span>
-              <span>Status</span>
-              <span>Köpeskilling</span>
-              <span>Nuv. värde</span>
-              <span>VFT</span>
-              <span></span>
-            </div>
-            {filtered.map(p => (
-              <PropertyRow
-                key={p.id}
-                property={p}
-                onClick={() => navigate('property', p.id)}
-                onEdit={e => { e.stopPropagation(); setEditProperty(p); }}
-                onDelete={e => { e.stopPropagation(); handleDelete(p); }}
-              />
-            ))}
-          </Card>
-
-          {/* Mobile */}
-          <div className="md:hidden">
-            {filtered.map(p => (
-              <PropertyCard
-                key={p.id}
-                property={p}
-                onClick={() => navigate('property', p.id)}
-                onEdit={() => setEditProperty(p)}
-                onDelete={() => handleDelete(p)}
-              />
-            ))}
-          </div>
-        </>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {filtered.map(p => (
+            <PropertyCard
+              key={p.id}
+              property={p}
+              onClick={() => navigate('property', p.id)}
+              onEdit={() => setEditProperty(p)}
+              onDelete={() => handleDelete(p)}
+            />
+          ))}
+          {/* Dashed "lägg till" — visas bara i ofiltrerad vy */}
+          {filter === 'all' && (
+            <button
+              className="card--dashed flex flex-col items-center justify-center gap-2 min-h-[200px] bg-bg-card border border-dashed border-border rounded-[14px] text-text-mute transition-all duration-150 hover:bg-bg-hover hover:border-green hover:text-green"
+              onClick={() => setShowAdd(true)}
+            >
+              <Icon name="plus" size={22} />
+              <span className="text-[13px] font-medium">Lägg till nytt objekt</span>
+            </button>
+          )}
+        </div>
       )}
 
       {showAdd && (

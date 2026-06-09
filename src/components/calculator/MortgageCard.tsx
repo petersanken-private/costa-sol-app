@@ -57,7 +57,7 @@ export function MortgageCard({
                 className={[
                   'flex-1 py-2 px-3 min-h-[40px] max-md:min-h-[44px] rounded-[6px] border text-[13px] transition-all duration-150',
                   active
-                    ? 'border-gold bg-gold-faint text-gold font-medium'
+                    ? 'border-green bg-green-soft text-green font-medium'
                     : 'border-border bg-transparent text-text-mute hover:border-border-hi hover:text-text-dim',
                 ].join(' ')}
                 onClick={() => onHorizonChange(y)}
@@ -120,7 +120,7 @@ export function MortgageCard({
                   className={[
                     'flex-1 py-2 px-3 min-h-[40px] rounded-[6px] border text-[13px] transition-all duration-150',
                     mortgagePct === p
-                      ? 'border-gold bg-gold-faint text-gold font-medium'
+                      ? 'border-green bg-green-soft text-green font-medium'
                       : 'border-border bg-transparent text-text-mute hover:border-border-hi hover:text-text-dim',
                   ].join(' ')}
                   onClick={() => onLtvChange(p)}
@@ -137,7 +137,7 @@ export function MortgageCard({
                     className={[
                       'flex-1 py-2 px-3 min-h-[40px] rounded-[6px] border text-[13px] transition-all duration-150',
                       amortPct === p
-                        ? 'border-gold bg-gold-faint text-gold font-medium'
+                        ? 'border-green bg-green-soft text-green font-medium'
                         : 'border-border bg-transparent text-text-mute hover:border-border-hi hover:text-text-dim',
                     ].join(' ')}
                     onClick={() => onAmortChange(p)}

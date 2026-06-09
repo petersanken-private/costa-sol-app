@@ -32,7 +32,7 @@ export function exportPortfolioPdf(properties: Property[]): void {
     return `<tr>
       <td>${p.name}<br><span class="mute">${p.area} · ${p.bedrooms} rum · ${p.sizeSqm}m²</span></td>
       <td>${STATUS_LABELS[p.status] ?? p.status}</td>
-      <td class="num gold">${eur(p.purchasePrice)}</td>
+      <td class="num green">${eur(p.purchasePrice)}</td>
       <td class="num">${eur(p.currentValue)}</td>
       <td class="num ${gain >= 0 ? 'green' : 'red'}">${gain >= 0 ? '+' : '−'}${eur(gain)}</td>
       <td>${p.hasVFTLicense ? '✓ Ja' : '—'}</td>
@@ -43,7 +43,7 @@ export function exportPortfolioPdf(properties: Property[]): void {
     <h1>Portföljöversikt</h1>
     <p class="meta">Costa Sol · ${today()} · ${properties.length} fastigheter</p>
     <div class="kpi-grid">
-      <div class="kpi"><div class="kpi-label">Totalt investerat</div><div class="kpi-value gold">${eur(totalInvested)}</div></div>
+      <div class="kpi"><div class="kpi-label">Totalt investerat</div><div class="kpi-value green">${eur(totalInvested)}</div></div>
       <div class="kpi"><div class="kpi-label">Nuvarande värde</div><div class="kpi-value">${eur(totalValue)}</div></div>
       <div class="kpi"><div class="kpi-label">Orealiserad vinst</div><div class="kpi-value ${totalGain >= 0 ? 'green' : 'red'}">${totalGain >= 0 ? '+' : '−'}${eur(totalGain)}</div></div>
       <div class="kpi"><div class="kpi-label">Fastigheter</div><div class="kpi-value">${properties.length}</div></div>
@@ -56,7 +56,7 @@ export function exportPortfolioPdf(properties: Property[]): void {
       <tbody>${rows}</tbody>
       <tfoot><tr>
         <td class="bold">Totalt</td><td></td>
-        <td class="num bold gold">${eur(totalInvested)}</td>
+        <td class="num bold green">${eur(totalInvested)}</td>
         <td class="num bold">${eur(totalValue)}</td>
         <td class="num bold ${totalGain >= 0 ? 'green' : 'red'}">${totalGain >= 0 ? '+' : '−'}${eur(totalGain)}</td>
         <td></td>

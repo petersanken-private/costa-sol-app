@@ -56,32 +56,30 @@ export function exportBankPdf(
 <head>
 <meta charset="UTF-8">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=DM+Sans:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;500&family=Hanken+Grotesk:wght@400;500;600&display=swap');
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family:'DM Sans',sans-serif; font-size:10pt; color:#1a1714; background:#fff; padding:32px 40px; }
-  .header { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid #b8860b; padding-bottom:16px; margin-bottom:24px; }
-  .header-left h1 { font-family:'Cormorant Garamond',serif; font-size:24pt; font-weight:400; color:#b8860b; }
-  .header-left p { font-size:9pt; color:#9c9088; margin-top:2px; }
-  .header-right { text-align:right; font-size:9pt; color:#9c9088; }
+  body { font-family:'Hanken Grotesk',sans-serif; font-size:10pt; color:#1c1a16; background:#fff; padding:32px 40px; }
+  .header { display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid #2f5d4d; padding-bottom:16px; margin-bottom:24px; }
+  .header-left h1 { font-family:'Spectral',serif; font-size:24pt; font-weight:400; color:#2f5d4d; }
+  .header-left p { font-size:9pt; color:#9a9286; margin-top:2px; }
+  .header-right { text-align:right; font-size:9pt; color:#9a9286; }
   .section { margin-bottom:24px; }
-  .section-title { font-size:8pt; letter-spacing:2px; text-transform:uppercase; color:#9c9088; margin-bottom:10px; border-bottom:1px solid #e4dfd8; padding-bottom:4px; }
+  .section-title { font-size:8pt; letter-spacing:2px; text-transform:uppercase; color:#9a9286; margin-bottom:10px; border-bottom:1px solid #e8e1d4; padding-bottom:4px; }
   .kpi-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
-  .kpi { background:#faf9f7; border:1px solid #e4dfd8; border-radius:6px; padding:12px; }
-  .kpi-label { font-size:8pt; color:#9c9088; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
-  .kpi-value { font-family:'Cormorant Garamond',serif; font-size:18pt; font-weight:400; color:#1a1714; }
-  .kpi-value.gold { color:#b8860b; }
-  .kpi-value.green { color:#166534; }
+  .kpi { background:#fbf6ec; border:1px solid #e8e1d4; border-radius:6px; padding:12px; }
+  .kpi-label { font-size:8pt; color:#9a9286; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
+  .kpi-value { font-family:'Spectral',serif; font-size:18pt; font-weight:400; color:#1c1a16; }
+  .kpi-value.green { color:#2f5d4d; }
   table { width:100%; border-collapse:collapse; font-size:9pt; }
-  th { background:#faf9f7; padding:8px 10px; text-align:left; font-size:8pt; font-weight:500; letter-spacing:1px; text-transform:uppercase; color:#9c9088; border-bottom:1px solid #e4dfd8; }
-  td { padding:8px 10px; border-bottom:1px solid #f0ede8; }
+  th { background:#fbf6ec; padding:8px 10px; text-align:left; font-size:8pt; font-weight:500; letter-spacing:1px; text-transform:uppercase; color:#9a9286; border-bottom:1px solid #e8e1d4; }
+  td { padding:8px 10px; border-bottom:1px solid #e8e1d4; }
   tr:last-child td { border-bottom:none; }
   .num { text-align:right; font-variant-numeric:tabular-nums; }
-  .gold { color:#b8860b; font-weight:500; }
-  .green { color:#166534; }
-  .red { color:#991b1b; }
+  .green { color:#2f5d4d; font-weight:500; }
+  .red { color:#9c4b3b; }
   .bold { font-weight:600; }
   .row-highlight td { background:#fffbf0; font-weight:600; }
-  .footer { margin-top:32px; padding-top:12px; border-top:1px solid #e4dfd8; font-size:8pt; color:#9c9088; display:flex; justify-content:space-between; }
+  .footer { margin-top:32px; padding-top:12px; border-top:1px solid #e8e1d4; font-size:8pt; color:#9a9286; display:flex; justify-content:space-between; }
   .disclaimer { font-size:7.5pt; color:#b0a898; margin-top:8px; }
   @media print { body { padding:16px 20px; } }
 </style>
@@ -105,7 +103,7 @@ export function exportBankPdf(
 <div class="section">
   <p class="section-title">Property Details</p>
   <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px">
-    <div class="kpi"><div class="kpi-label">Purchase Price</div><div class="kpi-value gold">${fmtEur(prospect.purchasePrice)}</div></div>
+    <div class="kpi"><div class="kpi-label">Purchase Price</div><div class="kpi-value green">${fmtEur(prospect.purchasePrice)}</div></div>
     <div class="kpi"><div class="kpi-label">Size</div><div class="kpi-value">${prospect.sizeSqm} m²</div></div>
     <div class="kpi"><div class="kpi-label">Terrace</div><div class="kpi-value">${prospect.terraceSqm} m²</div></div>
     <div class="kpi"><div class="kpi-label">Bedrooms</div><div class="kpi-value">${prospect.bedrooms}</div></div>
@@ -119,8 +117,8 @@ export function exportBankPdf(
   <div class="kpi-grid">
     <div class="kpi"><div class="kpi-label">Gross Rental Income</div><div class="kpi-value">${fmtEur(result.grossRent)}</div></div>
     <div class="kpi"><div class="kpi-label">Net Income (after tax)</div><div class="kpi-value green">${fmtEur(result.netAfterTax)}</div></div>
-    <div class="kpi"><div class="kpi-label">Net Yield</div><div class="kpi-value gold">${fmtPct(result.netYield)}</div></div>
-    <div class="kpi"><div class="kpi-label">Annualised Return</div><div class="kpi-value gold">${fmtPct(result.annualizedReturn)}</div></div>
+    <div class="kpi"><div class="kpi-label">Net Yield</div><div class="kpi-value green">${fmtPct(result.netYield)}</div></div>
+    <div class="kpi"><div class="kpi-label">Annualised Return</div><div class="kpi-value green">${fmtPct(result.annualizedReturn)}</div></div>
   </div>
 </div>
 
@@ -129,7 +127,7 @@ export function exportBankPdf(
   <p class="section-title">Annual Cash Flow</p>
   <table>
     <tr><th>Item</th><th class="num">Amount</th></tr>
-    <tr><td>Gross Rental Income (${scenarioWithMarket.nights} nights × €${scenarioWithMarket.adr}/night)</td><td class="num gold">${fmtEur(result.grossRent)}</td></tr>
+    <tr><td>Gross Rental Income (${scenarioWithMarket.nights} nights × €${scenarioWithMarket.adr}/night)</td><td class="num green">${fmtEur(result.grossRent)}</td></tr>
     <tr><td>Management Fee (${mgmtPct}%)</td><td class="num red">−${fmtEur(result.managementFee)}</td></tr>
     <tr><td>Cleaning Costs</td><td class="num red">−${fmtEur(result.cleaningCost)}</td></tr>
     <tr><td>Fixed Costs (IBI, insurance, community, gestor)</td><td class="num red">−${fmtEur(result.fixedCosts)}</td></tr>
@@ -137,7 +135,7 @@ export function exportBankPdf(
     ${useMortgage ? `<tr><td>Mortgage Interest (${(DEFAULT_MORTGAGE_RATE * 100).toFixed(1)}%)</td><td class="num red">−${fmtEur(result.mortgageCost)}</td></tr>` : ''}
     <tr><td><strong>Net Before Tax</strong></td><td class="num bold">${fmtEur(result.netBeforeTax)}</td></tr>
     <tr><td>IRNR Tax (${taxPct}%)</td><td class="num red">−${fmtEur(result.tax)}</td></tr>
-    <tr class="row-highlight"><td><strong>Net After Tax</strong></td><td class="num gold bold">${fmtEur(result.netAfterTax)}</td></tr>
+    <tr class="row-highlight"><td><strong>Net After Tax</strong></td><td class="num green bold">${fmtEur(result.netAfterTax)}</td></tr>
   </table>
 </div>
 
@@ -152,7 +150,7 @@ export function exportBankPdf(
     <tr><td>Land Registry (${regPct}%)</td><td class="num">${fmtEur(costs.landRegistry)}</td></tr>
     <tr><td>Legal Fees (${lawPct}%)</td><td class="num">${fmtEur(costs.lawyer)}</td></tr>
     <tr><td>NIE + Administration</td><td class="num">${fmtEur(costs.admin)}</td></tr>
-    <tr class="row-highlight"><td><strong>Total Capital Required</strong></td><td class="num gold bold">${fmtEur(prospect.purchasePrice + costs.total)}</td></tr>
+    <tr class="row-highlight"><td><strong>Total Capital Required</strong></td><td class="num green bold">${fmtEur(prospect.purchasePrice + costs.total)}</td></tr>
   </table>
 </div>
 
@@ -164,12 +162,12 @@ export function exportBankPdf(
     ${projection.map(p => `
     <tr ${p.year === horizonYears ? 'class="row-highlight"' : ''}>
       <td>${p.calendarYear}</td>
-      <td class="num gold">${fmtEur(p.propertyValue)}</td>
+      <td class="num green">${fmtEur(p.propertyValue)}</td>
       <td class="num">${p.loanBalance > 0 ? '−' + fmtEur(p.loanBalance) : '—'}</td>
       <td class="num">${fmtEur(p.equity)}</td>
       <td class="num ${p.netAfterTax >= 0 ? 'green' : 'red'}">${p.netAfterTax >= 0 ? '+' : '−'}${fmtEur(Math.abs(p.netAfterTax))}</td>
       <td class="num ${p.cumulativeCashflow >= 0 ? 'green' : 'red'}">${p.cumulativeCashflow >= 0 ? '+' : '−'}${fmtEur(Math.abs(p.cumulativeCashflow))}</td>
-      <td class="num gold bold">${p.totalWealth >= 0 ? '+' : '−'}${fmtEur(Math.abs(p.totalWealth))}</td>
+      <td class="num green bold">${p.totalWealth >= 0 ? '+' : '−'}${fmtEur(Math.abs(p.totalWealth))}</td>
     </tr>`).join('')}
   </table>
 </div>

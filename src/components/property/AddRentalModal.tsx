@@ -100,7 +100,7 @@ export function AddRentalModal({ propertyId, initial, onClose, onAdd }: AddRenta
                   className={[
                     'py-[7px] px-3.5 max-md:min-h-[44px] rounded-[6px] border text-[12px] capitalize transition-all duration-150',
                     active
-                      ? 'border-gold bg-gold-faint text-gold'
+                      ? 'border-green bg-green-soft text-green'
                       : 'border-border bg-transparent text-text-mute hover:border-border-hi hover:text-text-dim',
                   ].join(' ')}
                   onClick={() => setPlatform(p)}
@@ -120,9 +120,9 @@ export function AddRentalModal({ propertyId, initial, onClose, onAdd }: AddRenta
       {error && <p className="form-error">{error}</p>}
 
       {nights && revenue && (
-        <div className="flex justify-between items-center mt-4 py-2.5 px-3.5 bg-gold-faint border border-[rgba(212,170,80,0.2)] rounded-[6px] text-[13px] text-text-mute">
+        <div className="flex justify-between items-center mt-4 py-2.5 px-3.5 bg-green-soft border border-[rgba(47,93,77,0.2)] rounded-[6px] text-[13px] text-text-mute">
           <span>Snitt per natt</span>
-          <strong className="font-display text-[20px] text-gold">{fmtMoney(parseInt(revenue.replace(/\D/g, ''), 10) / parseInt(nights, 10))}</strong>
+          <strong className="font-display text-[20px] text-green">{fmtMoney(parseInt(revenue.replace(/\D/g, ''), 10) / parseInt(nights, 10))}</strong>
         </div>
       )}
     </Modal>

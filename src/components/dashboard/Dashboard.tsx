@@ -21,11 +21,11 @@ export function Dashboard() {
     <div className="page">
       {alertMs.length > 0 && (
         <div
-          className="flex items-center gap-2.5 py-3 px-4 mb-4 bg-[#fff7ed] border border-[#fed7aa] rounded-[10px] cursor-pointer transition-colors duration-150 hover:bg-[#ffedd5]"
+          className="flex items-center gap-2.5 py-3 px-4 mb-4 bg-amber-soft border border-amber/25 rounded-[10px] cursor-pointer transition-colors duration-150 hover:bg-amber/10"
           onClick={() => navigate('milestones')}
         >
           <span className="text-[18px] flex-shrink-0">⏰</span>
-          <span className="flex-1 text-[13px] text-[#92400e]">
+          <span className="flex-1 text-[13px] text-amber">
             {alertMs.filter(m => m.status === 'overdue').length > 0 && (
               <strong className="text-red">{alertMs.filter(m => m.status === 'overdue').length} försenade</strong>
             )}
@@ -34,12 +34,14 @@ export function Dashboard() {
               <span>{alertMs.filter(m => m.status === 'upcoming').length} milstolpar inom 7 dagar</span>
             )}
           </span>
-          <span className="text-[12px] font-semibold text-[#c2410c] whitespace-nowrap">Visa →</span>
+          <span className="text-[12px] font-semibold text-amber whitespace-nowrap">Visa →</span>
         </div>
       )}
 
       <div className="page-header">
-        <p className="page-eyebrow">Välkommen tillbaka</p>
+        <p className="page-eyebrow">
+          {new Date().toLocaleDateString('sv-SE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+        </p>
         <h1 className="page-title">Portföljöversikt</h1>
       </div>
 

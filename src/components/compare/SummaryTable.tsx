@@ -25,17 +25,17 @@ export function SummaryTable({ ranked, horizon }: Props) {
       {ranked.map(({ p, result, projection }, i) => (
         <div key={p.id} className="table-row" style={{ gridTemplateColumns: cols }}>
           <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            {i === 0 && ranked.length > 1 && <span style={{ color: 'var(--gold)', fontSize: '12px' }}>★</span>}
+            {i === 0 && ranked.length > 1 && <span style={{ color: 'var(--green)', fontSize: '12px' }}>★</span>}
             <span style={{ fontWeight: 500 }}>{p.name}</span>
             <span className="text-mute" style={{ fontSize: '12px' }}>{p.area}</span>
           </span>
           <span>{fmtMoney(p.purchasePrice)}</span>
-          <span style={{ color: 'var(--gold)', fontWeight: 500 }}>{fmtPct(result.netYield)}</span>
+          <span style={{ color: 'var(--green)', fontWeight: 500 }}>{fmtPct(result.netYield)}</span>
           <span style={{ color: result.netAfterTax > 0 ? 'var(--green)' : 'var(--red)' }}>
             {fmtMoney(result.netAfterTax)}
           </span>
           <span>{fmtPct(result.annualizedReturn)}</span>
-          <span style={{ color: 'var(--gold)', fontWeight: 600 }}>
+          <span style={{ color: 'var(--green)', fontWeight: 600 }}>
             {fmtMoney(projection[projection.length - 1]?.totalWealth ?? 0)}
           </span>
         </div>
