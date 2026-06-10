@@ -5,6 +5,7 @@
 // Visas typiskt vid hover på förälderraden via group-hover.
 
 import React from 'react';
+import { Icon, IconName } from './Icon';
 
 interface IconBtnProps {
   variant:        'edit' | 'delete';
@@ -15,18 +16,17 @@ interface IconBtnProps {
   alwaysVisible?: boolean;
 }
 
-const VARIANTS = {
-  edit:   { icon: '✎', size: 'text-[14px] px-[3px]', hover: 'hover:text-green' },
-  delete: { icon: '×', size: 'text-[18px] px-1',     hover: 'hover:text-red'  },
-} as const;
+const VARIANTS: Record<'edit' | 'delete', { icon: IconName; hover: string }> = {
+  edit:   { icon: 'edit',  hover: 'hover:text-green' },
+  delete: { icon: 'close', hover: 'hover:text-red'  },
+};
 
 export function IconBtn({ variant, onClick, title, disabled, alwaysVisible = false }: IconBtnProps) {
   const v = VARIANTS[variant];
   return (
     <button
       className={[
-        'bg-transparent border-0 text-text-mute leading-[1] transition-all duration-150 disabled:opacity-30 disabled:cursor-not-allowed',
-        v.size,
+        'inline-flex items-center justify-center w-7 h-7 rounded-[6px] bg-transparent border-0 text-text-mute transition-all duration-150 disabled:opacity-30 disabled:cursor-not-allowed',
         v.hover,
         alwaysVisible ? '' : 'opacity-0 group-hover:opacity-100',
       ].filter(Boolean).join(' ')}
@@ -34,7 +34,7 @@ export function IconBtn({ variant, onClick, title, disabled, alwaysVisible = fal
       disabled={disabled}
       title={title ?? (variant === 'edit' ? 'Redigera' : 'Ta bort')}
     >
-      {VARIANTS[variant].icon}
+      <Icon name={v.icon} size={15} />
     </button>
   );
 }

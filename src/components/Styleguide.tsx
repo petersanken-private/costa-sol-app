@@ -133,7 +133,7 @@ export function Styleguide() {
       <Section title="EmptyState">
         <Card className="card-p">
           <EmptyState
-            icon="📅"
+            icon="calendar"
             title="Inga milstolpar ännu"
             subtitle="Lägg till betalningsetapper, deadlines för VFT-licens och inflyttningsdatum."
           />
@@ -202,7 +202,7 @@ export function Styleguide() {
       {/* ── Icons ──────────────────────────────────────────────────────────── */}
       <Section title="Icon (stroke, 24-viewBox)">
         <div style={{ display: 'flex', gap: '18px', flexWrap: 'wrap', color: 'var(--text-dim)' }}>
-          {(['grid','layers','calendar','bell','receipt','chart','compare','calc','book','search','plus','arrow','back','bed','bath','sqm','pin','filter','sort','check','chevron','cog'] as IconName[]).map(n => (
+          {(['grid','layers','calendar','bell','receipt','chart','compare','calc','book','search','plus','arrow','back','bed','bath','sqm','pin','filter','sort','check','chevron','cog','home','file','clipboard','trophy','edit','flag','coins','scroll','building','bank','alert','bulb','users','sun','scale','hammer','ruler','shield','folder'] as IconName[]).map(n => (
             <div key={n} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px', width: '56px' }}>
               <Icon name={n} size={20} />
               <code style={{ fontSize: '9px', color: 'var(--text-mute)' }}>{n}</code>

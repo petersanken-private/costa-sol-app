@@ -2,7 +2,7 @@
 // Rad med sparade mallar + mallhantering (lista med delete).
 
 import type { AIPromptTemplate } from '../../types';
-import { IconBtn } from '../ui';
+import { IconBtn, Icon } from '../ui';
 
 interface AITemplateListProps {
   templates:       AIPromptTemplate[];
@@ -32,13 +32,13 @@ export function AITemplateList({
             onClick={() => onRun(t.prompt)}
             disabled={analyzing || blocked}
             style={{
-              display: 'inline-flex', alignItems: 'center', gap: '4px',
+              display: 'inline-flex', alignItems: 'center', gap: '5px',
               padding: '5px 10px', borderRadius: '6px', border: '1px solid rgba(47,93,77,0.3)',
               background: 'var(--green-soft)', color: 'var(--green)',
               fontSize: '12px', cursor: 'pointer', fontWeight: 500,
             }}
           >
-            🔖 {t.name}
+            <Icon name="book" size={13} /> {t.name}
           </button>
         ))}
         <button

@@ -1,5 +1,6 @@
 import { DocCategory, PropertyDocument } from '../../types';
 import { CATEGORIES } from './categories';
+import { Icon } from '../ui';
 
 interface Props {
   docs:        PropertyDocument[];
@@ -42,7 +43,7 @@ export function CategoryBar({ docs, filterCat, onFilter }: Props) {
             className={`${PILL_BASE} ${active ? PILL_ACTIVE : PILL_INACTIVE}`}
             onClick={() => onFilter(active ? 'all' : c.key)}
           >
-            {c.icon} {c.label} <span className={`${COUNT_BASE} ${active ? COUNT_ACTIVE : COUNT_INACTIVE}`}>{c.count}</span>
+<Icon name={c.icon} size={14} /> {c.label} <span className={`${COUNT_BASE} ${active ? COUNT_ACTIVE : COUNT_INACTIVE}`}>{c.count}</span>
           </button>
         );
       })}

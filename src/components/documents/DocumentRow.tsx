@@ -1,5 +1,6 @@
 import { PropertyDocument } from '../../types';
 import { catInfo, fmtSize, fmtDate } from './categories';
+import { Icon } from '../ui';
 
 interface Props {
   doc:         PropertyDocument;
@@ -14,19 +15,17 @@ const ACTION_BTN_BASE = 'w-9 h-9 rounded-[6px] border border-border bg-transpare
 /** En rad i dokumentlistan: ikon + namn + meta + actions. */
 export function DocumentRow({ doc, isOpening, isDeleting, onOpen, onDelete }: Props) {
   const cat   = catInfo(doc.category);
-  const isPdf = doc.name.toLowerCase().endsWith('.pdf');
-  const isImg = /\.(jpg|jpeg|png|webp|gif)$/i.test(doc.name);
 
   return (
     <div className="flex items-start gap-3 p-3.5 bg-bg-card border border-border rounded-[10px] transition-colors duration-150 hover:bg-bg-subtle hover:border-border-hi">
-      <div className="text-[22px] leading-none flex-shrink-0 mt-0.5">
-        {isPdf ? '📄' : isImg ? '🖼️' : '📎'}
+      <div className="flex-shrink-0 mt-0.5 w-9 h-9 rounded-[8px] bg-bg-hover flex items-center justify-center text-text-dim">
+        <Icon name="file" size={18} />
       </div>
 
       <div className="flex-1 min-w-0">
         <p className="text-[14px] font-medium text-text whitespace-nowrap overflow-hidden text-ellipsis mb-1">{doc.name}</p>
         <div className="flex flex-wrap gap-2 text-[11px] text-text-mute items-center">
-          <span className="bg-bg-subtle border border-border rounded-[10px] py-px px-2 text-text-dim">{cat.icon} {cat.label}</span>
+          <span className="inline-flex items-center gap-1 bg-bg-subtle border border-border rounded-[10px] py-px px-2 text-text-dim"><Icon name={cat.icon} size={12} /> {cat.label}</span>
           <span>{fmtSize(doc.sizeBytes)}</span>
           <span>{fmtDate(doc.uploadedAt)}</span>
         </div>
@@ -40,7 +39,7 @@ export function DocumentRow({ doc, isOpening, isDeleting, onOpen, onDelete }: Pr
           disabled={isOpening}
           title="Öppna"
         >
-          {isOpening ? '…' : '↗'}
+          {isOpening ? '…' : <Icon name="arrow" size={15} />}
         </button>
         <button
           className={`${ACTION_BTN_BASE} enabled:hover:border-red enabled:hover:text-red enabled:hover:bg-red-bg`}
@@ -48,7 +47,7 @@ export function DocumentRow({ doc, isOpening, isDeleting, onOpen, onDelete }: Pr
           disabled={isDeleting}
           title="Ta bort"
         >
-          {isDeleting ? '…' : '×'}
+          {isDeleting ? '…' : <Icon name="close" size={15} />}
         </button>
       </div>
     </div>

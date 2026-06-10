@@ -53,7 +53,7 @@ export function BookingCalendar() {
     return (
       <Card className="card-p">
         <EmptyState
-          icon="📅"
+          icon="calendar"
           title="Inga fastigheter ännu"
           subtitle="Lägg till fastigheter och importera iCal-feeds för att se bokningar i kalendervy."
         />

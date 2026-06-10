@@ -55,8 +55,8 @@ export function Taxes() {
             <ExportMenu
               label="Exportera"
               options={[
-                { label: 'CSV (Excel)', icon: '📊', onClick: () => exportTaxCsv({ year, rentals: yearRentals, expenses: yearExpenses, properties: state.properties }) },
-                { label: 'PDF till gestor', icon: '📄', onClick: () => exportTaxPdf({ year, rentals: yearRentals, expenses: yearExpenses, properties: state.properties }) },
+                { label: 'CSV (Excel)', icon: 'chart', onClick: () => exportTaxCsv({ year, rentals: yearRentals, expenses: yearExpenses, properties: state.properties }) },
+                { label: 'PDF till gestor', icon: 'file', onClick: () => exportTaxPdf({ year, rentals: yearRentals, expenses: yearExpenses, properties: state.properties }) },
               ]}
             />
             <div className="flex gap-2 flex-wrap">

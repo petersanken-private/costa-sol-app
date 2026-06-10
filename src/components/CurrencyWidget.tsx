@@ -32,7 +32,7 @@ export function CurrencyWidget() {
   const sek100k = fx.rate * 100_000;
 
   return (
-    <div className="bg-bg-card border border-border rounded-[14px] shadow-sm p-5 mt-3">
+    <div className="bg-bg-card border border-border rounded-[14px] p-5 mt-3">
       <div className="flex justify-between items-start mb-3">
         <div>
           <p className="text-[10px] tracking-[2px] uppercase text-text-mute mb-1">EUR / SEK</p>
@@ -107,7 +107,7 @@ export function CurrencyWidget() {
 
       {fx.updatedAt && (
         <p className="text-[10px] text-text-mute mt-2.5 text-right">
-          Uppdaterad {fx.updatedAt} · frankfurter.app
+          Uppdaterad {fx.updatedAt} · frankfurter.dev
         </p>
       )}
     </div>

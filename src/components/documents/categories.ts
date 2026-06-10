@@ -1,20 +1,21 @@
 import { DocCategory } from '../../types';
+import type { IconName } from '../ui';
 
 export interface CategoryInfo {
   key:   DocCategory;
   label: string;
-  icon:  string;
+  icon:  IconName;
 }
 
 export const CATEGORIES: CategoryInfo[] = [
-  { key: 'contract',   label: 'Köpekontrakt',  icon: '📋' },
-  { key: 'floor_plan', label: 'Planritning',   icon: '📐' },
-  { key: 'inspection', label: 'Besiktning',    icon: '🔍' },
-  { key: 'vft_license',label: 'VFT-licens',    icon: '📜' },
-  { key: 'tax',        label: 'Skatt/Modelo',  icon: '🧾' },
-  { key: 'insurance',  label: 'Försäkring',    icon: '🛡️' },
-  { key: 'bank',       label: 'Bank',          icon: '🏦' },
-  { key: 'other',      label: 'Övrigt',        icon: '📁' },
+  { key: 'contract',   label: 'Köpekontrakt',  icon: 'clipboard' },
+  { key: 'floor_plan', label: 'Planritning',   icon: 'ruler'     },
+  { key: 'inspection', label: 'Besiktning',    icon: 'search'    },
+  { key: 'vft_license',label: 'VFT-licens',    icon: 'scroll'    },
+  { key: 'tax',        label: 'Skatt/Modelo',  icon: 'receipt'   },
+  { key: 'insurance',  label: 'Försäkring',    icon: 'shield'    },
+  { key: 'bank',       label: 'Bank',          icon: 'bank'      },
+  { key: 'other',      label: 'Övrigt',        icon: 'folder'    },
 ];
 
 export function catInfo(key: DocCategory): CategoryInfo {

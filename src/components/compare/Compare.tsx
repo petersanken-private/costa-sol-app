@@ -155,9 +155,9 @@ export function Compare() {
           {allItems.length > 0 && (
             <AIPanel
               scope="portfolio"
-              title="🤖 AI-rådgivning för prospekt"
+              title="AI-rådgivning för prospekt"
               presets={[
-                { key: 'rank-prospects', icon: '🏆', label: 'Rangordna prospekt' },
+                { key: 'rank-prospects', icon: 'trophy', label: 'Rangordna prospekt' },
               ]}
             />
           )}

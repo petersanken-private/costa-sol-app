@@ -142,11 +142,11 @@ export function DashboardOverview() {
 
       <AIPanel
         scope="portfolio"
-        title="🤖 AI-rådgivning för portföljen"
+        title="AI-rådgivning för portföljen"
         presets={[
-          { key: 'portfolio-summary', icon: '📋', label: 'Lägesrapport'   },
-          { key: 'cost-anomalies',    icon: '🔍', label: 'Kostnadsanalys' },
-          { key: 'next-quarter',      icon: '📅', label: 'Nästa kvartal'  },
+          { key: 'portfolio-summary', icon: 'clipboard', label: 'Lägesrapport'   },
+          { key: 'cost-anomalies',    icon: 'search', label: 'Kostnadsanalys' },
+          { key: 'next-quarter',      icon: 'calendar', label: 'Nästa kvartal'  },
         ]}
       />
 
