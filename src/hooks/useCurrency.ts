@@ -12,7 +12,7 @@ export interface CurrencyData {
   error:      string | null;
 }
 
-const CACHE_KEY = 'costa-sol:currency';
+const CACHE_KEY = 'costa-del-sol:currency';
 const CACHE_TTL = 60 * 60 * 1000; // 1 timme
 
 function dateStr(d: Date): string {

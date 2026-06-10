@@ -80,7 +80,7 @@ export function openPrintWindow(title: string, html: string): void {
 </head>
 <body>
   ${html}
-  <div class="footer">Genererat av Costa Sol · ${new Date().toLocaleDateString('sv-SE')}</div>
+  <div class="footer">Genererat av Costa del Sol · ${new Date().toLocaleDateString('sv-SE')}</div>
   <script>window.onload = () => window.print();<\/script>
 </body>
 </html>`);

@@ -3,10 +3,10 @@ import { Property, RentalEntry, Expense, ScenarioConfig, UnitPreset } from '../t
 export const STORAGE_VERSION = 1;
 
 export const STORAGE_KEYS = {
-  version:    'costa-sol:version',
-  properties: 'costa-sol:properties',
-  rentals:    'costa-sol:rentals',
-  expenses:   'costa-sol:expenses',
+  version:    'costa-del-sol:version',
+  properties: 'costa-del-sol:properties',
+  rentals:    'costa-del-sol:rentals',
+  expenses:   'costa-del-sol:expenses',
 } as const;
 
 export const SCENARIOS: ScenarioConfig[] = [

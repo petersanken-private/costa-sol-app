@@ -92,7 +92,7 @@ export function exportBankPdf(
     <p>${prospect.name} · ${prospect.area}${prospect.development ? ' · ' + prospect.development : ''}</p>
   </div>
   <div class="header-right">
-    <p><strong>Costa Sol Portfolio</strong></p>
+    <p><strong>Costa del Sol Portfolio</strong></p>
     <p>Generated: ${today}</p>
     <p>Scenario: ${scenarioWithMarket.label ?? sc.label}</p>
     <p>Horizon: ${horizonYears} years</p>
@@ -183,7 +183,7 @@ ${market ? `
 </div>` : ''}
 
 <div class="footer">
-  <span>Costa Sol Portfolio · ${today}</span>
+  <span>Costa del Sol Portfolio · ${today}</span>
   <span>Confidential — For discussion purposes only</span>
 </div>
 <p class="disclaimer">All figures are estimates based on market data and stated assumptions. Past performance does not guarantee future results. This document does not constitute financial advice. Always consult a Spanish gestor and legal advisor (abogado) before proceeding.</p>

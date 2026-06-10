@@ -26,7 +26,7 @@ export function Styleguide() {
   return (
     <div style={{ padding: '40px', maxWidth: '1100px', margin: '0 auto', background: 'var(--bg)', minHeight: '100vh' }}>
       <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '36px', fontWeight: 300, marginBottom: '8px' }}>
-        Costa Sol — Styleguide
+        Costa del Sol — Styleguide
       </h1>
       <p style={{ color: 'var(--text-mute)', fontSize: '13px', marginBottom: '32px' }}>
         Visuell katalog över alla UI-primitiver. Används som baseline för Playwright visual regression tests.

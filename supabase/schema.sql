@@ -1,4 +1,4 @@
--- Costa Sol · Supabase schema
+-- Costa del Sol · Supabase schema
 -- Kör detta i Supabase SQL Editor (Dashboard → SQL Editor → New query)
 
 -- ── Properties ────────────────────────────────────────────────────────────────

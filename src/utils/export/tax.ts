@@ -47,7 +47,7 @@ export function exportTaxCsv({ year, rentals, expenses, properties }: TaxData): 
   rows.push(csvRow(['Skattesats (IRNR EU/EEA)', `${(TAX.IRNR_EU_PCT * 100).toFixed(0)}%`]));
   rows.push(csvRow(['Beräknad skatt att betala', tax]));
 
-  downloadCsv(`costa-sol-modelo210-${year}-${today()}.csv`, rows);
+  downloadCsv(`costa-del-sol-modelo210-${year}-${today()}.csv`, rows);
 }
 
 export function exportTaxPdf({ year, rentals, expenses, properties }: TaxData): void {
@@ -84,7 +84,7 @@ export function exportTaxPdf({ year, rentals, expenses, properties }: TaxData): 
 
   const html = `
     <h1>Modelo 210 · Skatteunderlag ${year}</h1>
-    <p class="meta">Costa Sol · Genererat ${today()} · För gestor/skattemyndigheten</p>
+    <p class="meta">Costa del Sol · Genererat ${today()} · För gestor/skattemyndigheten</p>
 
     <div class="kpi-grid">
       <div class="kpi"><div class="kpi-label">Bruttointäkt</div><div class="kpi-value green">${eur(grossIncome)}</div></div>

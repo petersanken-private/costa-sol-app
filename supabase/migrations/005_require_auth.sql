@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Costa Sol · Stäng av anon-åtkomst, kräv inloggning
+-- Costa del Sol · Stäng av anon-åtkomst, kräv inloggning
 -- Kör i Supabase SQL Editor
 -- ═══════════════════════════════════════════════════════════════════════════════
 --

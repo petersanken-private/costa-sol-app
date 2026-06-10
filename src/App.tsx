@@ -65,8 +65,8 @@ function MobileTopBar({ activePage }: { activePage: PageKey }) {
   return (
     <header className="md:hidden sticky top-0 z-40 flex items-center justify-between px-5 pt-3.5 pb-1.5 bg-bg-card border-b border-border">
       <div className="flex items-center gap-2.5">
-        <span className="w-8 h-8 rounded-[8px] bg-green text-white font-display font-medium text-[14px] flex items-center justify-center tracking-[0.5px]">
-          CS
+        <span className="w-8 h-8 rounded-[8px] bg-green text-white font-display font-medium text-[12px] flex items-center justify-center tracking-[0.3px]">
+          CdS
         </span>
         <span className="font-display font-medium text-[17px] text-text">{PAGE_TITLES[activePage]}</span>
       </div>

@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Costa Sol · Etapp 3 migration
+-- Costa del Sol · Etapp 3 migration
 -- Kör i Supabase SQL Editor (Dashboard → SQL Editor → New query)
 -- ═══════════════════════════════════════════════════════════════════════════════
 

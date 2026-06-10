@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════════════════════════════
--- Costa Sol · iCal-import från Airbnb/Booking/Vrbo
+-- Costa del Sol · iCal-import från Airbnb/Booking/Vrbo
 -- Kör i Supabase SQL Editor
 -- ═══════════════════════════════════════════════════════════════════════════════
 
