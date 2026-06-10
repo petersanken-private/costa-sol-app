@@ -9,17 +9,20 @@
 
 import { PageKey } from '../types';
 import { Icon, IconName } from './ui/Icon';
+import { SidebarSearch, SidebarSearchItem } from './SidebarSearch';
 
 export interface SidebarViewProps {
-  activePage:       PageKey;
-  urgentCount:      number;
-  currency:         'EUR' | 'SEK';
-  rate:             number;
-  userEmail?:       string;
-  onNavigate:       (page: PageKey) => void;
-  onToggleCurrency: () => void;
-  onReset:          () => void;
-  onSignOut:        () => void;
+  activePage:        PageKey;
+  urgentCount:       number;
+  currency:          'EUR' | 'SEK';
+  rate:              number;
+  userEmail?:        string;
+  searchItems:       SidebarSearchItem[];
+  onNavigate:        (page: PageKey) => void;
+  onSelectProperty:  (id: string) => void;
+  onToggleCurrency:  () => void;
+  onReset:           () => void;
+  onSignOut:         () => void;
 }
 
 const NAV_ITEMS: { key: PageKey; icon: IconName; label: string; group: string }[] = [
@@ -43,8 +46,8 @@ const NAV_BTN_ACTIVE   = 'bg-green-soft text-green font-semibold';
 const RESET_BTN = 'bg-transparent border-0 p-0 text-[10px] text-border-hi transition-colors duration-150 hover:text-red text-left';
 
 export function SidebarView({
-  activePage, urgentCount, currency, rate, userEmail,
-  onNavigate, onToggleCurrency, onReset, onSignOut,
+  activePage, urgentCount, currency, rate, userEmail, searchItems,
+  onNavigate, onSelectProperty, onToggleCurrency, onReset, onSignOut,
 }: SidebarViewProps) {
   return (
     <aside className="hidden md:flex w-[248px] min-w-[248px] bg-bg-card border-r border-border flex-col h-screen sticky top-0 px-[18px] pt-[26px] pb-4">
@@ -59,11 +62,8 @@ export function SidebarView({
         </span>
       </div>
 
-      {/* Sök (visuell tills sökfunktion kopplas — TODO) */}
-      <div className="flex items-center gap-2 mb-5 py-[9px] px-3 border border-border rounded-[9px] text-text-mute text-[13px] bg-bg">
-        <Icon name="search" size={15} />
-        <span>Sök fastighet, datum …</span>
-      </div>
+      {/* Sök fastighet */}
+      <SidebarSearch items={searchItems} onSelect={onSelectProperty} />
 
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto">

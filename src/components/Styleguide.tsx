@@ -247,7 +247,12 @@ export function Styleguide() {
             currency="EUR"
             rate={11.45}
             userEmail="test@costasol.se"
+            searchItems={[
+              { id: 'prop-1', name: 'Essence Residences 2A', area: 'Cancelada' },
+              { id: 'prop-2', name: 'Gamla Stan Lägenhet',   area: 'Estepona Gamla Stan' },
+            ]}
             onNavigate={() => {}}
+            onSelectProperty={() => {}}
             onToggleCurrency={() => {}}
             onReset={() => {}}
             onSignOut={() => {}}
