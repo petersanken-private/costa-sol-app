@@ -57,8 +57,8 @@ export function useCurrency(): CurrencyData {
 
       // Fetch current rate + history in parallel
       const [currentRes, historyRes] = await Promise.all([
-        fetch(`https://api.frankfurter.app/latest?from=EUR&to=SEK`),
-        fetch(`https://api.frankfurter.app/${ago1y}..${today}?from=EUR&to=SEK`),
+        fetch(`https://api.frankfurter.dev/v1/latest?from=EUR&to=SEK`),
+        fetch(`https://api.frankfurter.dev/v1/${ago1y}..${today}?from=EUR&to=SEK`),
       ]);
 
       if (!currentRes.ok || !historyRes.ok) throw new Error('API-fel');

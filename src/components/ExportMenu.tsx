@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
+import { Icon, IconName } from './ui/Icon';
 
 export interface ExportOption {
   label:   string;
-  icon:    string;
+  icon:    IconName;
   onClick: () => void;
 }
 
@@ -27,7 +28,7 @@ export function ExportMenu({ options, label = 'Exportera' }: ExportMenuProps) {
   }, []);
 
   const triggerHover = 'border-border-hi bg-bg-hover text-text';
-  const triggerBase  = 'inline-flex items-center gap-[7px] px-3.5 min-h-[44px] rounded-md border border-border bg-bg-card text-text-dim text-[13px] transition-all duration-150 shadow-sm hover:border-border-hi hover:bg-bg-hover hover:text-text';
+  const triggerBase  = 'inline-flex items-center gap-[7px] px-3.5 min-h-[44px] rounded-md border border-border bg-bg-card text-text-dim text-[13px] transition-all duration-150 hover:border-border-hi hover:bg-bg-hover hover:text-text';
 
   return (
     <div className="relative" ref={containerRef}>
@@ -40,7 +41,7 @@ export function ExportMenu({ options, label = 'Exportera' }: ExportMenuProps) {
       </button>
 
       {open && (
-        <div className="absolute right-0 top-[calc(100%+6px)] w-[220px] bg-bg-card border border-border rounded-lg p-2 z-50 shadow-md shadow-black/10">
+        <div className="absolute right-0 top-[calc(100%+6px)] w-[220px] bg-bg-card border border-border rounded-lg p-2 z-50">
           <p className="text-[10px] tracking-[1.5px] uppercase text-text-mute px-2 pt-1 pb-2">Exportformat</p>
           {options.map((opt, i) => (
             <button
@@ -48,7 +49,7 @@ export function ExportMenu({ options, label = 'Exportera' }: ExportMenuProps) {
               className="flex items-center gap-2.5 w-full min-h-[44px] px-2.5 rounded-md border-none bg-transparent text-text-dim text-[13px] text-left transition-colors duration-150 hover:bg-bg-hover hover:text-text"
               onClick={() => { opt.onClick(); setOpen(false); }}
             >
-              <span className="text-[15px] w-5 text-center">{opt.icon}</span>
+              <span className="w-5 flex justify-center text-text-mute"><Icon name={opt.icon} size={15} /></span>
               {opt.label}
             </button>
           ))}

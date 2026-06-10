@@ -3,12 +3,12 @@ import { useAIInsights } from '../../hooks/useAIInsights';
 import { useApp } from '../../hooks/useApp';
 import { usePromptTemplates } from '../../hooks/usePromptTemplates';
 import { AIPreset } from '../../types';
-import { Card, Btn, SectionHeader } from '../ui';
+import { Card, Btn, SectionHeader, Icon, IconName } from '../ui';
 import { InsightCard } from './InsightCard';
 import { AITemplateList } from './AITemplateList';
 import { AICustomPromptForm } from './AICustomPromptForm';
 
-interface PresetOption { key: AIPreset; label: string; icon: string; }
+interface PresetOption { key: AIPreset; label: string; icon: IconName; }
 
 interface Props {
   scope:       'portfolio' | 'property';
@@ -17,7 +17,7 @@ interface Props {
   title?:      string;
 }
 
-export function AIPanel({ scope, propertyId, presets, title = '🤖 AI-analys' }: Props) {
+export function AIPanel({ scope, propertyId, presets, title = 'AI-analys' }: Props) {
   const { insights, analyzing, analyze, remove } = useAIInsights(scope === 'property' ? propertyId : undefined);
   const { state } = useApp();
   const { templates, add: addTemplate, remove: removeTemplate } = usePromptTemplates(scope);
@@ -67,8 +67,8 @@ export function AIPanel({ scope, propertyId, presets, title = '🤖 AI-analys' }
       <SectionHeader title={title} />
 
       {blocked && (
-        <p className="text-mute" style={{ fontSize: '13px', marginBottom: '12px', padding: '10px 12px', background: 'var(--surface-2)', borderRadius: '6px', border: '1px dashed var(--border)' }}>
-          💡 Lägg till minst en fastighet (Portfölj) eller ett prospekt (Jämför) innan du kör AI-analyser.
+        <p className="text-mute flex items-center gap-2" style={{ fontSize: '13px', marginBottom: '12px', padding: '10px 12px', background: 'var(--surface-2)', borderRadius: '6px', border: '1px dashed var(--border)' }}>
+          <Icon name="bulb" size={15} className="flex-shrink-0" /> Lägg till minst en fastighet (Portfölj) eller ett prospekt (Jämför) innan du kör AI-analyser.
         </p>
       )}
 
@@ -76,11 +76,11 @@ export function AIPanel({ scope, propertyId, presets, title = '🤖 AI-analys' }
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: templates.length > 0 ? '8px' : '16px' }}>
         {presets.map(p => (
           <Btn key={p.key} size="sm" onClick={() => handlePreset(p.key)} disabled={analyzing || blocked}>
-            {p.icon} {p.label}
+            <Icon name={p.icon} size={14} /> {p.label}
           </Btn>
         ))}
         <Btn size="sm" onClick={() => setShowCustom(!showCustom)} disabled={analyzing || blocked}>
-          ✏️ Egen fråga
+          <Icon name="edit" size={14} /> Egen fråga
         </Btn>
       </div>
 

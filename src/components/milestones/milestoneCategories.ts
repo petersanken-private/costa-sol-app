@@ -1,22 +1,23 @@
 import { MilestoneCategory } from '../../types';
+import type { IconName } from '../ui';
 
 export interface MilestoneCategoryInfo {
   key:   MilestoneCategory;
   label: string;
-  icon:  string;
+  icon:  IconName;
 }
 
 export const MILESTONE_CATS: MilestoneCategoryInfo[] = [
-  { key: 'payment',    label: 'Betalningsetapp', icon: '💶' },
-  { key: 'completion', label: 'Inflyttning',     icon: '🏠' },
-  { key: 'vft',        label: 'VFT-licens',      icon: '📜' },
-  { key: 'tax',        label: 'Skatt/Modelo',    icon: '🧾' },
-  { key: 'inspection', label: 'Besiktning',      icon: '🔍' },
-  { key: 'legal',      label: 'Juridisk',        icon: '⚖️' },
-  { key: 'bank',       label: 'Bank',            icon: '🏦' },
-  { key: 'renovation', label: 'Renovering',      icon: '🔨' },
-  { key: 'rental',     label: 'Uthyrning',       icon: '🛏'  },
-  { key: 'other',      label: 'Övrigt',          icon: '📌' },
+  { key: 'payment',    label: 'Betalningsetapp', icon: 'coins'   },
+  { key: 'completion', label: 'Inflyttning',     icon: 'home'    },
+  { key: 'vft',        label: 'VFT-licens',      icon: 'scroll'  },
+  { key: 'tax',        label: 'Skatt/Modelo',    icon: 'receipt' },
+  { key: 'inspection', label: 'Besiktning',      icon: 'search'  },
+  { key: 'legal',      label: 'Juridisk',        icon: 'scale'   },
+  { key: 'bank',       label: 'Bank',            icon: 'bank'    },
+  { key: 'renovation', label: 'Renovering',      icon: 'hammer'  },
+  { key: 'rental',     label: 'Uthyrning',       icon: 'bed'     },
+  { key: 'other',      label: 'Övrigt',          icon: 'pin'     },
 ];
 
 export function catInfo(key: MilestoneCategory): MilestoneCategoryInfo {

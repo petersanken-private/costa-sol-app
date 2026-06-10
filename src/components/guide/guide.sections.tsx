@@ -6,10 +6,11 @@
 
 import type { ReactNode } from 'react';
 import { TAX, BUYING_COSTS } from '../../constants/tax';
+import type { IconName } from '../ui';
 
 export interface GuideSection {
   id:      string;
-  icon:    string;
+  icon:    IconName;
   title:   string;
   summary: string;
   content: ReactNode;
@@ -20,7 +21,7 @@ const pct = (n: number) => (n * 100).toFixed(n < 0.1 ? 1 : 0) + '%';
 export const SECTIONS: GuideSection[] = [
   // ── 1. Köpprocess ─────────────────────────────────────────────────────────
   {
-    id: 'process', icon: '🏁',
+    id: 'process', icon: 'flag',
     title:   'Köpprocessen — steg för steg',
     summary: 'Från NIE-ansökan till nycklarna i handen, vad som händer och vem som gör vad.',
     content: (
@@ -40,7 +41,7 @@ export const SECTIONS: GuideSection[] = [
 
   // ── 2. Kostnader vid köp ──────────────────────────────────────────────────
   {
-    id: 'buying-costs', icon: '💸',
+    id: 'buying-costs', icon: 'coins',
     title:   'Kostnader vid köp — ~12% utöver priset',
     summary: 'ITP, notarie, lagfart, advokat — vad det egentligen kostar att köpa.',
     content: (
@@ -69,7 +70,7 @@ export const SECTIONS: GuideSection[] = [
 
   // ── 3. Löpande skatter ────────────────────────────────────────────────────
   {
-    id: 'recurring-tax', icon: '📋',
+    id: 'recurring-tax', icon: 'clipboard',
     title:   'Löpande skatter & avgifter',
     summary: 'IBI, basura, communidad, IRNR — vad du betalar varje år som ägare.',
     content: (
@@ -97,7 +98,7 @@ export const SECTIONS: GuideSection[] = [
 
   // ── 4. VFT-licens ─────────────────────────────────────────────────────────
   {
-    id: 'vft', icon: '📜',
+    id: 'vft', icon: 'scroll',
     title:   'VFT-licens — kritiskt för korttidsuthyrning',
     summary: 'Andalusiens system för turisthyra. Utan licens — ingen Airbnb.',
     content: (
@@ -127,7 +128,7 @@ export const SECTIONS: GuideSection[] = [
 
   // ── 5. Modelo 210 ─────────────────────────────────────────────────────────
   {
-    id: 'modelo-210', icon: '🧾',
+    id: 'modelo-210', icon: 'receipt',
     title:   'Modelo 210 — skattedeklarationen',
     summary: 'Hur du deklarerar i Spanien som non-resident. Kvartalsvis eller årligen.',
     content: (
@@ -160,7 +161,7 @@ export const SECTIONS: GuideSection[] = [
 
   // ── 6. Off-plan ───────────────────────────────────────────────────────────
   {
-    id: 'off-plan', icon: '🏗',
+    id: 'off-plan', icon: 'building',
     title:   'Off-plan-köp — risker och möjligheter',
     summary: 'Betalningsplaner, bankgarantier, leveransrisk, värdeökning.',
     content: (
@@ -192,7 +193,7 @@ export const SECTIONS: GuideSection[] = [
 
   // ── 7. Bolån för utländska ────────────────────────────────────────────────
   {
-    id: 'mortgage', icon: '🏦',
+    id: 'mortgage', icon: 'bank',
     title:   'Bolån för utländska köpare',
     summary: 'Vad spanska banker erbjuder, kontantinsats, dokumentkrav.',
     content: (
@@ -220,7 +221,7 @@ export const SECTIONS: GuideSection[] = [
 
   // ── 8. Skillnader mot Sverige ─────────────────────────────────────────────
   {
-    id: 'sweden-vs-spain', icon: '🇸🇪',
+    id: 'sweden-vs-spain', icon: 'book',
     title:   'Skillnader mot svensk fastighetsmarknad',
     summary: 'Vad som funkar annorlunda och vad du inte ska anta från Sverige.',
     content: (
@@ -245,7 +246,7 @@ export const SECTIONS: GuideSection[] = [
 
   // ── 9. Fallgropar ─────────────────────────────────────────────────────────
   {
-    id: 'pitfalls', icon: '⚠️',
+    id: 'pitfalls', icon: 'alert',
     title:   'Vanliga fallgropar att undvika',
     summary: 'Dyra misstag som lätt görs av första-gångs-köpare.',
     content: (
@@ -264,7 +265,7 @@ export const SECTIONS: GuideSection[] = [
 
   // ── 10. Tips & best practices ─────────────────────────────────────────────
   {
-    id: 'tips', icon: '💡',
+    id: 'tips', icon: 'bulb',
     title:   'Tips & best practices',
     summary: 'Saker som de erfarna gör — och nybörjare missar.',
     content: (
@@ -298,7 +299,7 @@ export const SECTIONS: GuideSection[] = [
 
   // ── 11. Sambo / gemensamt ägande ──────────────────────────────────────────
   {
-    id: 'co-ownership', icon: '👫',
+    id: 'co-ownership', icon: 'users',
     title:   'Sambo, äktenskap & gemensamt ägande',
     summary: 'Skuldebrev, ojämn andel, framtida giftermål, spanska arvsregler för par.',
     content: (
@@ -330,7 +331,7 @@ export const SECTIONS: GuideSection[] = [
 
   // ── 12. Costa del Sol-specifikt ───────────────────────────────────────────
   {
-    id: 'costa-del-sol', icon: '☀️',
+    id: 'costa-del-sol', icon: 'sun',
     title:   'Costa del Sol — områdesguide',
     summary: 'Marbella, Estepona, Málaga, Cancelada — vad varje område är bra för.',
     content: (

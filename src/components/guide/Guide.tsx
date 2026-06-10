@@ -55,12 +55,14 @@ export function Guide() {
                 setTimeout(() => document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
               }}
               style={{
+                display: 'flex', alignItems: 'center', gap: '8px',
                 padding: '8px 10px', fontSize: '13px', color: 'var(--text)',
                 background: 'var(--surface)', border: '1px solid var(--border)',
                 borderRadius: '6px', textDecoration: 'none', cursor: 'pointer',
               }}
             >
-              {s.icon} {s.title.split(' — ')[0]}
+              <span className="text-text-mute flex-shrink-0"><Icon name={s.icon} size={15} /></span>
+              {s.title.split(' — ')[0]}
             </a>
           ))}
         </div>
@@ -76,7 +78,10 @@ export function Guide() {
                 <div style={{ cursor: 'pointer' }} onClick={() => toggle(s.id)}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
                     <div style={{ flex: 1 }}>
-                      <p className="font-display" style={{ margin: 0, fontSize: '20px', fontWeight: 500 }}>{s.icon} {s.title}</p>
+                      <p className="font-display flex items-center gap-2.5" style={{ margin: 0, fontSize: '20px', fontWeight: 500 }}>
+                        <span className="text-green flex-shrink-0"><Icon name={s.icon} size={20} /></span>
+                        {s.title}
+                      </p>
                       {!open && <p className="text-mute" style={{ margin: '4px 0 0', fontSize: '13px' }}>{s.summary}</p>}
                     </div>
                     <span className="text-text-mute flex-shrink-0 mt-1" style={{ transform: open ? 'rotate(90deg)' : 'none', transition: 'transform 0.15s ease' }}>

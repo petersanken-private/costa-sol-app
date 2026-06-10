@@ -53,7 +53,7 @@ export default defineConfig({
           },
           // Frankfurter (valutakurser): cacha mer aggressivt
           {
-            urlPattern: ({ url }) => url.hostname === 'api.frankfurter.app',
+            urlPattern: ({ url }) => url.hostname === 'api.frankfurter.dev',
             handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'currency-rates',

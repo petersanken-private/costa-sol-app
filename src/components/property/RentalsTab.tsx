@@ -35,8 +35,8 @@ export function RentalsTab({ property, rentals }: RentalsTabProps) {
         <ExportMenu
           label="Exportera"
           options={[
-            { label: 'CSV (Excel)',    icon: '📊', onClick: () => exportRentalsCsv(property.name, rentals) },
-            { label: 'PDF (utskrift)', icon: '📄', onClick: () => exportRentalsPdf(property.name, rentals) },
+            { label: 'CSV (Excel)',    icon: 'chart', onClick: () => exportRentalsCsv(property.name, rentals) },
+            { label: 'PDF (utskrift)', icon: 'file', onClick: () => exportRentalsPdf(property.name, rentals) },
           ]}
         />
         <Btn variant="primary" size="sm" onClick={() => setShowAdd(true)}>+ Logga hyresintäkt</Btn>

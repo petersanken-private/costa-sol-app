@@ -33,8 +33,8 @@ export function ExpensesTab({ property, expenses }: ExpensesTabProps) {
         <ExportMenu
           label="Exportera"
           options={[
-            { label: 'CSV (Excel)',    icon: '📊', onClick: () => exportExpensesCsv(property.name, expenses) },
-            { label: 'PDF (utskrift)', icon: '📄', onClick: () => exportExpensesPdf(property.name, expenses) },
+            { label: 'CSV (Excel)',    icon: 'chart', onClick: () => exportExpensesCsv(property.name, expenses) },
+            { label: 'PDF (utskrift)', icon: 'file', onClick: () => exportExpensesPdf(property.name, expenses) },
           ]}
         />
         <Btn variant="primary" size="sm" onClick={() => setShowAdd(true)}>+ Logga kostnad</Btn>

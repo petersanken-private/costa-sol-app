@@ -18,7 +18,7 @@ const DETAIL_TABS = [
   { id: 'recurring', label: 'Återkommande'     },
   { id: 'mortgage',  label: 'Bolån'            },
   { id: 'budget',    label: 'Budget vs utfall' },
-  { id: 'ai',        label: '🤖 AI-analys'     },
+  { id: 'ai',        label: 'AI-analys'     },
   { id: 'docs',      label: 'Dokument'         },
 ];
 
@@ -70,9 +70,9 @@ export function PropertyDetail() {
         <AIPanel
           scope="property"
           propertyId={property.id}
-          title={`🤖 AI-djupanalys · ${property.name}`}
+          title={`AI-djupanalys · ${property.name}`}
           presets={[
-            { key: 'property-deepdive', icon: '🔬', label: 'Djupanalys av objektet' },
+            { key: 'property-deepdive', icon: 'search', label: 'Djupanalys av objektet' },
           ]}
         />
       )}

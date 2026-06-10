@@ -56,8 +56,8 @@ export function Portfolio() {
             <ExportMenu
               label="Exportera portfölj"
               options={[
-                { label: 'CSV (Excel)',    icon: '📊', onClick: () => exportPortfolioCsv(state.properties) },
-                { label: 'PDF (utskrift)', icon: '📄', onClick: () => exportPortfolioPdf(state.properties) },
+                { label: 'CSV (Excel)',    icon: 'chart', onClick: () => exportPortfolioCsv(state.properties) },
+                { label: 'PDF (utskrift)', icon: 'file', onClick: () => exportPortfolioPdf(state.properties) },
               ]}
             />
             <Btn variant="primary" onClick={() => setShowAdd(true)}>+ Ny fastighet</Btn>
@@ -88,7 +88,7 @@ export function Portfolio() {
       </div>
 
       {all.length === 0 ? (
-        <EmptyState icon="◈" title="Inga fastigheter" subtitle="Lägg till ditt första objekt för att komma igång." />
+        <EmptyState icon="layers" title="Inga fastigheter" subtitle="Lägg till ditt första objekt för att komma igång." />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {filtered.map(p => (

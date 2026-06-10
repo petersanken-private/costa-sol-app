@@ -3,7 +3,7 @@
 
 import { fmtMoney } from '../../utils/calc.utils';
 import { catInfo, DueBadge } from '.';
-import { RowActionBtn } from '../ui';
+import { RowActionBtn, Icon } from '../ui';
 import type { Milestone, Property } from '../../types';
 
 interface MilestoneRowProps {
@@ -37,7 +37,9 @@ export function MilestoneRow({ milestone: m, property: prop, onMarkDone, onEdit,
         {done ? '✓' : ''}
       </button>
 
-      <span className="text-[20px] flex-shrink-0 leading-none">{cat.icon}</span>
+      <span className="flex-shrink-0 flex items-center justify-center w-9 h-9 rounded-full bg-bg-hover text-text-dim">
+        <Icon name={cat.icon} size={18} />
+      </span>
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-2 flex-wrap mb-1">

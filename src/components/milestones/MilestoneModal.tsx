@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Btn, Modal, FormGroup } from '../ui';
+import { Btn, Modal, FormGroup, Icon } from '../ui';
 import { Milestone, MilestoneCategory } from '../../types';
 import { MILESTONE_CATS } from './milestoneCategories';
 
@@ -91,7 +91,7 @@ export function MilestoneModal({ initial, properties, saving, onClose, onSave }:
                 ].join(' ')}
                 onClick={() => handleCategoryChange(c.key)}
               >
-                <span className="text-[18px]">{c.icon}</span>
+                <Icon name={c.icon} size={18} />
                 <span>{c.label}</span>
               </button>
             );
