@@ -50,8 +50,8 @@ export function SidebarView({
     <aside className="hidden md:flex w-[248px] min-w-[248px] bg-bg-card border-r border-border flex-col h-screen sticky top-0 px-[18px] pt-[26px] pb-4">
       {/* Brand */}
       <div className="flex items-center gap-[11px] px-1.5 pb-[22px]">
-        <span className="w-[38px] h-[38px] rounded-[9px] bg-green text-white font-display font-medium text-[17px] flex items-center justify-center tracking-[0.5px]">
-          CS
+        <span className="w-[38px] h-[38px] rounded-[9px] bg-green text-white font-display font-medium text-[15px] flex items-center justify-center tracking-[0.3px]">
+          CdS
         </span>
         <span>
           <span className="block font-display text-[19px] font-medium text-text leading-none">Costa del Sol</span>

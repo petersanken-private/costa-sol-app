@@ -7,7 +7,7 @@ import {
   expenseFromDb,  expenseToDb,
 } from '../../lib/mappers';
 
-export const SEED_FLAG_KEY = 'costa-sol:seeded-v1';
+export const SEED_FLAG_KEY = 'costa-del-sol:seeded-v1';
 
 export interface LoadedData {
   properties: Property[];

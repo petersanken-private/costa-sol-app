@@ -10,7 +10,7 @@ import { useRecurringExpenses } from './useRecurringExpenses';
 import { buildForecast } from '../utils/forecast.utils';
 import type { ForecastConfig } from '../types/forecast.types';
 
-const LS_KEY = 'costa-sol:forecast-config-v1';
+const LS_KEY = 'costa-del-sol:forecast-config-v1';
 
 interface StoredConfig {
   startBalance: number;
