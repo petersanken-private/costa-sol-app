@@ -54,7 +54,7 @@ export function SidebarView({
           CS
         </span>
         <span>
-          <span className="block font-display text-[19px] font-medium text-text leading-none">Costa Sol</span>
+          <span className="block font-display text-[19px] font-medium text-text leading-none">Costa del Sol</span>
           <span className="block text-[10px] tracking-[2px] uppercase text-text-mute mt-[3px]">Fastighetsportfölj</span>
         </span>
       </div>

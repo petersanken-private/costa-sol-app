@@ -18,7 +18,7 @@ export function exportPortfolioCsv(properties: Property[]): void {
     ])
   );
 
-  downloadCsv(`costa-sol-portfolio-${today()}.csv`, [header, ...rows]);
+  downloadCsv(`costa-del-sol-portfolio-${today()}.csv`, [header, ...rows]);
 }
 
 export function exportPortfolioPdf(properties: Property[]): void {
@@ -41,7 +41,7 @@ export function exportPortfolioPdf(properties: Property[]): void {
 
   const html = `
     <h1>Portföljöversikt</h1>
-    <p class="meta">Costa Sol · ${today()} · ${properties.length} fastigheter</p>
+    <p class="meta">Costa del Sol · ${today()} · ${properties.length} fastigheter</p>
     <div class="kpi-grid">
       <div class="kpi"><div class="kpi-label">Totalt investerat</div><div class="kpi-value green">${eur(totalInvested)}</div></div>
       <div class="kpi"><div class="kpi-label">Nuvarande värde</div><div class="kpi-value">${eur(totalValue)}</div></div>

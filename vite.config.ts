@@ -11,8 +11,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg'],
       manifest: {
-        name:             'Costa Sol · Fastighetsportfölj',
-        short_name:       'Costa Sol',
+        name:             'Costa del Sol · Fastighetsportfölj',
+        short_name:       'Costa del Sol',
         description:      'Fastighetsportfölj och investeringsanalys för Costa del Sol',
         theme_color:      '#0a0a0a',
         background_color: '#0a0a0a',
