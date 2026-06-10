@@ -21,6 +21,10 @@ export function Sidebar() {
     if (window.confirm('Logga ut?')) await signOut();
   }
 
+  const searchItems = state.properties.map(p => ({
+    id: p.id, name: p.name, area: p.area, development: p.development,
+  }));
+
   return (
     <SidebarView
       activePage={state.activePage}
@@ -28,7 +32,9 @@ export function Sidebar() {
       currency={currency}
       rate={rate}
       userEmail={user?.email}
+      searchItems={searchItems}
       onNavigate={navigate}
+      onSelectProperty={id => navigate('property', id)}
       onToggleCurrency={toggle}
       onReset={handleReset}
       onSignOut={handleSignOut}
